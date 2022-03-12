@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>0003spriteSheetCfg</title>
+
+    <script src="../labUtils.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+      window.onload = () => {
+
+        window.myRenderSurface = new RenderSurface(
+          'mainContainer',
+          'myRenderCanvas'
+        )
+
+        myRenderSurface.init()
+
+      }
+    </script>
+
+    <script>
+
+      function openFullscreen() {
+
+        window.myRenderSurface.fullscreen()
+
+      }
+
+    </script>
+    
+    </head>
+
+    <body>
+
+      <button onclick="openFullscreen();">Fullscreen</button>
+
+        <div id="mainContainer"></div>
+
+    </body>
+
+</html> 
