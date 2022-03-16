@@ -1,4 +1,4 @@
-class RenderSurface extends LabUtils{
+class RenderSurface extends Any{
 
   constructor(parentHtmlElementId, id) {
 
@@ -70,7 +70,21 @@ class RenderSurface extends LabUtils{
   
 }
 
-class DataSymbol extends LabUtils {
+class Tracker extends Any {
+  constructor() {
+    super()
+    this.idCounter = 0
+    this.trackedObjects = []
+  }
+
+  registerObject(obj) {
+    this.obj.trackerId = this.idCounter
+    this.trackedObjects.push(obj)
+  }
+  
+}
+
+class DataSymbol extends Any {
   constructor(parentHtmlElementId, id, data) {
     super()
     this.parentHtmlElementId = parentHtmlElementId
