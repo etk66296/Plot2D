@@ -4,134 +4,46 @@
 
     <title>0004superObjectTracker</title>
 
-    <script src="any.js"></script>
     <script src="main.js"></script>
 
     <script>
       window.onload = () => {
 
-        let myTracker = new Tracker()
+        let game = new Plot2D()
+        game.init()
 
-        window.myRenderSurface = new RenderSurface(
-          'mainContainer',
-          'myRenderCanvas'
-        )
+        let myHero = new Sprite()
+        let myMonster = new Sprite()
+        let myHerosDog = new Sprite()
 
-        myRenderSurface.init()
+        class SpezielEnemy extends Sprite {
+          constructor() {
 
-      }
-    </script>
-
-    <script>
-
-      function openFullscreen() {
-
-        window.myRenderSurface.fullscreen()
-
-      }
-
-    </script>
-
-    <script>
-      
-      function dropHandler(ev) {
-
-        ev.preventDefault()
-
-        if (ev.dataTransfer.items) {
-
-          for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-
-            if (ev.dataTransfer.items[i].kind === 'file') {
-              let file = ev.dataTransfer.items[i].getAsFile()
-              if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
-
-                readImageData(file)
-
-              } else if(/\.(json)$/i.test(file.name)) {
-                
-                readSpriteSheetCfg(file)
-
-              }
-            }
-          }
-
-        } else {
-
-          for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-
-            // console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name)
+            super()
 
           }
         }
-      }
 
-      function dragOverHandler(ev) {
+        let myBoss = new SpezielEnemy()
 
-        ev.preventDefault()
+        game.subscribe(myHero, myMonster, myHerosDog, myBoss)
 
-      }
 
-      function readSpriteSheetCfg(file) {
+        myTile = new Sprite()
+        game.subscribe(myTile)
 
-        let reader = new FileReader()
-        reader.readAsText(file, "UTF-8")
-
-        reader.onload = (evt) => {
-          // console.log('add symbol')
-          let fileString = evt.target.result
-          let myJsonDataSymbol = new JsonSymbol("dataItems", file.name, evt.target.result)
-        }
-      
-      }
-
-      function readImageData(file) {
-
-        let reader = new FileReader()
-        reader.readAsDataURL(file, "UTF-8")
-
-        reader.onload = (evt) => {
-          // console.log('add symbol')
-          let fileString = evt.target.result
-          let myJsonDataSymbol = new ImageSymbol("dataItems", file.name, evt.target.result)
-        }
-
+        console.log(game.getSubscriptionList())
 
       }
-
-    
-
     </script>
-    
+
+  
     </head>
 
     <body>
 
-      <button onclick="openFullscreen();">Fullscreen</button>
-
         <div id="mainContainer">
-          <div
-            style="position: absolute;
-              top: 0px;
-              left: 0px;
-              width: 100%;
-              height: 100%;"
-              id="drop_zone"
-            ondrop="dropHandler(event);" ondragover="dragOverHandler(event);"
-          >
-          </div>          
-        </div>
-
-        <div
-          id="dataItems"
-          style="position: absolute;
-            width: 30%;
-            height: 100%;
-            background-color: #000000;
-            top: 0;
-            right: 0;"
-        >
-
+         
         </div>
 
     </body>
