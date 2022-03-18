@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>0005imageClipping</title>
+
+    <script src="main.js"></script>
+
+    <script>
+      window.onload = () => {
+
+        const canvas = document.getElementById('canvas')
+
+        const ctx = canvas.getContext('2d')
+
+        const image = document.getElementById('source')
+
+        const spriteDefinition = {
+          "sizeSpriteSheetImage": { "width": 288, "height": 144 },
+          "urlSpriteSheetImage": "grenade-guy-sheet-alpha.png",
+          "grenadeLauncherGuy": {
+            "animations": {
+              "linger": [
+                { "x": 0, "y": 0, "size": { "width": 36, "height": 32 }, "showtime": -1 }
+              ],
+              "move": [
+                { "x": 0, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 36, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 72, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 108, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 144, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 180, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 216, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 252, "y": 32, "size": { "width": 36, "height": 32 }, "showtime": 200 }
+              ],
+              "fireGrenade": [
+                { "x": 0, "y": 64, "size": { "width": 36, "height": 32 }, "showtime": 1500 },
+                { "x": 36, "y": 64, "size": { "width": 36, "height": 32 }, "showtime": 1000 },
+                { "x": 72, "y": 64, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 108, "y": 64, "size": { "width": 36, "height": 32 }, "showtime": 200 },
+                { "x": 144, "y": 64, "size": { "width": 36, "height": 32 }, "showtime": 200 }
+              ]
+            }
+          },
+          "blueGrenade": {
+            "animations": {
+              "blank": [
+                { "x": 0, "y": 96, "size": { "width": 16, "height": 16 }, "showtime": -1 }
+              ],
+              "hurl": [
+                { "x": 16, "y": 96, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 32, "y": 96, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 48, "y": 96, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 64, "y": 96, "size": { "width": 16, "height": 16 }, "showtime": 200 }
+              ]
+            }
+          },
+          "greenGrenade": {
+            "animations": {
+              "blank": [
+                { "x": 0, "y": 112, "size": { "width": 16, "height": 16 }, "showtime": -1 }
+              ],
+              "hurl": [
+                { "x": 16, "y": 112, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 32, "y": 112, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 48, "y": 112, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 64, "y": 112, "size": { "width": 16, "height": 16 }, "showtime": 200 }
+              ]
+            }
+          },
+          "redGrenade": {
+            "animations": {
+              "blank": [
+                { "x": 0, "y": 128, "size": { "width": 16, "height": 16 }, "showtime": -1 }
+              ],
+              "hurl": [
+                { "x": 16, "y": 128, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 32, "y": 128, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 48, "y": 128, "size": { "width": 16, "height": 16 }, "showtime": 200 },
+                { "x": 64, "y": 128, "size": { "width": 16, "height": 16 }, "showtime": 200 }
+              ]
+            }
+          }
+  
+        }
+
+        ctx.drawImage(
+          image,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].x,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].y,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].size.width,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].size.height,
+          800,
+          20,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].size.width,
+          spriteDefinition.grenadeLauncherGuy.animations.linger[0].size.height
+        )
+
+        let spriteIndex = 0
+        let posX = 800
+        setInterval(() => {
+          ctx.clearRect(0, 0, 800, 600)
+          ctx.drawImage(
+            image,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].x,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].y,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].size.width,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].size.height,
+            posX,
+            20,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].size.width,
+            spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].size.height
+          )
+          spriteIndex += 1
+          posX -= 2
+          if (spriteIndex >= spriteDefinition.grenadeLauncherGuy.animations.move.length - 1) {
+            spriteIndex = 0
+          }
+          if (posX < -spriteDefinition.grenadeLauncherGuy.animations.move[spriteIndex].size.width) {
+            posX = 800
+          }
+        }, 100)
+
+       
+      }
+    </script>
+
+  
+    </head>
+
+    <body>
+
+        <div id="mainContainer">
+
+          <canvas id="canvas" width="800" height="600" style="background-color: #000000;"></canvas>
+
+          <div style="display:none;">
+
+            <img id="source" src="grenade-guy-sheet-alpha.png" width="288" height="144">
+
+          </div>
+
+         
+        </div>
+
+    </body>
+
+</html> 
