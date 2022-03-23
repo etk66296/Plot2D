@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>0008eventSystem</title>
+
+    <script src="main.js"></script>
+
+    <script>
+      window.onload = () => {
+
+        let game = new Plot2D()
+        game.init()
+
+        let myHero = new Sprite()
+        let myMonster = new Sprite()
+        let myHerosDog = new Sprite()
+
+        class SpezielEnemy extends Sprite {
+          constructor() {
+
+            super()
+
+          }
+        }
+
+        let myBoss = new SpezielEnemy()
+
+        game.subscribe(myHero, myMonster, myHerosDog, myBoss)
+
+        let myInitialStage = new Stage()
+        game.subscribe(myInitialStage)
+        myInitialStage.add(myHero, myMonster, myHerosDog, myBoss)
+
+
+        game.run()
+
+
+      }
+    </script>
+
+  
+    </head>
+
+    <body>
+
+        <div id="mainContainer">
+         
+        </div>
+        <div id="duty"></div>
+
+    </body>
+
+</html> 
