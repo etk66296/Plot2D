@@ -158,7 +158,6 @@ class Plot2D extends Plot2DAny{
   constructor() {
 
     super()
-    this.objectTracker = undefined
     this.frameCtrl = undefined
 
   }
