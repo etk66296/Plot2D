@@ -12,6 +12,8 @@ class ObjectTracker extends Plot2DAny {
   add(any) {
 
     any.id = this.idCount
+    any.tracker = this
+
     this.any.push(any)
 
     this.idCount += 1

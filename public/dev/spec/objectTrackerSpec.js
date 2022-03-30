@@ -74,6 +74,13 @@ describe("ObjectTracker", function() {
       }
     )
 
+    it("should register the ObjectTracker itself to the passed any Object",
+      function() {
+        myObjectTracker.add(myAny)
+        expect(myAny.tracker).toEqual(myObjectTracker)
+      }
+    )
+
   })
 
 })
