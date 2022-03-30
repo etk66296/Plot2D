@@ -10,8 +10,10 @@ class Plot2D extends Plot2DAny {
   }
 
   init() {
+
     this.objectTracker = new ObjectTracker()
     this.frameCtrl = new FrameController()
+    
   }
   
 }

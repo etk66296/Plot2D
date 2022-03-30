@@ -11,4 +11,12 @@ describe("Plot2DAny", function() {
     
   })
 
+  it("should have an attribute for holding the super object tracker",
+    function() {
+
+      expect(anyObject.superTracker).toBeDefined()
+
+    }
+  )
+
 })

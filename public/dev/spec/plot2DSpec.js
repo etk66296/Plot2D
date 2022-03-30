@@ -32,7 +32,7 @@ describe("Plot2D", function() {
 
   it("should have an initialization function", function() {
 
-    expect(typeof myPlot2DInstance.init).toBe("function")
+    expect(myPlot2DInstance.init).toEqual(jasmine.any(Function))
 
   })
 
