@@ -19,16 +19,31 @@ class FrameController extends Plot2DAny {
 
   go() {
 
-    this.frameBeginTimeMs = performance.now()
+    if(!this.stop) {
 
-    this.scenes.forEach((scene) => {
+      this.frameBeginTimeMs = performance.now()
 
-      scene.update()
-      scene.draw()
+      this.scenes.forEach((scene) => {
 
-    })
+        scene.update()
+        scene.draw()
 
-    this.frameEndTimeMs = performance.now()
+      })
+
+      this.frameEndTimeMs = performance.now()
+
+      this.frameDeltaMs = this.frameEndTimeMs - this.frameBeginTimeMs
+
+      if (this.frameDeltaMs < this.expectedFrameTimeMs) {
+
+        window.setTimeout(() => {
+          window.requestAnimationFrame(() => {})
+        }, this.expectedFrameTimeMs - this.frameDeltaMs)
+
+      }
+
+
+    }
 
   }
   

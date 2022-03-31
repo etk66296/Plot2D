@@ -57,7 +57,7 @@ describe("FrameController", function() {
       }
     )
 
-    it(`should have an attribute stop, which can be used to break the
+    it(`should have an attribute stop, which allows to interrupt the
       recursion in the function go`, function() {
 
         expect(myFrameController.stop).toBeDefined()
@@ -178,6 +178,72 @@ describe("FrameController", function() {
         expect(myFrameController.frameEndTimeMs).toEqual(87654321)
         
       }
+    )
+
+    it(`should calculate the elapsed time by building the deviation from the
+      begin frame time and end frame time and safe it to the attribute
+      frameDeltaMs`, function() {
+
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
+        myFrameController.go()
+        expect(myFrameController.frameDeltaMs).toEqual(10)
+
+
+      }
+    )
+
+    it(`should be possible to interrupt the recursion by setting a boolean
+      attribute stop to true`, function() {
+
+        myFrameController.stop = true
+        spyOn(myFrameController.scenes[0], "update")
+        spyOn(myFrameController.scenes[0], "draw")
+        spyOn(myFrameController.scenes[1], "draw")
+        spyOn(myFrameController.scenes[1], "update")
+        
+        myFrameController.go()
+        
+        expect(myFrameController.scenes[0].update).not.toHaveBeenCalled()
+        expect(myFrameController.scenes[1].update).not.toHaveBeenCalled()
+        expect(myFrameController.scenes[0].draw).not.toHaveBeenCalled()
+        expect(myFrameController.scenes[1].draw).not.toHaveBeenCalled()
+        
+      }
+    )
+
+    it(`should add some grace time when the expected frame delta time is less
+      than the defined frame time`, function() {
+
+        myFrameController.expectedFrameTimeMs = 20
+        spyOn(window, 'setTimeout')
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
+        myFrameController.go()
+        expect(window.setTimeout)
+          .toHaveBeenCalledWith(jasmine.any(Function), 10)
+
+
+      }
+    )
+
+    it(`should call requestAnimationFrame after the timeout has to be elapsed`,
+      function(done) {
+        myFrameController.expectedFrameTimeMs = 10
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
+          myFrameController.go()
+        spyOn(window, 'requestAnimationFrame')
+
+        setTimeout(() => {
+          expect(window.requestAnimationFrame)
+          .toHaveBeenCalledWith(jasmine.any(Function))
+
+          done()
+        }, 20)
+        
+
+     }
     )
     
   })
