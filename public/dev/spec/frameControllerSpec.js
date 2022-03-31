@@ -12,7 +12,7 @@ describe("FrameController", function() {
 
   })
 
-  describe("class attributes", function() {
+  describe("member attributes", function() {
 
     it(`should have an attribute which holds a value for the user set frames per
       second`, function() {
@@ -50,13 +50,29 @@ describe("FrameController", function() {
       }
     )
 
+    it("should have an array for saving the ids of the scenes to control",
+      function() {
+        expect(myFrameController.scenes).toBeDefined()
+        expect(myFrameController.scenes).toEqual(jasmine.any(Array))
+      }
+    )
+
+    it(`should have an attribute stop, which can be used to break the
+      recursion in the function go`, function() {
+
+        expect(myFrameController.stop).toBeDefined()
+        expect(myFrameController.stop).toEqual(false)
+
+      }
+    )
+    
     // all following attributes have the default value 0.0
 
     it(`should have an attribute, which safes the frame start time on the
       beginning of each iteration`, function() {
 
-        expect(myFrameController.frameStartTimeMs).toBeDefined()
-        expect(myFrameController.frameStartTimeMs).toEqual(0.0)
+        expect(myFrameController.frameBeginTimeMs).toBeDefined()
+        expect(myFrameController.frameBeginTimeMs).toEqual(0.0)
 
       }
     )
@@ -64,8 +80,8 @@ describe("FrameController", function() {
     it(`should have an attribute, which safes the frame stop time on the end
       of each iteration`, function() {
 
-        expect(myFrameController.frameStopTimeMs).toBeDefined()
-        expect(myFrameController.frameStopTimeMs).toEqual(0.0)
+        expect(myFrameController.frameEndTimeMs).toBeDefined()
+        expect(myFrameController.frameEndTimeMs).toEqual(0.0)
 
       }
     )
@@ -74,8 +90,8 @@ describe("FrameController", function() {
       of each iteration when the frame takes more time than the expecation`,
       function() {
 
-        expect(myFrameController.actualFrameStopTimeMs).toBeDefined()
-        expect(myFrameController.actualFrameStopTimeMs).toEqual(0.0)
+        expect(myFrameController.actualframeEndTimeMs).toBeDefined()
+        expect(myFrameController.actualframeEndTimeMs).toEqual(0.0)
 
       }
     )
@@ -95,6 +111,75 @@ describe("FrameController", function() {
 
     expect(myFrameController.go).toEqual(jasmine.any(Function))
 
+  })
+
+  describe("go", function() {
+
+
+    beforeEach(function() {
+
+      myFrameController.scenes = [
+        {
+          name: "menu",
+          update: () => { let update = "update" },
+          draw: () => { let draw = "draw" }
+        },
+        {
+          name: "game",
+          update: () => { let update = "update" },
+          draw: () => { let draw = "draw" }
+        }
+      ]
+
+    })
+
+    it(`should loop trough the containing scenes and call their update and draw
+        functions`, 
+      function() {
+
+        spyOn(myFrameController.scenes[0], "update")
+        myFrameController.go()
+        expect(myFrameController.scenes[0].update).toHaveBeenCalled()
+
+        spyOn(myFrameController.scenes[1], "update")
+        myFrameController.go()
+        expect(myFrameController.scenes[1].update).toHaveBeenCalled()
+
+        spyOn(myFrameController.scenes[0], "draw")
+        myFrameController.go()
+        expect(myFrameController.scenes[0].draw).toHaveBeenCalled()
+
+        spyOn(myFrameController.scenes[1], "draw")
+        myFrameController.go()
+        expect(myFrameController.scenes[1].draw).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should record the frame beginning time at the very beginning of the go
+        function`,
+      function() {
+
+        spyOn(performance, "now").and.returnValue(12345678)
+        myFrameController.go()
+        expect(performance.now).toHaveBeenCalled()
+        expect(myFrameController.frameBeginTimeMs).toEqual(12345678)
+        
+      }
+    )
+
+    it(`should record the frame end time after updating the and drawing the
+      scenes`,
+      function() {
+
+        spyOn(performance, "now").and.returnValue(87654321)
+        myFrameController.go()
+        expect(performance.now).toHaveBeenCalled()
+        expect(myFrameController.frameEndTimeMs).toEqual(87654321)
+        
+      }
+    )
+    
   })
 
   
