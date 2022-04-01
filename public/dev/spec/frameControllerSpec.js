@@ -50,10 +50,10 @@ describe("FrameController", function() {
       }
     )
 
-    it("should have an array for saving the ids of the scenes to control",
+    it("should have an array for saving the stages to control",
       function() {
-        expect(myFrameController.scenes).toBeDefined()
-        expect(myFrameController.scenes).toEqual(jasmine.any(Array))
+        expect(myFrameController.stages).toBeDefined()
+        expect(myFrameController.stages).toEqual(jasmine.any(Array))
       }
     )
 
@@ -65,6 +65,22 @@ describe("FrameController", function() {
 
       }
     )
+
+    it(`should have an attribute stepsLeftToStop, which controlls the number of
+        recursions go will run after trigger it.`, function() {
+
+        expect(myFrameController.stepsLeftToStop).toBeDefined()
+
+      }
+    )
+
+    it(`should have an attribute to block the recursion of go. This may be
+      helpful for debug purposes`, function() {
+
+        expect(myFrameController.stuntGoRecursion).toBeDefined()
+        expect(myFrameController.stuntGoRecursion).toBeFalsy()
+
+    })
     
     // all following attributes have the default value 0.0
 
@@ -118,7 +134,7 @@ describe("FrameController", function() {
 
     beforeEach(function() {
 
-      myFrameController.scenes = [
+      myFrameController.stages = [
         {
           name: "menu",
           update: () => { let update = "update" },
@@ -133,25 +149,25 @@ describe("FrameController", function() {
 
     })
 
-    it(`should loop trough the containing scenes and call their update and draw
+    it(`should loop trough the containing stages and call their update and draw
         functions`, 
       function() {
 
-        spyOn(myFrameController.scenes[0], "update")
+        spyOn(myFrameController.stages[0], "update")
         myFrameController.go()
-        expect(myFrameController.scenes[0].update).toHaveBeenCalled()
+        expect(myFrameController.stages[0].update).toHaveBeenCalled()
 
-        spyOn(myFrameController.scenes[1], "update")
+        spyOn(myFrameController.stages[1], "update")
         myFrameController.go()
-        expect(myFrameController.scenes[1].update).toHaveBeenCalled()
+        expect(myFrameController.stages[1].update).toHaveBeenCalled()
 
-        spyOn(myFrameController.scenes[0], "draw")
+        spyOn(myFrameController.stages[0], "draw")
         myFrameController.go()
-        expect(myFrameController.scenes[0].draw).toHaveBeenCalled()
+        expect(myFrameController.stages[0].draw).toHaveBeenCalled()
 
-        spyOn(myFrameController.scenes[1], "draw")
+        spyOn(myFrameController.stages[1], "draw")
         myFrameController.go()
-        expect(myFrameController.scenes[1].draw).toHaveBeenCalled()
+        expect(myFrameController.stages[1].draw).toHaveBeenCalled()
 
       }
     )
@@ -169,7 +185,7 @@ describe("FrameController", function() {
     )
 
     it(`should record the frame end time after updating the and drawing the
-      scenes`,
+      stages`,
       function() {
 
         spyOn(performance, "now").and.returnValue(87654321)
@@ -197,17 +213,17 @@ describe("FrameController", function() {
       attribute stop to true`, function() {
 
         myFrameController.stop = true
-        spyOn(myFrameController.scenes[0], "update")
-        spyOn(myFrameController.scenes[0], "draw")
-        spyOn(myFrameController.scenes[1], "draw")
-        spyOn(myFrameController.scenes[1], "update")
+        spyOn(myFrameController.stages[0], "update")
+        spyOn(myFrameController.stages[0], "draw")
+        spyOn(myFrameController.stages[1], "draw")
+        spyOn(myFrameController.stages[1], "update")
         
         myFrameController.go()
         
-        expect(myFrameController.scenes[0].update).not.toHaveBeenCalled()
-        expect(myFrameController.scenes[1].update).not.toHaveBeenCalled()
-        expect(myFrameController.scenes[0].draw).not.toHaveBeenCalled()
-        expect(myFrameController.scenes[1].draw).not.toHaveBeenCalled()
+        expect(myFrameController.stages[0].update).not.toHaveBeenCalled()
+        expect(myFrameController.stages[1].update).not.toHaveBeenCalled()
+        expect(myFrameController.stages[0].draw).not.toHaveBeenCalled()
+        expect(myFrameController.stages[1].draw).not.toHaveBeenCalled()
         
       }
     )
@@ -229,22 +245,69 @@ describe("FrameController", function() {
 
     it(`should call requestAnimationFrame after the timeout has to be elapsed`,
       function(done) {
-        myFrameController.expectedFrameTimeMs = 10
+        myFrameController.expectedFrameTimeMs = 20
         spyOn(performance, "now")
           .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
-          myFrameController.go()
         spyOn(window, 'requestAnimationFrame')
+        myFrameController.go()
 
         setTimeout(() => {
           expect(window.requestAnimationFrame)
+            .toHaveBeenCalledWith(jasmine.any(Function))
+          myFrameController.stop = true
+          done()
+        }, 30)
+        
+      }
+    )
+
+    it(`should do no recursion call of go when the attribute stuntGoRecursion
+      is set to true. After stunt a recursion the stuntGoRecursion flag must be
+      cleard again`, function() {
+
+        spyOn(window, 'requestAnimationFrame')
+        myFrameController.stuntGoRecursion = true
+        myFrameController.go()
+        expect(window.requestAnimationFrame).not.toHaveBeenCalled()
+        expect(myFrameController.stuntGoRecursion).toBeFalsy()
+
+      }
+    )
+
+    it(`should add no grace time for calling requestAnimationFrame when the
+      frame delta time is equal or greater than the expected frame time`,
+        function() {
+
+        myFrameController.expectedFrameTimeMs = 5
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
+        spyOn(window, 'requestAnimationFrame')
+        myFrameController.go()
+        myFrameController.stop = true
+        expect(window.requestAnimationFrame)
           .toHaveBeenCalledWith(jasmine.any(Function))
 
-          done()
-        }, 20)
-        
-
-     }
+      }
     )
+
+
+
+
+    // it(`should decrement the steps counter when it is greater than -1`, 
+    //   function() {
+
+    //     myFrameController.stepsLeftToStop = 1
+    //     myFrameController.go()
+    //     expect()
+
+    //   }
+    // )
+
+    // it(`should pass the go function to the requestAnimation Frame function as
+    //   the first argument`, function() {
+
+    //   }
+    // )
     
   })
 

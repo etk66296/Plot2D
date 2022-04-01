@@ -11,9 +11,12 @@ class FrameController extends Plot2DAny {
     this.actualframeEndTimeMs = 0.0
     this.frameDeltaMs = 0.0
 
-    this.scenes = []
+    this.stages = []
 
     this.stop = false
+    this.stepsLeftToStop = -1
+    this.stuntGoRecursion = false
+
     
   }
 
@@ -23,7 +26,7 @@ class FrameController extends Plot2DAny {
 
       this.frameBeginTimeMs = performance.now()
 
-      this.scenes.forEach((scene) => {
+      this.stages.forEach((scene) => {
 
         scene.update()
         scene.draw()
@@ -34,11 +37,19 @@ class FrameController extends Plot2DAny {
 
       this.frameDeltaMs = this.frameEndTimeMs - this.frameBeginTimeMs
 
-      if (this.frameDeltaMs < this.expectedFrameTimeMs) {
+      if (this.stuntGoRecursion) {
+
+        this.stuntGoRecursion = false
+
+      } else if (this.frameDeltaMs < this.expectedFrameTimeMs) {
 
         window.setTimeout(() => {
-          window.requestAnimationFrame(() => {})
+          window.requestAnimationFrame(this.go.bind(this))
         }, this.expectedFrameTimeMs - this.frameDeltaMs)
+
+      } else {
+
+        window.requestAnimationFrame(this.go.bind(this))
 
       }
 
