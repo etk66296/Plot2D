@@ -314,6 +314,39 @@ describe("FrameController", function() {
 
       }
     )
+
+    it(`should save the performance time just before the request animationframe
+      in case of timeout.`, function(done) {
+
+
+        // with setTimeout
+        myFrameController.expectedFrameTimeMs = 11
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/, 30 /*3. call*/)
+        myFrameController.go()
+
+        myFrameController.stop = true
+
+        setTimeout(() => {
+          expect(myFrameController.actualframeEndTimeMs).toEqual(30)
+          done()
+        }, 200)
+
+      }
+    )
+
+    it(`should save the performance time just before the request animationframe
+    when there is no need for a grace time`, function() {
+
+        // without set timeout
+        myFrameController.expectedFrameTimeMs = 5
+        spyOn(performance, "now")
+          .and.returnValues(10 /*1. call*/, 20 /*2. call*/, 30 /*3. call*/)
+        myFrameController.go()
+        myFrameController.stop = true
+        expect(myFrameController.actualframeEndTimeMs).toEqual(30)
+
+    })
     
   })
 

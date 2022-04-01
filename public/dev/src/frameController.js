@@ -51,10 +51,15 @@ class FrameController extends Plot2DAny {
       } else if (this.frameDeltaMs < this.expectedFrameTimeMs) {
 
         window.setTimeout(() => {
+
+          this.actualframeEndTimeMs = performance.now()
+
           window.requestAnimationFrame(this.go.bind(this))
         }, this.expectedFrameTimeMs - this.frameDeltaMs)
 
       } else {
+
+        this.actualframeEndTimeMs = performance.now()
 
         window.requestAnimationFrame(this.go.bind(this))
 
