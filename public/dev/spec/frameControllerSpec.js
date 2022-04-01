@@ -154,20 +154,18 @@ describe("FrameController", function() {
       function() {
 
         spyOn(myFrameController.stages[0], "update")
-        myFrameController.go()
-        expect(myFrameController.stages[0].update).toHaveBeenCalled()
-
         spyOn(myFrameController.stages[1], "update")
-        myFrameController.go()
-        expect(myFrameController.stages[1].update).toHaveBeenCalled()
-
         spyOn(myFrameController.stages[0], "draw")
-        myFrameController.go()
-        expect(myFrameController.stages[0].draw).toHaveBeenCalled()
-
         spyOn(myFrameController.stages[1], "draw")
+        
         myFrameController.go()
+        
+        expect(myFrameController.stages[0].update).toHaveBeenCalled()
+        expect(myFrameController.stages[1].update).toHaveBeenCalled()        
+        expect(myFrameController.stages[0].draw).toHaveBeenCalled()
         expect(myFrameController.stages[1].draw).toHaveBeenCalled()
+        
+        myFrameController.stop = true
 
       }
     )
@@ -181,6 +179,8 @@ describe("FrameController", function() {
         expect(performance.now).toHaveBeenCalled()
         expect(myFrameController.frameBeginTimeMs).toEqual(12345678)
         
+        myFrameController.stop = true
+
       }
     )
 
@@ -193,6 +193,9 @@ describe("FrameController", function() {
         expect(performance.now).toHaveBeenCalled()
         expect(myFrameController.frameEndTimeMs).toEqual(87654321)
         
+        
+        myFrameController.stop = true
+
       }
     )
 
@@ -204,7 +207,8 @@ describe("FrameController", function() {
           .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
         myFrameController.go()
         expect(myFrameController.frameDeltaMs).toEqual(10)
-
+        
+        myFrameController.stop = true
 
       }
     )
@@ -225,6 +229,7 @@ describe("FrameController", function() {
         expect(myFrameController.stages[0].draw).not.toHaveBeenCalled()
         expect(myFrameController.stages[1].draw).not.toHaveBeenCalled()
         
+        
       }
     )
 
@@ -238,6 +243,7 @@ describe("FrameController", function() {
         myFrameController.go()
         expect(window.setTimeout)
           .toHaveBeenCalledWith(jasmine.any(Function), 10)
+        
 
 
       }
@@ -254,7 +260,7 @@ describe("FrameController", function() {
         setTimeout(() => {
           expect(window.requestAnimationFrame)
             .toHaveBeenCalledWith(jasmine.any(Function))
-          myFrameController.stop = true
+          
           done()
         }, 30)
         
@@ -270,6 +276,7 @@ describe("FrameController", function() {
         myFrameController.go()
         expect(window.requestAnimationFrame).not.toHaveBeenCalled()
         expect(myFrameController.stuntGoRecursion).toBeFalsy()
+        
 
       }
     )
@@ -283,7 +290,7 @@ describe("FrameController", function() {
           .and.returnValues(10 /*1. call*/, 20 /*2. call*/)
         spyOn(window, 'requestAnimationFrame')
         myFrameController.go()
-        myFrameController.stop = true
+        
         expect(window.requestAnimationFrame)
           .toHaveBeenCalledWith(jasmine.any(Function))
 
@@ -293,21 +300,20 @@ describe("FrameController", function() {
 
 
 
-    // it(`should decrement the steps counter when it is greater than -1`, 
-    //   function() {
+    it(`should decrement the steps counter when it is greater than -1`, 
+      function(done) {
 
-    //     myFrameController.stepsLeftToStop = 1
-    //     myFrameController.go()
-    //     expect()
+        myFrameController.stepsLeftToStop = 4
+        myFrameController.go()
 
-    //   }
-    // )
+        setTimeout(() => {
+          expect(myFrameController.stepsLeftToStop).toEqual(-1)
+          
+          done()
+        }, 200)
 
-    // it(`should pass the go function to the requestAnimation Frame function as
-    //   the first argument`, function() {
-
-    //   }
-    // )
+      }
+    )
     
   })
 

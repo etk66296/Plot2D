@@ -37,6 +37,13 @@ class FrameController extends Plot2DAny {
 
       this.frameDeltaMs = this.frameEndTimeMs - this.frameBeginTimeMs
 
+      if(this.stepsLeftToStop == 0) {
+        this.stuntGoRecursion = true
+      }
+      if (this.stepsLeftToStop > -1) {
+        this.stepsLeftToStop -= 1
+      }
+
       if (this.stuntGoRecursion) {
 
         this.stuntGoRecursion = false
