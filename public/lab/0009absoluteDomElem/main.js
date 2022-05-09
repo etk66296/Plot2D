@@ -43,8 +43,8 @@ class AbsoluteDomElem extends LabUtils{
 
     this.headerBar.addEventListener('mousedown', (e) => {
       this.headerBarMouseIsDown = true;
-      this.clickPositionOffset.x = this.headerBar.offsetLeft - e.clientX
-      this.clickPositionOffset.y = this.headerBar.offsetTop - e.clientY
+      this.clickPositionOffset.x = this.mainElem.offsetLeft - e.clientX
+      this.clickPositionOffset.y = this.mainElem.offsetTop - e.clientY
       console.log(this.clickPositionOffset.x, this.clickPositionOffset.y)
     }, true)
   

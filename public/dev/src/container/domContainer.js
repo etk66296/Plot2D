@@ -5,7 +5,12 @@ class DomContainer extends Container {
     super()
 
     this.parentElement = parentElement
+    this.containerElement = null
    
+  }
+
+  init() {
+    
   }
   
 }
