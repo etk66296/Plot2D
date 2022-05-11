@@ -8,5 +8,12 @@ class DomAbsolute extends DomContainer {
     this.posY = 0
    
   }
+
+  init() {
+
+    super.init()
+    this.containerElement.style.position = 'absolute'
+    
+  }
   
 }

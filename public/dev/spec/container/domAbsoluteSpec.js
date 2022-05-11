@@ -28,6 +28,38 @@ describe("DomAbsolute", function() {
 
   })
 
+  describe("init", function() {
+
+    beforeEach(function() {
+
+      myDomAbsolute = new DomAbsolute(document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        'div'
+      ))
+  
+    })
+
+    it(`call the parents init function`, function() {
+        
+        spyOn(DomContainer.prototype, 'init').and.callThrough()
+        myDomAbsolute.init()
+        expect(DomContainer.prototype.init).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should set the position style of the container element on
+      'absolute`, function() {
+
+        myDomAbsolute.init()
+        expect(myDomAbsolute.containerElement.style.position)
+          .toEqual('absolute')
+
+      }
+    )
+
+  })
+
 
 
 

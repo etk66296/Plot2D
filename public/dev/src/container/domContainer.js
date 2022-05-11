@@ -6,11 +6,15 @@ class DomContainer extends Container {
 
     this.parentElement = parentElement
     this.containerElement = null
-   
+
   }
 
   init() {
-    
+
+    this.containerElement = this.createHtmlElement('div')
+
+    this.parentElement.appendChild(this.containerElement)
+
   }
   
 }
