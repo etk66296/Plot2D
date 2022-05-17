@@ -15,6 +15,8 @@ class DomWindow extends DomAbsolute {
     this.angleBottomRightElement = null
     this.angleBottomLeftElement = null
     this.angleTopLeftElement = null
+
+    this.defaultHeight = 8
    
   }
 
@@ -31,11 +33,14 @@ class DomWindow extends DomAbsolute {
     this.containerElement.style.borderWidth = '1px'
     this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
 
-    this.borderBottomElement = this.createHtmlElement('div')
-    this.borderBottomElement.style.backgroundColor = '#000000'
-    this.borderBottomElement.style.width = '5px'
-    this.borderBottomElement.style.height = '5px'
-    this.containerElement.appendChild(this.borderBottomElement)
+    this.borderBottomElement = new DomBorderScaler(this.containerElement)
+    this.borderBottomElement.init(
+      0,
+      h + this.defaultHeight * 0.5,
+      w,
+      this.defaultHeight
+    )
+
     
   }
   

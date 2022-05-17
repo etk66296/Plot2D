@@ -26,6 +26,29 @@ describe("DomWindow", function() {
   
     })
 
+    it(`should have additional htmlElements representing the top,
+    right, bottom and left border`, function() {
+
+        expect(myDomWindow.borderTopElement).toBeDefined()
+        expect(myDomWindow.borderRightElement).toBeDefined()
+        expect(myDomWindow.borderBottomElement).toBeDefined()
+        expect(myDomWindow.borderLeftElement).toBeDefined()
+      
+      }
+    )
+
+    it(`should have additional htmlElement representing the top-right,
+      bottom-right, bottom-Left and top-left angle points`, function() {
+
+        expect(myDomWindow.angleTopRightElement).toBeDefined()
+        expect(myDomWindow.angleBottomRightElement).toBeDefined()
+        expect(myDomWindow.angleBottomLeftElement).toBeDefined()
+        expect(myDomWindow.angleTopLeftElement).toBeDefined()
+      
+      }
+    )
+
+
     it("call the parents init function", function() {
         
         spyOn(DomAbsolute.prototype, 'init').and.callThrough()
@@ -62,6 +85,14 @@ describe("DomWindow", function() {
       }
     )
 
+    it("should initialize the borders and angle html elements",
+      function() {
+
+        
+
+      }
+    )
+
 
   })
 
@@ -73,6 +104,7 @@ describe("DomWindow", function() {
     }
   )
 
+  
 
 
 
