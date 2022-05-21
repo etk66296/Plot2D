@@ -33,10 +33,21 @@ class DomWindow extends DomAbsolute {
     this.containerElement.style.borderWidth = '1px'
     this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
 
-    this.borderBottomElement = new DomBorderScaler(this.containerElement)
-    this.borderBottomElement.init(
+    // this.borderBottomElement =
+    //   new DomBorderScaler(this.containerElement)
+
+    // this.borderBottomElement.init(
+    //   0,
+    //   h + this.defaultHeight * 0.5,
+    //   w,
+    //   this.defaultHeight
+    // )
+
+    this.borderTopElement =
+      new DomSingleDirBorderScaler(this.containerElement, 'N')
+    this.borderTopElement.init(
       0,
-      h + this.defaultHeight * 0.5,
+      this.defaultHeight * (-0.5),
       w,
       this.defaultHeight
     )
