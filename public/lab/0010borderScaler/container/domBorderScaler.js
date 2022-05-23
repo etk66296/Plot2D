@@ -21,12 +21,11 @@ class DomBorderScaler extends DomAbsolute {
     this.setH(h)
 
     this.containerElement.style.backgroundColor = this.bgC
-    this.containerElement.style.opacity = '1.0'
+    this.containerElement.style.opacity = '0.0'
     this.containerElement.style.position = 'absolute'
-    this.containerElement.style.cursor = 's-resize'
 
-    this.containerElement.onmousedown = (e) => {
-     
+    this.containerElement.addEventListener('mousedown', (e) => {
+
       this.mouseIsDown = true
 
       this.clickPositionOffset.x =
@@ -34,13 +33,13 @@ class DomBorderScaler extends DomAbsolute {
       this.clickPositionOffset.y =
         this.containerElement.offsetTop - e.clientY
 
-    }
+    })
 
-    document.onmouseup = (e) => {
+    document.addEventListener('mouseup', (e) => {
 
       this.mouseIsDown = false
 
-    }
+    })
 
    
 
