@@ -34,4 +34,30 @@ class DomBorderScaler extends DomAbsolute {
     
   }
 
+  stretchParentFromBottomBy(event) {
+
+    this.parentElement.style.height =
+      String(event.clientY + this.clickPositionOffset.y) + 'px'
+
+  }
+
+  stretchParentFromLeftBy(event) {
+
+    let staticEdgeX = this.parentElement.offsetLeft +
+      this.parentElement.clientWidth
+
+    let newWidth = staticEdgeX - event.clientX
+  
+    this.parentElement.style.left = String(event.clientX) + 'px'
+    this.parentElement.style.width = String(newWidth) + 'px'
+
+  }
+
+  stretchParentFromRightBy(event) {
+
+    this.parentElement.style.width =
+      String(event.clientX + this.clickPositionOffset.x) + 'px'
+
+  }
+
 }

@@ -63,7 +63,6 @@ class DomBorderScaler extends DomAbsolute {
     this.containerElement.style.left  =
       (e.clientX + this.clickPositionOffset.x) + 'px'
 
-    this.clickPositionOffset.x
 
     this.parentElement.style.width =
       String(e.clientX + this.clickPositionOffset.x) + 'px'
@@ -72,10 +71,9 @@ class DomBorderScaler extends DomAbsolute {
 
   stretchBottomEdgeWithMouseEvent(e) {
     
-    this.containerElement.style.top  =
-      (e.clientY + this.clickPositionOffset.y) + 'px'
+    //this.containerElement.style.top  =
+      //(e.clientY + this.clickPositionOffset.y) + 'px'
 
-    this.clickPositionOffset.y
 
     this.parentElement.style.height =
       String(e.clientY + this.clickPositionOffset.y) + 'px'

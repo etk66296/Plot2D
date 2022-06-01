@@ -13,4 +13,20 @@ describe("DomSingleDirBorderScaler", function() {
       .toEqual('DomBorderScaler')
 
   })
+
+  describe("init", function() {
+
+    var myDomSingleDirBorderScaler
+
+    beforeEach(function() {
+
+      myDomSingleDirBorderScaler = new DomSingleDirBorderScaler(document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        'div'
+      ))
+  
+    })
+  })
+
+
 })
