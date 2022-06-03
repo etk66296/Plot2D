@@ -25,7 +25,7 @@ describe("DomBorderScaler", function() {
 
   it(`should have an attribute for saving the edge type which should
     be initial an empty string`, function() {
-      expect(myDomBorderScaler.edgeType).toEqual('')
+      expect(myDomBorderScaler.edgeSide).toEqual('')
     }
   )
 

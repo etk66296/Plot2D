@@ -6,7 +6,7 @@ class DomBorderScaler extends DomAbsolute {
 
     this.mouseIsDown = false
 
-    this.edgeType = ''
+    this.edgeSide = ''
 
     this.clickPositionOffset = { x: 0, y: 0 }
    
