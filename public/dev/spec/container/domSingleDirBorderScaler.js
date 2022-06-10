@@ -81,14 +81,82 @@ describe("DomSingleDirBorderScaler", function() {
       when the edgeSide is set to 'N' and the attribute mousIsDown
       is set to true` , function() {
 
-        // let myEvent = { clientY: 100 }
-        // spyOn(myDomSingleDirBorderScaler, 'stretchParentFromTopBy')
-        //   .withArgs(myEvent)
-        // myDomSingleDirBorderScaler.edgeSide = 'N'
-        // myDomSingleDirBorderScaler.mouseIsDown = true
-        // document.dispatchEvent(new Event('mousemove'))
-        // expect(myDomSingleDirBorderScaler.stretchParentFromTopBy)
-        //   .toHaveBeenCalledWith(myEvent)
+        spyOn(myDomSingleDirBorderScaler, 'stretchParentFromTopBy')
+          .withArgs(jasmine.any(Object))
+        myDomSingleDirBorderScaler.init(1, 2, 3, 4)
+        myDomSingleDirBorderScaler.edgeSide = 'N'
+        myDomSingleDirBorderScaler.mouseIsDown = true
+        document.dispatchEvent(new Event('mousemove'))
+        expect(myDomSingleDirBorderScaler.stretchParentFromTopBy)
+          .toHaveBeenCalledWith(jasmine.any(Object))
+        
+
+      }
+    )
+
+    it(`should call the super class function stretchParentFromRightBy
+      when the edgeSide is set to 'E' and the attribute mousIsDown
+      is set to true` , function() {
+
+        spyOn(myDomSingleDirBorderScaler, 'stretchParentFromRightBy')
+          .withArgs(jasmine.any(Object))
+        myDomSingleDirBorderScaler.init(1, 2, 3, 4)
+        myDomSingleDirBorderScaler.edgeSide = 'E'
+        myDomSingleDirBorderScaler.mouseIsDown = true
+        document.dispatchEvent(new Event('mousemove'))
+        expect(myDomSingleDirBorderScaler.stretchParentFromRightBy)
+          .toHaveBeenCalledWith(jasmine.any(Object))
+        
+
+      }
+    )
+
+    it(`should call the super class function stretchParentFromBottomBy
+      when the edgeSide is set to 'S' and the attribute mousIsDown
+      is set to true` , function() {
+
+        spyOn(myDomSingleDirBorderScaler, 'stretchParentFromBottomBy')
+          .withArgs(jasmine.any(Object))
+        myDomSingleDirBorderScaler.init(1, 2, 3, 4)
+        myDomSingleDirBorderScaler.edgeSide = 'S'
+        myDomSingleDirBorderScaler.mouseIsDown = true
+        document.dispatchEvent(new Event('mousemove'))
+        expect(myDomSingleDirBorderScaler.stretchParentFromBottomBy)
+          .toHaveBeenCalledWith(jasmine.any(Object))
+        
+
+      }
+    )
+
+    it(`should call the super class function stretchParentFromLeftBy
+      when the edgeSide is set to 'W' and the attribute mousIsDown
+      is set to true` , function() {
+
+        spyOn(myDomSingleDirBorderScaler, 'stretchParentFromLeftBy')
+          .withArgs(jasmine.any(Object))
+        myDomSingleDirBorderScaler.init(1, 2, 3, 4)
+        myDomSingleDirBorderScaler.edgeSide = 'W'
+        myDomSingleDirBorderScaler.mouseIsDown = true
+        document.dispatchEvent(new Event('mousemove'))
+        expect(myDomSingleDirBorderScaler.stretchParentFromLeftBy)
+          .toHaveBeenCalledWith(jasmine.any(Object))
+        
+
+      }
+    )
+
+    it(`should call the super class function stretchParentFromBottomBy
+      when the edgeSide is set to 'S' and the attribute mousIsDown
+      is set to true` , function() {
+
+        spyOn(myDomSingleDirBorderScaler, 'stretchParentFromBottomBy')
+          .withArgs(jasmine.any(Object))
+        myDomSingleDirBorderScaler.init(1, 2, 3, 4)
+        myDomSingleDirBorderScaler.edgeSide = 'S'
+        myDomSingleDirBorderScaler.mouseIsDown = true
+        document.dispatchEvent(new Event('mousemove'))
+        expect(myDomSingleDirBorderScaler.stretchParentFromBottomBy)
+          .toHaveBeenCalledWith(jasmine.any(Object))
         
 
       }
