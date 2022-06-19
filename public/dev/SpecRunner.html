@@ -58,7 +58,7 @@
   <script src="spec/container/performanceDisplaySpec.js"></script>
   <script src="spec/container/domAbsoluteSpec.js"></script>
   <script src="spec/container/domBorderScalerSpec.js"></script>
-  <script src="spec/container/domSingleDirBorderScaler.js"></script>
+  <script src="spec/container/domSingleDirBorderScalerSpec.js"></script>
   <script src="spec/container/domDoubleDirBorderScalerSpec.js"></script>
   <script src="spec/container/domWindowSpec.js"></script>
   
@@ -67,11 +67,24 @@
   <script src="spec/spriteSpec.js"></script>
   <script src="spec/imageSpec.js"></script>
 
+  <!-- <script>
+    document.addEventListener('load', () => {
+
+      console.log(document)
+      let testContainerElement = document.getElementById("TestContainer")
+      let testDomWindow = new DomWindow(testContainerElement)
+
+      testDomWindow.init(600, 300, 160, 90)
+
+    })
+  </script> -->
+
 </head>
 
 <body>
 
   <div style="position: absolute;" id="TestContainer"></div>
+
 
 </body>
 </html>

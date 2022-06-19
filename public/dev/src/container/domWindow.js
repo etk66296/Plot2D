@@ -6,16 +6,81 @@ class DomWindow extends DomAbsolute {
 
     this.bgC = 'rgb(255, 255, 255)'
 
-    this.borderTopElement = null
-    this.borderRightElement = null
-    this.borderBottomElement = null
-    this.borderLeftElement = null
+    this.topStretcher = null
+    this.rightStretcher = null
+    this.bottomStretcher = null
+    this.leftStretcher = null
 
-    this.angleTopRightElement = null
-    this.angleBottomRightElement = null
-    this.angleBottomLeftElement = null
-    this.angleTopLeftElement = null
-   
+    this.topRightStretcher = null
+    this.bottomRightStretcher = null
+    this.bottomLeftStretcher = null
+    this.topLeftStretcher = null
+
+    this.rigid = false
+
+    this.defaultStretcherHeight = 8
+    this.defaultStretcherWidth = 8
+
+  }
+
+  initStretchers() {
+
+    this.topStretcher.init(
+      0,
+      this.defaultStretcherHeight * 0.5,
+      this.w,
+      this.defaultStretcherHeight
+    )
+
+    this.rightStretcher.init(
+      this.w,
+      0,
+      this.defaultStretcherWidth * 0.5,
+      this.h
+    )
+
+    this.bottomStretcher.init(
+      0,
+      this.h,
+      this.w,
+      this.defaultStretcherHeight * 0.5
+    )
+
+    this.leftStretcher.init(
+      0,
+      0,
+      this.defaultStretcherWidth * 0.5,
+      this.h
+    )
+
+    this.topRightStretcher.init(
+      this.w + this.defaultStretcherWidth * 0.5,
+      this.defaultStretcherHeight * (-0.5),
+      this.defaultStretcherWidth,
+      this.defaultStretcherHeight
+    )
+
+    this.bottomRightStretcher.init(
+      this.w + this.defaultStretcherWidth * 0.5,
+      this.h + this.defaultStretcherHeight * 0.5,
+      this.defaultStretcherWidth,
+      this.defaultStretcherHeight
+    )
+
+    this.bottomLeftStretcher.init(
+      this.defaultStretcherWidth * (-0.5),
+      this.h + this.defaultStretcherWidth * 0.5,
+      this.defaultStretcherWidth,
+      this.defaultStretcherHeight
+    )
+
+    this.topLeftStretcher.init(
+      this.defaultStretcherWidth * (-0.5),
+      this.defaultStretcherHeight * (-0.5),
+      this.defaultStretcherWidth,
+      this.defaultStretcherHeight
+    )
+
   }
 
   init(x, y, w, h) {
@@ -31,11 +96,45 @@ class DomWindow extends DomAbsolute {
     this.containerElement.style.borderWidth = '1px'
     this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
 
-    this.borderBottomElement = this.createHtmlElement('div')
-    this.borderBottomElement.style.backgroundColor = '#000000'
-    this.borderBottomElement.style.width = '5px'
-    this.borderBottomElement.style.height = '5px'
-    this.containerElement.appendChild(this.borderBottomElement)
+    this.topStretcher = new DomSingleDirBorderScaler(
+      this.containerElement,
+      'N'
+    )
+
+    this.rightStretcher = new DomSingleDirBorderScaler(
+      this.containerElement,
+      'E'
+    )
+
+    this.bottomStretcher = new DomSingleDirBorderScaler(
+      this.containerElement,
+      'S'
+    )
+
+    this.leftStretcher = new DomSingleDirBorderScaler(
+      this.containerElement,
+      'W'
+    )
+
+    this.topRightStretcher = new DomDoubleDirBorderScaler(
+      this.containerElement,
+      'NE'
+    )
+
+    this.bottomRightStretcher = new DomDoubleDirBorderScaler(
+      this.containerElement,
+      'SE'
+    )
+
+    this.bottomLeftStretcher = new DomDoubleDirBorderScaler(
+      this.containerElement,
+      'SW'
+    )
+
+    this.topLeftStretcher = new DomDoubleDirBorderScaler(
+      this.containerElement,
+      'NW'
+    )
     
   }
   
