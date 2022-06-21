@@ -67,17 +67,18 @@
   <script src="spec/spriteSpec.js"></script>
   <script src="spec/imageSpec.js"></script>
 
-  <!-- <script>
-    document.addEventListener('load', () => {
+  <script>
+    window.addEventListener('load', () => {
 
-      console.log(document)
+      console.log('load')
       let testContainerElement = document.getElementById("TestContainer")
       let testDomWindow = new DomWindow(testContainerElement)
 
-      testDomWindow.init(600, 300, 160, 90)
+      testDomWindow.init(100, 100, 200, 100)
+      testDomWindow.initStretchers()
 
     })
-  </script> -->
+  </script>
 
 </head>
 

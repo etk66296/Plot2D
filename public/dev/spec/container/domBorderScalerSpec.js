@@ -3,7 +3,9 @@ describe("DomBorderScaler", function() {
 
   beforeEach(function() {
 
-    myDomBorderScaler = new DomBorderScaler()
+    myDomBorderScaler = new DomBorderScaler(
+      document.createElementNS("http://www.w3.org/1999/xhtml", 'div')
+    )
 
   })
 
@@ -114,6 +116,37 @@ describe("DomBorderScaler", function() {
         spyOn(myDomBorderScaler, 'setH')
         myDomBorderScaler.init(3, 4, 100, 200)
         expect(myDomBorderScaler.setH).toHaveBeenCalledWith(200)
+
+      }
+    )
+
+    it(`should add a mouseDown event listener to the
+      container element`, function() {
+      
+      spyOn(myDomBorderScaler, 'callbackOnMouseDown')
+      myDomBorderScaler.init(100, 100, 200, 400)
+      /*
+        due to the container element is created in the init
+        function a few lines above the listener is tested by
+        dispatching it after the initialization
+      */
+      myDomBorderScaler.containerElement
+        .dispatchEvent(new Event('mousedown'))
+      expect(myDomBorderScaler.callbackOnMouseDown)
+        .toHaveBeenCalledWith(jasmine.any(Object))
+
+    })
+
+    it(`should add a mouseUp event listener to the document`,
+      function() {
+
+        spyOn(document, 'addEventListener')
+        myDomBorderScaler.init(1, 2, 3, 4)
+        expect(document.addEventListener)
+          .toHaveBeenCalledWith(
+            'mouseup',
+            jasmine.any(Function)
+          )
 
       }
     )
@@ -302,6 +335,91 @@ describe("DomBorderScaler", function() {
 
   })
 
+  it(`should have a function which is called with an mouse down
+    event on the html element itself`,
+  function() {
+
+    expect(myDomBorderScaler.callbackOnMouseDown)
+      .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe('callbackOnMouseDown', function() {
+
+    it('should set the attribute mouseIsDown to true', function() {
+
+      let mouseDownEvent = {
+        clientX: 20,
+        clientY: 30
+      }
+
+
+      myDomBorderScaler.init(100, 100, 100, 100)
+      myDomBorderScaler.callbackOnMouseDown(mouseDownEvent)
+      expect(myDomBorderScaler.mouseIsDown).toEqual(true)
+
+    })
+
+    it(`should save the X click position in the member object
+      clickPositionOffset. The position is the difference between
+      the elements left offset and the mouse X click position`,
+      function() {
+
+      let mouseDownEvent = {
+        clientX: 40,
+        clientY: 30
+      }
+
+      myDomBorderScaler.init(100, 100, 100, 100)
+
+      myDomBorderScaler.callbackOnMouseDown(mouseDownEvent)
+
+
+      expect(myDomBorderScaler.clickPositionOffset.x).toEqual(-40)
+    })
+
+    it(`should save the Y click position in the member object
+      clickPositionOffset. The position is the difference between
+      the elements top offset and the mouse Y click position`,
+      function() {
+
+      let mouseDownEvent = {
+        clientX: 40,
+        clientY: 30
+      }
+
+      myDomBorderScaler.init(100, 100, 100, 100)
+      myDomBorderScaler.callbackOnMouseDown(mouseDownEvent)
+      expect(myDomBorderScaler.clickPositionOffset.y).toEqual(-30)
+
+    })
+
+  })
+
+  it(`should have a function which is called with an mouse up
+    event on the whole document`,
+  function() {
+
+    expect(myDomBorderScaler.callbackOnMouseUp)
+      .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe('callbackOnMouseUp', function() {
+
+    it(`should reset the attribute mouseIsDown`, function() {
+
+      myDomBorderScaler.mouseIsDown = true
+      myDomBorderScaler.callbackOnMouseUp()
+      expect(myDomBorderScaler.mouseIsDown).toEqual(false)
+
+    })
+
+    
+
+  })
 
 
 

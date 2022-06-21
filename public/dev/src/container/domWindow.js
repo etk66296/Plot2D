@@ -23,11 +23,41 @@ class DomWindow extends DomAbsolute {
 
   }
 
+  callbackOnMouseUp() {
+
+    this.topStretcher.setW(this.containerElement.clientHeight)
+
+    this.rightStretcher.setH(this.containerElement.clientHeight)
+    this.rightStretcher.setX(
+      this.containerElement.clientWidth - this.defaultStretcherWidth
+    )
+
+    this.bottomStretcher.setW(this.containerElement.clientWidth)
+    this.bottomStretcher.setY(
+      this.containerElement.clientHeight - this.defaultStretcherHeight
+    )
+
+    this.leftStretcher.setH(this.containerElement.clientHeight)
+
+    this.topRightStretcher.setX(
+      this.containerElement.clientWidth + this.defaultStretcherWidth
+    )
+    this.topRightStretcher.setY(this.defaultStretcherHeight)
+
+    this.bottomRightStretcher.setX(
+      this.containerElement.clientWidth + this.defaultStretcherWidth
+    )
+    this.bottomRightStretcher.setY(
+      this.containerElement.clientHeight + this.defaultStretcherHeight
+    )
+
+  }
+
   initStretchers() {
 
     this.topStretcher.init(
       0,
-      this.defaultStretcherHeight * 0.5,
+      this.defaultStretcherHeight * (-1.0),
       this.w,
       this.defaultStretcherHeight
     )
@@ -35,7 +65,7 @@ class DomWindow extends DomAbsolute {
     this.rightStretcher.init(
       this.w,
       0,
-      this.defaultStretcherWidth * 0.5,
+      this.defaultStretcherWidth,
       this.h
     )
 
@@ -43,43 +73,86 @@ class DomWindow extends DomAbsolute {
       0,
       this.h,
       this.w,
-      this.defaultStretcherHeight * 0.5
+      this.defaultStretcherHeight
     )
 
     this.leftStretcher.init(
+      this.defaultStretcherWidth * (-1.0),
       0,
-      0,
-      this.defaultStretcherWidth * 0.5,
+      this.defaultStretcherWidth,
       this.h
     )
 
     this.topRightStretcher.init(
-      this.w + this.defaultStretcherWidth * 0.5,
-      this.defaultStretcherHeight * (-0.5),
+      this.w,
+      this.defaultStretcherHeight * (-1.0),
       this.defaultStretcherWidth,
       this.defaultStretcherHeight
     )
 
     this.bottomRightStretcher.init(
-      this.w + this.defaultStretcherWidth * 0.5,
-      this.h + this.defaultStretcherHeight * 0.5,
+      this.w,
+      this.h,
       this.defaultStretcherWidth,
       this.defaultStretcherHeight
     )
 
     this.bottomLeftStretcher.init(
-      this.defaultStretcherWidth * (-0.5),
-      this.h + this.defaultStretcherWidth * 0.5,
+      this.defaultStretcherWidth * (-1.0),
+      this.h,
       this.defaultStretcherWidth,
       this.defaultStretcherHeight
     )
 
     this.topLeftStretcher.init(
-      this.defaultStretcherWidth * (-0.5),
-      this.defaultStretcherHeight * (-0.5),
+      this.defaultStretcherWidth * (-1.0),
+      this.defaultStretcherHeight * (-1.0),
       this.defaultStretcherWidth,
       this.defaultStretcherHeight
     )
+
+    // document.addEventListener('mouseup', (e) => {
+
+    //   this.callbackOnMouseUp()
+
+    // })
+
+    // document.addEventListener('mouseup', (e) => {
+
+    //   this.bottomStretcher.setY(
+    //     this.containerElement.clientHeight - this.defaultStretcherHeight * 0.5
+    //   )
+
+    //   this.rightStretcher.setX(
+    //     this.containerElement.clientWidth - this.defaultStretcherWidth * 0.5
+    //   )
+
+    //   this.topStretcher.setW(this.containerElement.clientWidth)
+    //   this.rightStretcher.setH(this.containerElement.clientHeight)
+    //   this.bottomStretcher.setW(this.containerElement.clientWidth)
+    //   this.leftStretcher.setH(this.containerElement.clientHeight)
+
+    //   this.topRightStretcher.setX(
+    //     this.containerElement.clientWidth + this.defaultStretcherWidth * (-0.5)
+    //   )
+    //   this.topRightStretcher.setY(this.defaultStretcherHeight * (-0.5))
+    //   this.bottomRightStretcher.setX(
+    //     this.containerElement.clientWidth + this.defaultStretcherWidth * (-0.5)
+    //   )
+    //   this.bottomRightStretcher.setY(
+    //     this.containerElement.clientHeight +
+    //       this.defaultStretcherHeight * (-0.5)
+    //   )
+    //   this.bottomLeftStretcher.setX(this.defaultStretcherWidth * (-0.5))
+    //   this.bottomLeftStretcher.setY(
+    //     this.containerElement.clientHeight +
+    //       this.defaultStretcherHeight * (-0.5)
+    //   )
+    //   this.topLeftStretcher.setX(this.defaultStretcherWidth * (-0.5))
+    //   this.topLeftStretcher.setY(this.defaultStretcherHeight * (-0.5))
+    
+    // })
+
 
   }
 

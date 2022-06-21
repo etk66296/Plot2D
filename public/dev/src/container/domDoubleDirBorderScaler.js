@@ -22,6 +22,7 @@ class DomDoubleDirBorderScaler extends DomBorderScaler {
 
     mouseMoveEventObj.preventDefault()
 
+    
     if(this.mouseIsDown) {
 
       if(this.edgeSide === 'NE') {

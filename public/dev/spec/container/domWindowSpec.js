@@ -221,7 +221,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.topStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.topStretcher.init)
-          .toHaveBeenCalledWith(0, 4, 400, 8)
+          .toHaveBeenCalledWith(0, -8, 400, 8)
 
       }
     )
@@ -233,7 +233,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.rightStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.rightStretcher.init)
-          .toHaveBeenCalledWith(400, 0, 4, 200)
+          .toHaveBeenCalledWith(400, 0, 8, 200)
 
       }
     )
@@ -245,7 +245,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.bottomStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.bottomStretcher.init)
-          .toHaveBeenCalledWith(0, 200, 400, 4)
+          .toHaveBeenCalledWith(0, 200, 400, 8)
 
       }
     )
@@ -257,7 +257,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.leftStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.leftStretcher.init)
-          .toHaveBeenCalledWith(0, 0, 4, 200)
+          .toHaveBeenCalledWith(-8, 0, 8, 200)
 
       }
     )
@@ -269,7 +269,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.topRightStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.topRightStretcher.init)
-          .toHaveBeenCalledWith(404, -4, 8, 8)
+          .toHaveBeenCalledWith(400, -8, 8, 8)
 
       }
     )
@@ -281,7 +281,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.bottomRightStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.bottomRightStretcher.init)
-          .toHaveBeenCalledWith(404, 204, 8, 8)
+          .toHaveBeenCalledWith(400, 200, 8, 8)
 
       }
     )
@@ -293,7 +293,7 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.bottomLeftStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.bottomLeftStretcher.init)
-          .toHaveBeenCalledWith(-4, 204, 8, 8)
+          .toHaveBeenCalledWith(-8, 200, 8, 8)
 
       }
     )
@@ -305,12 +305,133 @@ describe("DomWindow", function() {
         spyOn(myDomWindow.topLeftStretcher, 'init')
         myDomWindow.initStretchers()
         expect(myDomWindow.topLeftStretcher.init)
-          .toHaveBeenCalledWith(-4, -4, 8, 8)
+          .toHaveBeenCalledWith(-8, -8, 8, 8)
 
       }
     )
 
 
+
+  })
+
+  it(`should have a function which is called with a document
+    mouseup`, function() {
+
+      expect(myDomWindow.callbackOnMouseUp)
+        .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe('callbackOnMouseUp', function() {
+
+    it('should update the topStretcher width', function() {
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.topStretcher, 'setW')
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.topStretcher.setW)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientWidth
+        )
+
+    })
+
+    it('should update the rightStretchers height and x position',
+      function() {
+
+        myDomWindow.init(100, 100, 100, 100)
+        myDomWindow.initStretchers()
+        spyOn(myDomWindow.rightStretcher, 'setH')
+        spyOn(myDomWindow.rightStretcher, 'setX')
+        myDomWindow.callbackOnMouseUp()
+        expect(myDomWindow.rightStretcher.setH)
+          .toHaveBeenCalledWith(
+            myDomWindow.containerElement.clientHeight
+          )
+
+        expect(myDomWindow.rightStretcher.setX)
+          .toHaveBeenCalledWith(
+            myDomWindow.containerElement.clientWidth -
+              myDomWindow.defaultStretcherWidth
+        )
+
+
+    })
+
+    it('should update the bottomStretcher width', function() {
+
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.bottomStretcher, 'setW')
+      spyOn(myDomWindow.bottomStretcher, 'setY')
+      
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.bottomStretcher.setW)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientWidth
+        )
+
+      expect(myDomWindow.bottomStretcher.setY)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientHeight -
+            myDomWindow.defaultStretcherHeight
+      )
+
+    })
+
+    it('should update the leftStretcher width', function() {
+      
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.leftStretcher, 'setH')
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.leftStretcher.setH)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientHeight
+        )
+
+    })
+
+    it(`should update the topRightStretcher position`, function() {
+
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.topRightStretcher, 'setX')
+      spyOn(myDomWindow.topRightStretcher, 'setY')
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.topRightStretcher.setX).toHaveBeenCalledWith(
+        myDomWindow.containerElement.clientWidth +
+          myDomWindow.defaultStretcherWidth
+      )
+
+      expect(myDomWindow.topRightStretcher.setY).toHaveBeenCalledWith(
+        myDomWindow.defaultStretcherHeight
+      )
+      
+
+    })
+
+    it(`should update the bottomRightStretcher position`, function() {
+
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.bottomRightStretcher, 'setX')
+      spyOn(myDomWindow.bottomRightStretcher, 'setY')
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.bottomRightStretcher.setX)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientWidth +
+            myDomWindow.defaultStretcherWidth
+        )
+
+      expect(myDomWindow.bottomRightStretcher.setY)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientHeight +
+            myDomWindow.defaultStretcherHeight
+        )
+
+    })
 
   })
 
