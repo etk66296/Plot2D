@@ -9,6 +9,25 @@ class DomBorderScaler extends DomAbsolute {
     this.edgeSide = ''
 
     this.clickPositionOffset = { x: 0, y: 0 }
+
+    this.callbackOnMouseDown = (mouseDownEvent) => {
+
+      this.mouseIsDown = true
+  
+      this.clickPositionOffset.x =
+        this.containerElement.offsetLeft - mouseDownEvent.clientX
+  
+      this.clickPositionOffset.y =
+        this.containerElement.offsetTop - mouseDownEvent.clientY
+  
+  
+    }
+  
+    this.callbackOnMouseUp = () => {
+  
+      this.mouseIsDown = false
+      
+    }
    
   }
 
@@ -38,25 +57,6 @@ class DomBorderScaler extends DomAbsolute {
     this.containerElement.style.backgroundColor = '#000000'
     this.containerElement.style.opacity = '0.2'
 
-  }
-
-  callbackOnMouseDown(mouseDownEvent) {
-
-    this.mouseIsDown = true
-
-    this.clickPositionOffset.x =
-      this.containerElement.offsetLeft - mouseDownEvent.clientX
-
-    this.clickPositionOffset.y =
-      this.containerElement.offsetTop - mouseDownEvent.clientY
-
-
-  }
-
-  callbackOnMouseUp() {
-
-    this.mouseIsDown = false
-    
   }
 
   stretchParentFromTopBy(event) {

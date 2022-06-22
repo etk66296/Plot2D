@@ -15,42 +15,44 @@ class DomDoubleDirBorderScaler extends DomBorderScaler {
     }
 
     this.edgeSide = edgeSide
+
+    this.callbackOnMouseMove = (mouseMoveEventObj) => {
+
+      mouseMoveEventObj.preventDefault()
+  
+      
+      if(this.mouseIsDown) {
+  
+        if(this.edgeSide === 'NE') {
+  
+          this.stretchParentFromTopBy(mouseMoveEventObj)
+          this.stretchParentFromRightBy(mouseMoveEventObj)
+  
+        } else if(this.edgeSide === 'SE') {
+  
+          this.stretchParentFromBottomBy(mouseMoveEventObj)
+          this.stretchParentFromRightBy(mouseMoveEventObj)
+  
+        } else if(this.edgeSide === 'SW') {
+  
+          this.stretchParentFromBottomBy(mouseMoveEventObj)
+          this.stretchParentFromLeftBy(mouseMoveEventObj)
+  
+        } else if(this.edgeSide === 'NW') {
+  
+          this.stretchParentFromTopBy(mouseMoveEventObj)
+          this.stretchParentFromLeftBy(mouseMoveEventObj)
+  
+        }
+  
+      }
+  
+    }
+  
    
   }
 
-  callbackOnMouseMove(mouseMoveEventObj) {
-
-    mouseMoveEventObj.preventDefault()
-
-    
-    if(this.mouseIsDown) {
-
-      if(this.edgeSide === 'NE') {
-
-        this.stretchParentFromTopBy(mouseMoveEventObj)
-        this.stretchParentFromRightBy(mouseMoveEventObj)
-
-      } else if(this.edgeSide === 'SE') {
-
-        this.stretchParentFromBottomBy(mouseMoveEventObj)
-        this.stretchParentFromRightBy(mouseMoveEventObj)
-
-      } else if(this.edgeSide === 'SW') {
-
-        this.stretchParentFromBottomBy(mouseMoveEventObj)
-        this.stretchParentFromLeftBy(mouseMoveEventObj)
-
-      } else if(this.edgeSide === 'NW') {
-
-        this.stretchParentFromTopBy(mouseMoveEventObj)
-        this.stretchParentFromLeftBy(mouseMoveEventObj)
-
-      }
-
-    }
-
-  }
-
+  
   init(x, y, w, h) {
 
     super.init(x, y, w, h)
@@ -73,11 +75,7 @@ class DomDoubleDirBorderScaler extends DomBorderScaler {
 
     }
 
-    document.addEventListener('mousemove', (event) => {
-
-      this.callbackOnMouseMove(event)
-
-    })
+    document.addEventListener('mousemove', this.callbackOnMouseMove)
 
   }
 

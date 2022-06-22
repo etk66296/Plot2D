@@ -223,6 +223,12 @@ describe("DomWindow", function() {
         expect(myDomWindow.topStretcher.init)
           .toHaveBeenCalledWith(0, -8, 400, 8)
 
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+  
+
       }
     )
 
@@ -234,6 +240,11 @@ describe("DomWindow", function() {
         myDomWindow.initStretchers()
         expect(myDomWindow.rightStretcher.init)
           .toHaveBeenCalledWith(400, 0, 8, 200)
+
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
 
       }
     )
@@ -247,6 +258,11 @@ describe("DomWindow", function() {
         expect(myDomWindow.bottomStretcher.init)
           .toHaveBeenCalledWith(0, 200, 400, 8)
 
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+
       }
     )
 
@@ -258,6 +274,11 @@ describe("DomWindow", function() {
         myDomWindow.initStretchers()
         expect(myDomWindow.leftStretcher.init)
           .toHaveBeenCalledWith(-8, 0, 8, 200)
+
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
 
       }
     )
@@ -271,6 +292,11 @@ describe("DomWindow", function() {
         expect(myDomWindow.topRightStretcher.init)
           .toHaveBeenCalledWith(400, -8, 8, 8)
 
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+
       }
     )
 
@@ -283,6 +309,11 @@ describe("DomWindow", function() {
         expect(myDomWindow.bottomRightStretcher.init)
           .toHaveBeenCalledWith(400, 200, 8, 8)
 
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+
       }
     )
 
@@ -294,6 +325,11 @@ describe("DomWindow", function() {
         myDomWindow.initStretchers()
         expect(myDomWindow.bottomLeftStretcher.init)
           .toHaveBeenCalledWith(-8, 200, 8, 8)
+
+        document.removeEventListener(
+          'mouseup',
+           myDomWindow.callbackOnMouseUp
+        )
 
       }
     )
@@ -352,8 +388,7 @@ describe("DomWindow", function() {
 
         expect(myDomWindow.rightStretcher.setX)
           .toHaveBeenCalledWith(
-            myDomWindow.containerElement.clientWidth -
-              myDomWindow.defaultStretcherWidth
+            myDomWindow.containerElement.clientWidth
         )
 
 
@@ -363,20 +398,17 @@ describe("DomWindow", function() {
 
       myDomWindow.init(100, 100, 100, 100)
       myDomWindow.initStretchers()
-      spyOn(myDomWindow.bottomStretcher, 'setW')
       spyOn(myDomWindow.bottomStretcher, 'setY')
-      
+      spyOn(myDomWindow.bottomStretcher, 'setW')
       myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.bottomStretcher.setY)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientHeight
+        )
       expect(myDomWindow.bottomStretcher.setW)
         .toHaveBeenCalledWith(
           myDomWindow.containerElement.clientWidth
         )
-
-      expect(myDomWindow.bottomStretcher.setY)
-        .toHaveBeenCalledWith(
-          myDomWindow.containerElement.clientHeight -
-            myDomWindow.defaultStretcherHeight
-      )
 
     })
 
@@ -398,17 +430,10 @@ describe("DomWindow", function() {
       myDomWindow.init(100, 100, 100, 100)
       myDomWindow.initStretchers()
       spyOn(myDomWindow.topRightStretcher, 'setX')
-      spyOn(myDomWindow.topRightStretcher, 'setY')
       myDomWindow.callbackOnMouseUp()
       expect(myDomWindow.topRightStretcher.setX).toHaveBeenCalledWith(
-        myDomWindow.containerElement.clientWidth +
-          myDomWindow.defaultStretcherWidth
-      )
-
-      expect(myDomWindow.topRightStretcher.setY).toHaveBeenCalledWith(
-        myDomWindow.defaultStretcherHeight
-      )
-      
+        myDomWindow.containerElement.clientWidth
+      )      
 
     })
 
@@ -421,14 +446,26 @@ describe("DomWindow", function() {
       myDomWindow.callbackOnMouseUp()
       expect(myDomWindow.bottomRightStretcher.setX)
         .toHaveBeenCalledWith(
-          myDomWindow.containerElement.clientWidth +
-            myDomWindow.defaultStretcherWidth
+          myDomWindow.containerElement.clientWidth
         )
 
       expect(myDomWindow.bottomRightStretcher.setY)
         .toHaveBeenCalledWith(
-          myDomWindow.containerElement.clientHeight +
-            myDomWindow.defaultStretcherHeight
+          myDomWindow.containerElement.clientHeight
+        )
+
+    })
+
+    it(`should update the bottomLeftStretcher position`, function() {
+
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initStretchers()
+      spyOn(myDomWindow.bottomLeftStretcher, 'setY')
+      myDomWindow.callbackOnMouseUp()
+
+      expect(myDomWindow.bottomLeftStretcher.setY)
+        .toHaveBeenCalledWith(
+          myDomWindow.containerElement.clientHeight
         )
 
     })

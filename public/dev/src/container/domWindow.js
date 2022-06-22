@@ -21,37 +21,29 @@ class DomWindow extends DomAbsolute {
     this.defaultStretcherHeight = 8
     this.defaultStretcherWidth = 8
 
-  }
+    this.callbackOnMouseUp = () => {
 
-  callbackOnMouseUp() {
-
-    this.topStretcher.setW(this.containerElement.clientHeight)
-
-    this.rightStretcher.setH(this.containerElement.clientHeight)
-    this.rightStretcher.setX(
-      this.containerElement.clientWidth - this.defaultStretcherWidth
-    )
-
-    this.bottomStretcher.setW(this.containerElement.clientWidth)
-    this.bottomStretcher.setY(
-      this.containerElement.clientHeight - this.defaultStretcherHeight
-    )
-
-    this.leftStretcher.setH(this.containerElement.clientHeight)
-
-    this.topRightStretcher.setX(
-      this.containerElement.clientWidth + this.defaultStretcherWidth
-    )
-    this.topRightStretcher.setY(this.defaultStretcherHeight)
-
-    this.bottomRightStretcher.setX(
-      this.containerElement.clientWidth + this.defaultStretcherWidth
-    )
-    this.bottomRightStretcher.setY(
-      this.containerElement.clientHeight + this.defaultStretcherHeight
-    )
+      this.topStretcher.setW(this.containerElement.clientWidth)
+      
+      this.topRightStretcher.setX(this.containerElement.clientWidth)
+  
+      this.rightStretcher.setX(this.containerElement.clientWidth)
+      this.rightStretcher.setH(this.containerElement.clientHeight)
+      
+      this.bottomRightStretcher.setX(this.containerElement.clientWidth)
+      this.bottomRightStretcher.setY(this.containerElement.clientHeight)
+  
+      this.bottomStretcher.setY(this.containerElement.clientHeight)
+      this.bottomStretcher.setW(this.containerElement.clientWidth)
+  
+      this.leftStretcher.setH(this.containerElement.clientHeight)
+  
+      this.bottomLeftStretcher.setY(this.containerElement.clientHeight)
+  
+    }
 
   }
+
 
   initStretchers() {
 
@@ -111,11 +103,7 @@ class DomWindow extends DomAbsolute {
       this.defaultStretcherHeight
     )
 
-    // document.addEventListener('mouseup', (e) => {
-
-    //   this.callbackOnMouseUp()
-
-    // })
+    document.addEventListener('mouseup', this.callbackOnMouseUp)
 
     // document.addEventListener('mouseup', (e) => {
 
