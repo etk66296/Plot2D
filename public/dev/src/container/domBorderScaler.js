@@ -54,8 +54,8 @@ class DomBorderScaler extends DomAbsolute {
       }
     )
 
-    this.containerElement.style.backgroundColor = '#000000'
-    this.containerElement.style.opacity = '0.2'
+    // this.containerElement.style.backgroundColor = '#000000'
+    // this.containerElement.style.opacity = '0.2'
 
   }
 

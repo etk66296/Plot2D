@@ -105,43 +105,6 @@ class DomWindow extends DomAbsolute {
 
     document.addEventListener('mouseup', this.callbackOnMouseUp)
 
-    // document.addEventListener('mouseup', (e) => {
-
-    //   this.bottomStretcher.setY(
-    //     this.containerElement.clientHeight - this.defaultStretcherHeight * 0.5
-    //   )
-
-    //   this.rightStretcher.setX(
-    //     this.containerElement.clientWidth - this.defaultStretcherWidth * 0.5
-    //   )
-
-    //   this.topStretcher.setW(this.containerElement.clientWidth)
-    //   this.rightStretcher.setH(this.containerElement.clientHeight)
-    //   this.bottomStretcher.setW(this.containerElement.clientWidth)
-    //   this.leftStretcher.setH(this.containerElement.clientHeight)
-
-    //   this.topRightStretcher.setX(
-    //     this.containerElement.clientWidth + this.defaultStretcherWidth * (-0.5)
-    //   )
-    //   this.topRightStretcher.setY(this.defaultStretcherHeight * (-0.5))
-    //   this.bottomRightStretcher.setX(
-    //     this.containerElement.clientWidth + this.defaultStretcherWidth * (-0.5)
-    //   )
-    //   this.bottomRightStretcher.setY(
-    //     this.containerElement.clientHeight +
-    //       this.defaultStretcherHeight * (-0.5)
-    //   )
-    //   this.bottomLeftStretcher.setX(this.defaultStretcherWidth * (-0.5))
-    //   this.bottomLeftStretcher.setY(
-    //     this.containerElement.clientHeight +
-    //       this.defaultStretcherHeight * (-0.5)
-    //   )
-    //   this.topLeftStretcher.setX(this.defaultStretcherWidth * (-0.5))
-    //   this.topLeftStretcher.setY(this.defaultStretcherHeight * (-0.5))
-    
-    // })
-
-
   }
 
   init(x, y, w, h) {

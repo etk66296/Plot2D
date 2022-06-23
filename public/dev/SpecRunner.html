@@ -71,10 +71,10 @@
     window.addEventListener('load', () => {
 
       console.log('load')
-      let testContainerElement = document.getElementById("TestContainer")
+      let testContainerElement = document.getElementById("LabContainer")
       let testDomWindow = new DomWindow(testContainerElement)
 
-      testDomWindow.init(100, 100, 200, 100)
+      testDomWindow.init(10, 10, 200, 100)
       testDomWindow.initStretchers()
 
     })
@@ -84,7 +84,8 @@
 
 <body>
 
-  <div style="position: absolute;" id="TestContainer"></div>
+  <div style="height: 150px;" id="LabContainer"></div>
+  <div id="TestContainer"></div>
 
 
 </body>

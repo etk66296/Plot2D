@@ -346,7 +346,19 @@ describe("DomWindow", function() {
       }
     )
 
+    it(`should add a document mouseup event listener with the
+      member function callbackOnMouseUp`, function() {
 
+        spyOn(document, 'addEventListener')
+        myDomWindow.init()
+        myDomWindow.initStretchers()
+        expect(document.addEventListener).toHaveBeenCalledWith(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+
+      }
+    )
 
   })
 

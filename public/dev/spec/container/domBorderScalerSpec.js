@@ -1,5 +1,24 @@
 describe("DomBorderScaler", function() {
   var myDomBorderScaler
+  var testDiv
+  var testContainer
+
+  beforeAll(function() {
+
+    testContainer = document.getElementById('TestContainer')
+    testDiv = document.createElementNS(
+      "http://www.w3.org/1999/xhtml", 'div'
+    )
+
+    testContainer.appendChild(testDiv)
+
+  })
+
+  afterAll(function() {
+    testContainer.removeChild(testDiv)
+    testDiv.remove()
+    testContainer.style.height = '0px'
+  })
 
   beforeEach(function() {
 
@@ -167,19 +186,20 @@ describe("DomBorderScaler", function() {
 
     var myDomBorderScaler
     var event
+    
 
-    beforeEach(function() {
-
-      var testDiv = document.getElementById('TestContainer')
+    beforeAll(function() {
 
       myDomBorderScaler = new DomBorderScaler(testDiv)
 
-      myDomBorderScaler.parentElement.style.height = '450px'
-      myDomBorderScaler.parentElement.style.top = '250px'
+      myDomBorderScaler.parentElement.style.height = '100px'
+      myDomBorderScaler.parentElement.style.top = '10px'
 
       event = { clientY: 123 }
 
     })
+
+   
 
     it(`should take an argument which is an object reference to an
       event and this event must have an attribute clientY. The value
@@ -197,7 +217,7 @@ describe("DomBorderScaler", function() {
 
         myDomBorderScaler.stretchParentFromTopBy(event)
         expect(myDomBorderScaler.parentElement.style.height)
-          .toEqual('577px')
+          .toEqual('135px')
 
       }
     )
@@ -288,7 +308,7 @@ describe("DomBorderScaler", function() {
 
         myDomBorderScaler.stretchParentFromLeftBy(event)
         expect(myDomBorderScaler.parentElement.style.width)
-          .toEqual('577px')
+          .toEqual('335px')
 
       }
     )
