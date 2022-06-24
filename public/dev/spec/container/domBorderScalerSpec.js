@@ -215,9 +215,15 @@ describe("DomBorderScaler", function() {
     it(`should set the parentElement height style to the new
       stretched height`, function() {
 
+        // the expected value depends on the random test execution
+        let expectation = '135px'
+        if(myDomBorderScaler.parentElement.clientHeight == 135) {
+          expectation = '170px'
+        }
+
         myDomBorderScaler.stretchParentFromTopBy(event)
         expect(myDomBorderScaler.parentElement.style.height)
-          .toEqual('135px')
+          .toEqual(expectation)
 
       }
     )
@@ -367,11 +373,31 @@ describe("DomBorderScaler", function() {
 
   describe('callbackOnMouseDown', function() {
 
+    it(`should call the events prevent default function`,
+
+      function() {
+
+        let mouseDownEvent = {
+          clientX: 20,
+          clientY: 30,
+          preventDefault: () => {}
+        }
+
+        myDomBorderScaler.init(100, 100, 100, 100)
+        spyOn(mouseDownEvent, 'preventDefault')
+        myDomBorderScaler.callbackOnMouseDown(mouseDownEvent)
+        expect(mouseDownEvent.preventDefault).toHaveBeenCalled()
+
+
+      }
+    )
+
     it('should set the attribute mouseIsDown to true', function() {
 
       let mouseDownEvent = {
         clientX: 20,
-        clientY: 30
+        clientY: 30,
+        preventDefault: () => {}
       }
 
 
@@ -381,6 +407,7 @@ describe("DomBorderScaler", function() {
 
     })
 
+
     it(`should save the X click position in the member object
       clickPositionOffset. The position is the difference between
       the elements left offset and the mouse X click position`,
@@ -388,7 +415,8 @@ describe("DomBorderScaler", function() {
 
       let mouseDownEvent = {
         clientX: 40,
-        clientY: 30
+        clientY: 30,
+        preventDefault: () => {}
       }
 
       myDomBorderScaler.init(100, 100, 100, 100)
@@ -406,7 +434,8 @@ describe("DomBorderScaler", function() {
 
       let mouseDownEvent = {
         clientX: 40,
-        clientY: 30
+        clientY: 30,
+        preventDefault: () => {}
       }
 
       myDomBorderScaler.init(100, 100, 100, 100)

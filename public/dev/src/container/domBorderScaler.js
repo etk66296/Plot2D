@@ -12,6 +12,8 @@ class DomBorderScaler extends DomAbsolute {
 
     this.callbackOnMouseDown = (mouseDownEvent) => {
 
+      mouseDownEvent.preventDefault()
+
       this.mouseIsDown = true
   
       this.clickPositionOffset.x =
