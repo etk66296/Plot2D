@@ -1,5 +1,25 @@
 describe("DomHeaderBar", function() {
   var myDomHeaderBar
+  var testDiv
+  var testContainer
+
+  beforeAll(function() {
+
+    testContainer = document.getElementById('TestContainer')
+    testDiv = document.createElementNS(
+      "http://www.w3.org/1999/xhtml", 'div'
+    )
+
+    testContainer.appendChild(testDiv)
+
+  })
+
+  afterAll(function() {
+    testContainer.removeChild(testDiv)
+    testDiv.remove()
+    testContainer.style.height = '0px'
+  })
+
 
   beforeEach(function() {
 
@@ -140,14 +160,174 @@ describe("DomHeaderBar", function() {
 
   describe("callbackOnMouseMove", function() {
 
-    let myEvent = {
+    let myEvent
 
-      preventDefault: function() {},
-      clientX: 100,
-      clientY: 200
-      
+    beforeEach(function() {
+
+      myDomHeaderBar = new DomHeaderBar(testDiv)
+
+      myDomHeaderBar.parentElement.style.left = '250px'
+      myDomHeaderBar.parentElement.style.top = '450px'
+
+      myEvent = {
+
+        preventDefault: function() {},
+        clientX: 100,
+        clientY: 200
+        
+  
+      }
+
+    })
+
+    
+
+    it(`should set the parents element left style attribute when
+      the attribute mouseIsDown is set`, function() {
+
+        myDomHeaderBar.mouseIsDown = true
+
+        myDomHeaderBar.clickPositionOffset.x = 230
+        
+        myDomHeaderBar.callbackOnMouseMove(myEvent)
+
+        expect(myDomHeaderBar.parentElement.style.left).toEqual('330px')
+
+      }
+    )
+
+    it(`should set the parents element top style attribute when
+    the attribute mouseIsDown is set`, function() {
+
+        myDomHeaderBar.mouseIsDown = true
+
+        myDomHeaderBar.clickPositionOffset.y = 234
+
+        myDomHeaderBar.callbackOnMouseMove(myEvent)
+
+        expect(myDomHeaderBar.parentElement.style.top).toEqual('434px')
+
+      }
+    )
+
+    it(`should not update the top and left style attribute of the
+      parent element, when the mouseIsDown is cleared`, function() {
+
+        myDomHeaderBar.clickPositionOffset.x = 462
+        myDomHeaderBar.clickPositionOffset.y = 145
+
+        myDomHeaderBar.callbackOnMouseMove(myEvent)
+
+        expect(myDomHeaderBar.parentElement.style.top)
+          .toEqual('450px')
+        expect(myDomHeaderBar.parentElement.style.left)
+          .toEqual('250px')
+
+      }
+    )
+
+  })
+
+  describe("init", function() {
+
+    it(`should inizialize the x position, y position, the width and
+      the height of the container element`, function() {
+
+        spyOn(myDomHeaderBar, 'setX')
+        spyOn(myDomHeaderBar, 'setY')
+        spyOn(myDomHeaderBar, 'setW')
+        spyOn(myDomHeaderBar, 'setH')
+        myDomHeaderBar.init(12, 13, 14, 15)
+
+        expect(myDomHeaderBar.setX).toHaveBeenCalledWith(12)
+        expect(myDomHeaderBar.setY).toHaveBeenCalledWith(13)
+        expect(myDomHeaderBar.setW).toHaveBeenCalledWith(14)
+        expect(myDomHeaderBar.setH).toHaveBeenCalledWith(15)
+
+      }
+    )
+
+    it(`should set a default background color`, function() {
+
+      myDomHeaderBar.init(1, 2, 3, 4)
+      expect(myDomHeaderBar.containerElement.style.backgroundColor)
+        .toEqual('rgb(68, 0, 68)')
+
+    })
+
+    it(`should set the height style attribute to a defualt of 30ox`,
+      function() {
+        myDomHeaderBar.init(1, 2, 3, 4)
+        expect(myDomHeaderBar.containerElement.style.height)
+          .toEqual('30px')
+      }
+    )
+
+    it(`should append the elemnt to the parents element`, function() {
+
+      spyOn(myDomHeaderBar.parentElement, 'appendChild')
+      myDomHeaderBar.init(1, 2, 3, 4)
+      expect(myDomHeaderBar.parentElement.appendChild)
+        .toHaveBeenCalledWith(myDomHeaderBar.containerElement)
+
+    })
+    
+  })
+
+  it(`should have a function for initialize the event Listeners`,
+    function() {
+
+      expect(myDomHeaderBar.initMovability).toEqual(
+        jasmine.any(Function)
+      )
 
     }
+  )
+
+  describe('initMovability', function() {
+
+    it(`should add the callbackOnMouseDown function to a
+      containerElement mousedown event`, function() {
+
+        myDomHeaderBar.init(1, 2, 3, 4)
+        spyOn(myDomHeaderBar.containerElement, 'addEventListener')
+        myDomHeaderBar.initMovability()
+        expect(myDomHeaderBar.containerElement.addEventListener)
+          .toHaveBeenCalledWith(
+            'mousedown',
+            myDomHeaderBar.callbackOnMouseDown
+          )
+
+      }
+    )
+
+    it(`should add a mouseup event to the document which should call
+      the funtion callbackOnMouseUp`, function() {
+
+        myDomHeaderBar.init(1, 2, 3, 4)
+        spyOn(document, 'addEventListener')
+        myDomHeaderBar.initMovability()
+        expect(document.addEventListener).toHaveBeenCalledWith(
+          'mouseup',
+          myDomHeaderBar.callbackOnMouseUp
+        )
+
+      }
+    )
+
+    it(`should add a mousemove event to the document which should call
+      the funtion callbackOnMouseMove`, function() {
+
+        myDomHeaderBar.init(1, 2, 3, 4)
+        spyOn(document, 'addEventListener')
+        myDomHeaderBar.initMovability()
+        expect(document.addEventListener).toHaveBeenCalledWith(
+          'mousemove',
+          myDomHeaderBar.callbackOnMouseMove
+        )
+
+      }
+    )
 
   })
 

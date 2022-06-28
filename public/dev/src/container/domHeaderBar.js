@@ -32,46 +32,46 @@ class DomHeaderBar extends DomAbsolute {
 
     this.callbackOnMouseMove = (mouseMoveEvent) => {
   
-    //   if (this.mouseIsDown) {
+      if (this.mouseIsDown) {
 
-        // this.parentElement.style.left =
-        //   String(mouseMoveEvent.clientX +
-        //     this.clickPositionOffset.x) + 'px'
+        this.parentElement.style.left =
+          String(mouseMoveEvent.clientX +
+            this.clickPositionOffset.x) + 'px'
 
-    //     this.parentElement.style.top =
-    //       String(mouseMoveEvent.clientY + this.clickPositionOffset.y) + 'px'
+        this.parentElement.style.top =
+          String(mouseMoveEvent.clientY +
+            this.clickPositionOffset.y) + 'px'
 
-    //   }
+      }
       
     }
 
    
   }
 
-  // init(x, y, w, h) {
+  initMovability() {
 
-  //   console.log("inti header bar")
+    this.containerElement
+      .addEventListener('mousedown', this.callbackOnMouseDown)
 
-  //   super.init()
+    document.addEventListener('mouseup', this.callbackOnMouseUp)
 
-  //   this.setX(x)
-  //   this.setY(y)
-  //   this.setW(w)
-  //   this.setH(h)
+    document.addEventListener('mousemove', this.callbackOnMouseMove)
 
-  //   this.containerElement.style.backgroundColor = '#55AAFF'
-  //   this.containerElement.style.height = '30px'
-  //   this.containerElement.style.zIndex = '100'
-  //   this.parentElement.appendChild(this.containerElement)
+  }
 
-  //   this.containerElement
-  //     .addEventListener('mousedown', this.callbackOnMouseDown)
+  init(x, y, w, h) {
 
-  //   document.addEventListener('mouseup', this.callbackOnMouseUp)
+    super.init()
 
-  //   document.addEventListener('mousemove', this.callbackOnMouseMove)
+    this.setX(x)
+    this.setY(y)
+    this.setW(w)
+    this.setH(h)
 
+    this.containerElement.style.backgroundColor = '#440044'
+    this.containerElement.style.height = '30px'
 
-  // }
+  }
 
 }
