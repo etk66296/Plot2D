@@ -4,6 +4,13 @@ let init = (parentHtmlElement) => {
   myDomElementA.init(100, 100, 320, 240)
   myDomElementA.initStretchers()
   myDomElementA.initHeaderBar()
+  myDomElementA.containerElement.style.backgroundColor = '#FFFFFF'
+
+  let myDomElementB = new DomWindow(parentHtmlElement)
+  myDomElementB.init(500, 100, 320, 240)
+  myDomElementB.initStretchers()
+  myDomElementB.initHeaderBar()
+  myDomElementB.containerElement.style.backgroundColor = '#FFFFFF'
 
   let myLabUtils = new LabUtils()
   let aTestImage = myLabUtils.createElementNS("img")

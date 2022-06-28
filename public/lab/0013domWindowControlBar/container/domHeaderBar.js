@@ -62,8 +62,6 @@ class DomHeaderBar extends DomAbsolute {
     this.containerElement.style.zIndex = '100'
     this.parentElement.appendChild(this.containerElement)
 
-    // this.containerElement
-    //   .addEventListener('mousedown', this.callbackOnMouseDown)
     this.containerElement
       .addEventListener('mousedown', this.callbackOnMouseDown)
 
