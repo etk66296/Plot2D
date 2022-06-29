@@ -23,9 +23,7 @@ describe("DomHeaderBar", function() {
 
   beforeEach(function() {
 
-    myDomHeaderBar = new DomHeaderBar(
-      document.createElementNS("http://www.w3.org/1999/xhtml", 'div')
-    )
+    myDomHeaderBar = new DomHeaderBar(testDiv)
 
 
   })
@@ -130,6 +128,7 @@ describe("DomHeaderBar", function() {
     it(`should call the passed events preventDefault function`,
       function() {
 
+        myDomHeaderBar.init()
         spyOn(myEvent, 'preventDefault')
         myDomHeaderBar.callbackOnMouseUp(myEvent)
         expect(myEvent.preventDefault).toHaveBeenCalled()
@@ -139,6 +138,7 @@ describe("DomHeaderBar", function() {
 
     it(`should reset the mouseIsDown calss attribute`, function() {
 
+      myDomHeaderBar.init()
       myDomHeaderBar.mouseIsDown = true
       expect(myDomHeaderBar.mouseIsDown).toEqual(true)
       myDomHeaderBar.callbackOnMouseUp(myEvent)
@@ -146,6 +146,18 @@ describe("DomHeaderBar", function() {
 
 
     })
+
+    it(`should set the width to the parent elements clientWidth`,
+      function() {
+
+        spyOn(myDomHeaderBar, 'setW')
+        myDomHeaderBar.callbackOnMouseUp(myEvent)
+        expect(myDomHeaderBar.setW).toHaveBeenCalledWith(
+          myDomHeaderBar.parentElement.clientWidth
+        )
+
+      }
+    )
 
   })
 
@@ -180,6 +192,14 @@ describe("DomHeaderBar", function() {
 
     })
 
+    it(`should call the prevent default function`, function() {
+
+      myDomHeaderBar.init()
+      spyOn(myEvent, 'preventDefault')
+      myDomHeaderBar.callbackOnMouseMove(myEvent)
+      expect(myEvent.preventDefault).toHaveBeenCalled()
+
+    })
     
 
     it(`should set the parents element left style attribute when
@@ -230,34 +250,36 @@ describe("DomHeaderBar", function() {
 
   describe("init", function() {
 
-    it(`should inizialize the x position, y position, the width and
-      the height of the container element`, function() {
+    it(`should inizialize the x position, y position, the width with
+      default values`, function() {
 
         spyOn(myDomHeaderBar, 'setX')
         spyOn(myDomHeaderBar, 'setY')
         spyOn(myDomHeaderBar, 'setW')
         spyOn(myDomHeaderBar, 'setH')
-        myDomHeaderBar.init(12, 13, 14, 15)
+        myDomHeaderBar.init()
 
-        expect(myDomHeaderBar.setX).toHaveBeenCalledWith(12)
-        expect(myDomHeaderBar.setY).toHaveBeenCalledWith(13)
-        expect(myDomHeaderBar.setW).toHaveBeenCalledWith(14)
-        expect(myDomHeaderBar.setH).toHaveBeenCalledWith(15)
+        expect(myDomHeaderBar.setX).toHaveBeenCalledWith(0)
+        expect(myDomHeaderBar.setY).toHaveBeenCalledWith(0)
+        expect(myDomHeaderBar.setW).toHaveBeenCalledWith(
+          myDomHeaderBar.parentElement.clientWidth
+        )
+        expect(myDomHeaderBar.setH).toHaveBeenCalledWith(30)
 
       }
     )
 
     it(`should set a default background color`, function() {
 
-      myDomHeaderBar.init(1, 2, 3, 4)
+      myDomHeaderBar.init()
       expect(myDomHeaderBar.containerElement.style.backgroundColor)
         .toEqual('rgb(68, 0, 68)')
 
     })
 
-    it(`should set the height style attribute to a defualt of 30ox`,
+    it(`should set the height style attribute to a default of 30px`,
       function() {
-        myDomHeaderBar.init(1, 2, 3, 4)
+        myDomHeaderBar.init(1, 2, 3)
         expect(myDomHeaderBar.containerElement.style.height)
           .toEqual('30px')
       }
@@ -266,7 +288,7 @@ describe("DomHeaderBar", function() {
     it(`should append the elemnt to the parents element`, function() {
 
       spyOn(myDomHeaderBar.parentElement, 'appendChild')
-      myDomHeaderBar.init(1, 2, 3, 4)
+      myDomHeaderBar.init()
       expect(myDomHeaderBar.parentElement.appendChild)
         .toHaveBeenCalledWith(myDomHeaderBar.containerElement)
 
@@ -289,7 +311,7 @@ describe("DomHeaderBar", function() {
     it(`should add the callbackOnMouseDown function to a
       containerElement mousedown event`, function() {
 
-        myDomHeaderBar.init(1, 2, 3, 4)
+        myDomHeaderBar.init()
         spyOn(myDomHeaderBar.containerElement, 'addEventListener')
         myDomHeaderBar.initMovability()
         expect(myDomHeaderBar.containerElement.addEventListener)
@@ -304,7 +326,7 @@ describe("DomHeaderBar", function() {
     it(`should add a mouseup event to the document which should call
       the funtion callbackOnMouseUp`, function() {
 
-        myDomHeaderBar.init(1, 2, 3, 4)
+        myDomHeaderBar.init()
         spyOn(document, 'addEventListener')
         myDomHeaderBar.initMovability()
         expect(document.addEventListener).toHaveBeenCalledWith(
@@ -318,7 +340,7 @@ describe("DomHeaderBar", function() {
     it(`should add a mousemove event to the document which should call
       the funtion callbackOnMouseMove`, function() {
 
-        myDomHeaderBar.init(1, 2, 3, 4)
+        myDomHeaderBar.init()
         spyOn(document, 'addEventListener')
         myDomHeaderBar.initMovability()
         expect(document.addEventListener).toHaveBeenCalledWith(
@@ -331,5 +353,28 @@ describe("DomHeaderBar", function() {
 
   })
 
+  it(`should have a function for setting the background color of the
+    header bar`, function() {
+
+      expect(myDomHeaderBar.setBackgroundColorTo)
+        .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe("setBackgroundColorTo", function() {
+
+    it(`should set the container elements background color by the
+      passed color`, function() {
+
+        myDomHeaderBar.init()
+        myDomHeaderBar.setBackgroundColorTo('rgb(1, 2, 3)')
+        expect(myDomHeaderBar.containerElement.style.backgroundColor)
+          .toEqual('rgb(1, 2, 3)')
+
+      }
+    )
+
+  })
 
 })

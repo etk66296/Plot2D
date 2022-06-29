@@ -16,6 +16,8 @@ class DomWindow extends DomAbsolute {
     this.bottomLeftStretcher = null
     this.topLeftStretcher = null
 
+    this.headerBar = null
+
     this.rigid = false
 
     this.defaultStretcherHeight = 8
@@ -107,6 +109,13 @@ class DomWindow extends DomAbsolute {
 
   }
 
+  initHeaderBar() {
+
+    this.headerBar.init()
+    this.headerBar.initMovability()
+
+  }
+
   init(x, y, w, h) {
 
     super.init()
@@ -159,6 +168,8 @@ class DomWindow extends DomAbsolute {
       this.containerElement,
       'NW'
     )
+
+    this.headerBar = new DomHeaderBar(this.containerElement)
     
   }
   

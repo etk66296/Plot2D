@@ -201,6 +201,12 @@ describe("DomWindow", function() {
 
     })
 
+    it(`should instantiate  a header bar object`, function() {
+      myDomWindow.init(100, 100, 200, 400)
+      expect(myDomWindow.headerBar.__proto__.constructor.name)
+        .toEqual('DomHeaderBar')
+    })
+
   })
 
   it(`should have a function for initializing the border stretchers`,
@@ -484,5 +490,39 @@ describe("DomWindow", function() {
 
   })
 
+  it(`should have a attribute header bar, which gives the window
+    additional abilities`, function() {
+
+      expect(myDomWindow.initHeaderBar).toBeDefined()
+
+    }
+  )
+
+  it('should have a function initHeaderBar', function() {
+
+    expect(myDomWindow.initHeaderBar).toBeDefined()
+
+  })
+  
+  describe("initHeaderBar", function() {
+
+    it(`should call the header bars init function`, function() {
+
+      myDomWindow.init(10, 20, 30, 40)
+      myDomWindow.initHeaderBar()
+      expect(myDomWindow.headerBar.containerElement).not.toEqual(null)
+
+    })
+
+    it(`should call the initMovablity function`, function() {
+
+      myDomWindow.init(30, 40, 50, 60)
+      spyOn(myDomWindow.headerBar, 'initMovability')
+      myDomWindow.initHeaderBar()
+      expect(myDomWindow.headerBar.initMovability).toHaveBeenCalled()
+
+    })
+
+  })
 
 })

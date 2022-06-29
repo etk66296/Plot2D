@@ -27,10 +27,14 @@ class DomHeaderBar extends DomAbsolute {
       mouseUpEvent.preventDefault()
   
       this.mouseIsDown = false
+
+      this.setW(this.parentElement.clientWidth)
       
     }
 
     this.callbackOnMouseMove = (mouseMoveEvent) => {
+
+      mouseMoveEvent.preventDefault()
   
       if (this.mouseIsDown) {
 
@@ -60,17 +64,22 @@ class DomHeaderBar extends DomAbsolute {
 
   }
 
-  init(x, y, w, h) {
+  init() {
 
     super.init()
 
-    this.setX(x)
-    this.setY(y)
-    this.setW(w)
-    this.setH(h)
+    this.setX(0)
+    this.setY(0)
+    this.setW(this.parentElement.clientWidth)
+    this.setH(30)
 
     this.containerElement.style.backgroundColor = '#440044'
-    this.containerElement.style.height = '30px'
+
+  }
+
+  setBackgroundColorTo(color) {
+
+    this.containerElement.style.backgroundColor = color
 
   }
 
