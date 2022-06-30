@@ -9,6 +9,26 @@ describe("DomWindow", function() {
 
   })
 
+  var testDiv
+  var testContainer
+
+  beforeAll(function() {
+
+    testContainer = document.getElementById('TestContainer')
+    testDiv = document.createElementNS(
+      "http://www.w3.org/1999/xhtml", 'div'
+    )
+
+    testContainer.appendChild(testDiv)
+
+  })
+
+  afterAll(function() {
+    testContainer.removeChild(testDiv)
+    testDiv.remove()
+    testContainer.style.height = '0px'
+  })
+
   it("should extend DomAbsolute", function() {
 
     expect(myDomWindow.__proto__.__proto__.constructor.name)
@@ -63,6 +83,15 @@ describe("DomWindow", function() {
     }
   )
 
+  it(`should have a attribute contentContainerElement, which should
+    be the parent element for all contents the window should
+    show to the user`, function() {
+
+      expect(myDomWindow.contentContainerElement).toBeDefined()
+
+    }
+  )
+
 
   describe("init", function() {
 
@@ -84,6 +113,15 @@ describe("DomWindow", function() {
 
       }
     )
+
+    it(`should set a default background color of the container
+      element`, function() {
+      myDomWindow.init()
+      expect(myDomWindow.containerElement.style.backgroundColor)
+        .toEqual('rgb(0, 0, 0)')
+
+    }
+  )
 
     it(`should set the four arguments x, y, w, h, to the member
       attributes`, function() {
@@ -206,6 +244,99 @@ describe("DomWindow", function() {
       expect(myDomWindow.headerBar.__proto__.constructor.name)
         .toEqual('DomHeaderBar')
     })
+
+    it(`should create a dom div element and save the reference to the
+    attribute contentContainerElement`, function() {
+
+      myDomWindow.init(20, 30, 50, 70)
+      expect(myDomWindow
+          .contentContainerElement
+          .__proto__.constructor.name).toEqual("HTMLDivElement")
+
+    }
+  )
+
+  })
+
+  it(`should have a function for initializing the content element`,
+    function() {
+
+      expect(myDomWindow.initContentContainer).toBeDefined()
+
+    }
+  )
+
+  describe("initContentContainer", function() {
+
+   
+
+    it(`should set the style of the contentContainer to scroll`,
+      function() {
+
+        myDomWindow.init(100, 100, 100, 100)
+        myDomWindow.initContentContainer()
+        expect(myDomWindow.contentContainerElement.style.overflow)
+          .toEqual('scroll')
+            
+
+      }
+    )
+
+    it(`should set the style width of the contentContainer to
+      the same with as the container Element`,
+      function() {
+        
+        myDomWindow.init(100, 100, 100, 100)
+        myDomWindow.initContentContainer()
+        expect(myDomWindow.contentContainerElement.style.width)
+          .toEqual(myDomWindow.containerElement.style.width)
+            
+
+      }
+    )
+    it(`should set the position style attribute to absolute`,
+      function() {
+
+        myDomWindow.init(100, 100, 100, 100)
+        myDomWindow.initContentContainer()
+        console.log(myDomWindow.contentContainerElement.style.height)
+        expect(myDomWindow.contentContainerElement.style.position)
+          .toEqual('absolute')
+
+      }
+    )
+
+    it(`should set the height of the content container. The height
+      should be the container elements height minus the default
+      header bar height of 30`, function() {
+
+        myDomWindow.init(100, 100, 100, 100)
+        myDomWindow.initContentContainer()
+        expect(myDomWindow.contentContainerElement.style.height)
+          .toEqual('100px')
+
+      }
+    )
+
+    it(`should append the content container element to the
+      container element`, function() {
+
+        myDomWindow.init(100, 100, 100, 100)
+        spyOn(myDomWindow.containerElement, 'appendChild')
+        myDomWindow.initContentContainer()
+        expect(myDomWindow.containerElement.appendChild)
+          .toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should set the color to white`, function() {
+      myDomWindow.init(100, 100, 100, 100)
+      myDomWindow.initContentContainer()
+      expect(myDomWindow.contentContainerElement.style.color)
+        .toEqual('rgb(255, 255, 255)')
+    })
+
 
   })
 
@@ -488,6 +619,23 @@ describe("DomWindow", function() {
 
     })
 
+    it(`should reset the content container elements dimensions`,
+    function() {
+      myDomWindow = new DomWindow(testDiv)
+      myDomWindow.init(30, 40, 50, 60)
+      myDomWindow.initHeaderBar()
+      myDomWindow.initContentContainer()
+      myDomWindow.initStretchers()
+      myDomWindow.containerElement.style.width = '345px'
+      myDomWindow.containerElement.style.height = '543px'
+      myDomWindow.callbackOnMouseUp()
+      expect(myDomWindow.contentContainerElement.style.width)
+        .toEqual('345px')
+      expect(myDomWindow.contentContainerElement.style.height)
+        .toEqual('513px')
+    }
+  )
+
   })
 
   it(`should have a attribute header bar, which gives the window
@@ -522,6 +670,49 @@ describe("DomWindow", function() {
       expect(myDomWindow.headerBar.initMovability).toHaveBeenCalled()
 
     })
+
+    it(`should move the content container element down and reduce
+      its height`, function() {
+
+        myDomWindow = new DomWindow(testDiv)
+        myDomWindow.init(30, 40, 50, 60)
+        myDomWindow.initHeaderBar()
+        expect(myDomWindow.contentContainerElement.style.height)
+          .toEqual('30px')
+        expect(myDomWindow.contentContainerElement.style.top)
+          .toEqual('30px')
+      }
+    )
+
+  })
+
+  it(`should have a function appendChild for appending html dom
+    elements to the window`, function() {
+
+      expect(myDomWindow.appendChild).toBeDefined()
+
+    }
+  )
+
+  describe("appendChild", function() {
+
+    it(`should accept html elements for appending to the
+      content container element`, function() {
+
+        myDomWindow = new DomWindow(testDiv)
+        myDomWindow.init(30, 40, 50, 60)
+        myDomWindow.initContentContainer()
+        spyOn(myDomWindow.contentContainerElement, 'appendChild')
+        let myContent = document
+          .createElementNS("http://www.w3.org/1999/xhtml", 'div')
+
+        myDomWindow.appendChild(myContent)
+
+        expect(myDomWindow.contentContainerElement.appendChild)
+          .toHaveBeenCalledWith(myContent)
+
+      }
+    )
 
   })
 

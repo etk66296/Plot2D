@@ -63,6 +63,14 @@ describe("DomHeaderBar", function() {
     }
   )
 
+  it(`should have a attribute which holds the default height of
+    the header bar`, function() {
+
+      expect(myDomHeaderBar.defaultHeight).toEqual(0)
+
+    }
+  )
+
   describe("callbackOnMouseDown", function() {
 
     let myEvent = {
