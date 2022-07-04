@@ -4,14 +4,16 @@ class Plot2D extends Plot2DAny {
 
     super()
 
-    this.objectTracker = null
+    this.domObjectTracker = null
+    this.plotObjectTracker = null
     this.frameCtrl = null
 
   }
 
   init() {
 
-    this.objectTracker = new ObjectTracker()
+    this.domObjectTracker = new DomObjectTracker()
+    this.plotObjectTracker = new PlotObjectTracker()
     this.frameCtrl = new FrameController()
     
   }  
