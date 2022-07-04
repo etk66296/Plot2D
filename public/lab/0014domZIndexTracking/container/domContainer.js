@@ -7,6 +7,9 @@ class DomContainer extends Container {
     this.parentElement = parentElement
     this.containerElement = null
 
+    this.zIndex = 0
+    this.updateZIndex = false
+
   }
 
   init() {
@@ -16,6 +19,12 @@ class DomContainer extends Container {
     this.parentElement.appendChild(this.containerElement)
 
 
+  }
+
+  setZIndex(index) {
+    this.zIndex = index
+    this.containerElement.style.zIndex = String(index)
+    console.log(this.id, this.containerElement.style.zIndex)
   }
   
 }

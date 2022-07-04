@@ -56,6 +56,24 @@ class DomWindow extends DomAbsolute {
   
     }
 
+    this.callbackOnMouseDown = () => {
+
+      let newZIndex = 0
+      this.domObjectTracker.any.forEach((otherDomWindow) => {
+
+        if(otherDomWindow.zIndex > newZIndex) {
+
+          newZIndex = otherDomWindow.zIndex
+
+        }
+        
+      })
+
+      this.zIndex = newZIndex + 1
+
+      this.setZIndex(this.zIndex)
+    }
+
   }
 
   initContentContainer() {
@@ -132,6 +150,8 @@ class DomWindow extends DomAbsolute {
     )
 
     document.addEventListener('mouseup', this.callbackOnMouseUp)
+    this.containerElement
+      .addEventListener('mousedown', this.callbackOnMouseDown)
 
   }
 
@@ -158,8 +178,8 @@ class DomWindow extends DomAbsolute {
 
     this.containerElement.style.borderStyle = 'solid'
     this.containerElement.style.borderWidth = '1px'
-    this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
-    this.containerElement.style.backgroundColor = 'rgb(0, 0, 0'
+    this.containerElement.style.borderColor = 'rgb(128, 0, 128)'
+    this.containerElement.style.backgroundColor = 'rgb(0, 0, 0)'
 
     this.topStretcher = new DomSingleDirBorderScaler(
       this.containerElement,

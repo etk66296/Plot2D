@@ -4,7 +4,8 @@ class Plot2DAny {
 
     this.id = -1
     
-    this.tracker = null
+    this.plotObjectTracker = null
+    this.domObjectTracker = null
 
   }
 
