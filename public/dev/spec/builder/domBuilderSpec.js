@@ -38,18 +38,40 @@ describe("DomBuilder", function() {
   it(`should have e method for creating a moveable dom window`,
     function() {
 
-      expect(myDomBuilder.produceWindow).toBeDefined()
+      expect(myDomBuilder.produceWindowOn).toBeDefined()
 
     }
   )
 
-  describe("produceWindow", function() {
+  describe("produceWindowOn", function() {
 
-    it(`should return a new domWindow instance with the passed html
+    it(`should produce a new domWindow instance with the passed html
       element`, function() {
 
-      let win = myDomBuilder.produceWindow(testDiv)
-      expect(win.parentElement).toEqual(testDiv)
+      myDomBuilder.produceWindowOn(testDiv)
+      expect(myDomBuilder.productionLine.parentElement)
+        .toEqual(testDiv)
+
+    })
+
+  })
+
+  it(`should have a function and which should return the current
+    production`, function() {
+
+      expect(myDomBuilder.and).toBeDefined()
+
+    }
+  )
+
+  describe("and", function() {
+
+    it(`should return the current product in production line`,
+      function() {
+
+      myDomBuilder.productionLine = 102
+
+      expect(myDomBuilder.and()).toEqual(myDomBuilder.productionLine)
 
     })
 

@@ -21,6 +21,8 @@
   <script src="src/core/plot2DAny.js"></script>
   <script src="src/core/plot2D.js"></script>
   <script src="src/core/objectTracker.js"></script>
+  <script src="src/core/domObjectTracker.js"></script>
+  <script src="src/core/plotObjectTracker.js"></script>
   <script src="src/core/frameController.js"></script>
 
 
@@ -53,6 +55,8 @@
   <script src="spec/core/plot2DAnySpec.js"></script>
   <script src="spec/core/plot2DSpec.js"></script>
   <script src="spec/core/objectTrackerSpec.js"></script>
+  <script src="spec/core/domObjectTrackerSpec.js"></script>
+  <script src="spec/core/plotObjectTrackerSpec.js"></script>
   <script src="spec/core/frameControllerSpec.js"></script>
 
 
@@ -82,12 +86,16 @@
 
       console.log('load')
       let testContainerElement = document.getElementById("LabContainer")
-      let testDomWindow = new DomWindow(testContainerElement)
 
-      testDomWindow.init(10, 10, 200, 100)
-      testDomWindow.initStretchers()
-      testDomWindow.initContentContainer()
-      testDomWindow.initHeaderBar()
+      let domBuilder = new DomBuilder()
+      let testDomWindow = domBuilder
+        .produceWindowOn(testContainerElement)
+        .and()
+        .assembleItWith({
+          pos: { x: 10, y: 10 },
+          dim: { w: 200, h: 100 }
+        })
+
 
       let text = `Lorem ipsum dolor sit amet, consetetur sadipscing
         elitr, sed diam nonumy eirmod tempor invidunt ut labore et

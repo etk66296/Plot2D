@@ -9,9 +9,15 @@ class DomBuilder extends Builder {
   }
 
 
-  produceWindow(parentDomElement) {
+  produceWindowOn(parentDomElement) {
 
     this.productionLine = new DomWindow(parentDomElement)
+
+    return this
+
+  }
+
+  and() {
 
     return this.productionLine
 

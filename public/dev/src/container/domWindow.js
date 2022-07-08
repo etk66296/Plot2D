@@ -208,11 +208,22 @@ class DomWindow extends DomAbsolute {
     
   }
 
-  assembleIt(cfg = { x: 100, y: 100, w: 320, h: 240 }) {
+  assembleItWith(cfg = {}) {
 
-    this.init(cfg.x, cfg.y, cfg.w, cfg.h)
 
-    console.log(this.headerBar)
+    if (!('pos' in cfg)) {
+
+      cfg.pos = { x: 100, y: 100 }
+      
+    }
+
+    if (!('dim' in cfg)) {
+
+      cfg.dim = { w: 320, h: 240 }
+      
+    }
+
+    this.init(cfg.pos.x, cfg.pos.y, cfg.dim.w, cfg.dim.h)
 
     if (!('headerBar' in cfg)) {
 
@@ -220,16 +231,16 @@ class DomWindow extends DomAbsolute {
       
     }
 
-    if (!('isStretchable' in cfg)) {
-
-      cfg.isStretchable = true
-      
-    }
-    
     if(cfg.headerBar) {
       
       this.initHeaderBar()
 
+    }
+
+    if (!('isStretchable' in cfg)) {
+
+      cfg.isStretchable = true
+      
     }
 
     if(cfg.isStretchable) {
@@ -238,7 +249,9 @@ class DomWindow extends DomAbsolute {
 
     }
 
+    this.initContentContainer()
 
+    return this
     
   }
 

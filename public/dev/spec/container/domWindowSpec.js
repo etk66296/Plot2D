@@ -299,7 +299,6 @@ describe("DomWindow", function() {
 
         myDomWindow.init(100, 100, 100, 100)
         myDomWindow.initContentContainer()
-        console.log(myDomWindow.contentContainerElement.style.height)
         expect(myDomWindow.contentContainerElement.style.position)
           .toEqual('absolute')
 
@@ -716,23 +715,22 @@ describe("DomWindow", function() {
 
   })
 
-  it(`should have a function assembleIt to initialize the window
+  it(`should have a function assembleItWith to initialize the window
     after a passed configuration`, function() {
 
-      expect(myDomWindow.assembleIt).toBeDefined()
+      expect(myDomWindow.assembleItWith).toBeDefined()
 
     }
   )
 
-  describe("assembleIt", function() {
+  describe("assembleItWith", function() {
 
     it(`should initialize the window with a default configuration by
       calling the init function`, function() {
 
         spyOn(myDomWindow, 'init')
-        spyOn(myDomWindow, 'initHeaderBar')
-        spyOn(myDomWindow, 'initStretchers')
-        myDomWindow.assembleIt()
+        spyOn(myDomWindow, 'initContentContainer')
+        myDomWindow.assembleItWith({ headerBar: false, isStretchable: false})
         expect(myDomWindow.init).toHaveBeenCalledWith(
           100, 100, 320, 240
         )
@@ -744,7 +742,7 @@ describe("DomWindow", function() {
       the corresponding configuration flag is set`, function() {
 
         spyOn(myDomWindow, 'initHeaderBar')
-        myDomWindow.assembleIt()
+        myDomWindow.assembleItWith()
         expect(myDomWindow.initHeaderBar).toHaveBeenCalled()
 
       }
@@ -752,14 +750,27 @@ describe("DomWindow", function() {
 
     it(`should call the initStrechers for initializing the window
       as a resizeable window when the corresponding flag is set`,
-        function() {
+      function() {
 
-          spyOn(myDomWindow, 'initStretchers')
-          myDomWindow.assembleIt()
-          expect(myDomWindow.initStretchers).toHaveBeenCalled()
+        spyOn(myDomWindow, 'initStretchers')
+        myDomWindow.assembleItWith()
+        expect(myDomWindow.initStretchers).toHaveBeenCalled()
 
-        }
-      )
+      }
+    )
+
+    it(`should return itself`, function() {
+      expect(myDomWindow.assembleItWith()).toEqual(myDomWindow)
+    })
+
+    it(`should call the initContentContainer`, function() {
+
+      myDomWindow = new DomWindow(testDiv)
+      spyOn(myDomWindow, 'initContentContainer')
+      myDomWindow.assembleItWith()
+      expect(myDomWindow.initContentContainer).toHaveBeenCalled()
+
+    })
 
   })
 
