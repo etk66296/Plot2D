@@ -716,4 +716,51 @@ describe("DomWindow", function() {
 
   })
 
+  it(`should have a function assembleIt to initialize the window
+    after a passed configuration`, function() {
+
+      expect(myDomWindow.assembleIt).toBeDefined()
+
+    }
+  )
+
+  describe("assembleIt", function() {
+
+    it(`should initialize the window with a default configuration by
+      calling the init function`, function() {
+
+        spyOn(myDomWindow, 'init')
+        spyOn(myDomWindow, 'initHeaderBar')
+        spyOn(myDomWindow, 'initStretchers')
+        myDomWindow.assembleIt()
+        expect(myDomWindow.init).toHaveBeenCalledWith(
+          100, 100, 320, 240
+        )
+
+      }
+    )
+
+    it(`should call the function for initializing the header bar when
+      the corresponding configuration flag is set`, function() {
+
+        spyOn(myDomWindow, 'initHeaderBar')
+        myDomWindow.assembleIt()
+        expect(myDomWindow.initHeaderBar).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should call the initStrechers for initializing the window
+      as a resizeable window when the corresponding flag is set`,
+        function() {
+
+          spyOn(myDomWindow, 'initStretchers')
+          myDomWindow.assembleIt()
+          expect(myDomWindow.initStretchers).toHaveBeenCalled()
+
+        }
+      )
+
+  })
+
 })
