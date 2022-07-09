@@ -86,8 +86,9 @@
 
       console.log('load')
       let testContainerElement = document.getElementById("LabContainer")
+      let myDomObjectTracker = new DomObjectTracker()
 
-      let domBuilder = new DomBuilder()
+      let domBuilder = new DomBuilder(myDomObjectTracker)
       let testDomWindow = domBuilder
         .produceWindowOn(testContainerElement)
         .and()

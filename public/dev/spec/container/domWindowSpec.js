@@ -262,8 +262,26 @@ describe("DomWindow", function() {
           .contentContainerElement
           .__proto__.constructor.name).toEqual("HTMLDivElement")
 
-    }
-  )
+    })
+
+    it(`should add the mouse down event listener with the
+      callbackOnMouseDown to the containerElement`, function() {
+        spyOn(DomAbsolute.prototype, 'init')
+        myDomWindow.containerElement = {
+          addEventListener: () => {},
+          style: {
+
+          }
+        }
+        spyOn(myDomWindow.containerElement, 'addEventListener')
+        myDomWindow.init()
+        expect(myDomWindow.containerElement.addEventListener)
+          .toHaveBeenCalledWith(
+            'mousedown',
+            myDomWindow.callbackOnMouseDown
+          )
+      }
+    )
 
   })
 
@@ -780,6 +798,48 @@ describe("DomWindow", function() {
       expect(myDomWindow.initContentContainer).toHaveBeenCalled()
 
     })
+
+  })
+
+  it("should have a function callbackOnMouseDown", function() {
+
+    expect(myDomWindow.callbackOnMouseDown)
+      .toEqual(jasmine.any(Function))
+
+  })
+
+  describe("callbackOnMouseDown", function() {
+
+    it(`should loop trough the any list via the reference to the
+      domObjectTracker and set the domWindows zIndex to the greqatest
+      found value`, function() {
+
+        let anyList = [
+          { zIndex: 2 },
+          { zIndex: 1 },
+          { zIndex: 3 },
+          { zIndex: 0 },
+          { zIndex: 0 },
+          { zIndex: 4 }
+        ]
+
+        let myDummyObjectTracker = {
+          any: anyList
+        }
+
+        myDomWindow.domObjectTracker = myDummyObjectTracker
+
+        myDomWindow.containerElement = {
+          style: { zIndex: "" }
+        }
+
+        myDomWindow.callbackOnMouseDown()
+
+        expect(myDomWindow.zIndex).toEqual(5)
+        expect(myDomWindow.containerElement.style.zIndex).toEqual('5')
+
+      }
+    )
 
   })
 

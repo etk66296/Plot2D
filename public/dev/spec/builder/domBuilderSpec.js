@@ -1,9 +1,16 @@
 describe("DomBuilder", function() {
   var myDomBuilder
+  var myDomObjectTracker
 
   beforeEach(function() {
 
-    myDomBuilder = new DomBuilder()
+    myDomObjectTracker =  {
+      zIndexCounter:  0,
+      add: () => {
+    
+      }
+    }
+    myDomBuilder = new DomBuilder(myDomObjectTracker)
 
   })
 
@@ -64,6 +71,17 @@ describe("DomBuilder", function() {
         .toEqual(testDiv)
 
     })
+
+    it(`should add the production to the domObjectTracker`,
+      function() {
+
+        spyOn(myDomBuilder.domObjectTracker, 'add')
+        myDomBuilder.produceWindowOn(testDiv)
+        expect(myDomBuilder.domObjectTracker.add)
+          .toHaveBeenCalled()
+
+      }
+    )
 
   })
 
