@@ -23,6 +23,12 @@ describe("DomContainer", function() {
     }
   )
 
+  it(`should have an attribute zIndex initialized to 0`, function() {
+
+    expect(myDomContainer.zIndex).toEqual(0)
+
+  })
+
   it(`should have an attribute for the reference to the own html
     element and it should be initialized with the null
     reference`, function() {
@@ -81,6 +87,42 @@ describe("DomContainer", function() {
         myDomContainer.init('div')
         expect(myDomContainer.parentElement.appendChild)
           .toHaveBeenCalledWith(myDomContainer.containerElement)
+
+      }
+    )
+
+  })
+
+  it(`should have a function setZIndex`, function() {
+
+    expect(myDomContainer.setZIndex).toBeDefined()
+
+  })
+
+  describe(`setZIndex`, function() {
+
+    it(`should set the memeber zIndex to the argumet value`,
+      function() {
+
+        myDomContainer.containerElement  = {
+          style: {zIndex: ''}
+        }
+        myDomContainer.setZIndex(99)
+        expect(myDomContainer.zIndex).toEqual(99)
+
+
+      }
+    )
+
+    it(`shoudl set the style api to the new z index value`,
+      function() {
+
+        myDomContainer.containerElement  = {
+          style: {zIndex: ''}
+        }
+        myDomContainer.setZIndex(100)
+        expect(myDomContainer.containerElement.style.zIndex)
+          .toEqual('100')
 
       }
     )

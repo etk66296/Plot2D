@@ -51,6 +51,15 @@ describe("DomWindow", function() {
     }
   )
 
+  it(`should have an attribute domObjectTracker, which is set to null
+    when the object ist added to a tracker a reference to the tracker
+    ist set`, function() {
+
+      expect(myDomWindow.domObjectTracker).toEqual(null)
+
+    }
+  )
+
   it("should have an attribute for defining the background color",
     function() {
 

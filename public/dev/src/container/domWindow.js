@@ -4,6 +4,8 @@ class DomWindow extends DomAbsolute {
 
     super(parentElement)
 
+    this.domObjectTracker = null
+
     this.bgC = 'rgb(255, 255, 255)'
 
     this.topStretcher = null

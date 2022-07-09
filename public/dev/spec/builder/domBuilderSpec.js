@@ -35,6 +35,17 @@ describe("DomBuilder", function() {
 
   })
 
+  it(`should have a member domObjectTracker instance, which should
+    be passed as the first constructor argument`, function() {
+
+      let myDummyObjectTracker = { object: 'tracker' }
+      let myTestBuilder = new DomBuilder(myDummyObjectTracker)
+      expect(myTestBuilder.domObjectTracker)
+        .toEqual(myDummyObjectTracker)
+
+    }
+  )
+
   it(`should have e method for creating a moveable dom window`,
     function() {
 

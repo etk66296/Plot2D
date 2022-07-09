@@ -1,10 +1,11 @@
 class DomBuilder extends Builder {
   
-  constructor() {
+  constructor(domObjectTracker) {
 
     super()
 
     this.productionLine
+    this.domObjectTracker = domObjectTracker
 
   }
 
