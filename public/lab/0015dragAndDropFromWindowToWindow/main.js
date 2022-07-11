@@ -6,8 +6,8 @@ let init = (parentHtmlElement) => {
     .produceWindowOn(parentHtmlElement)
     .and()
     .assembleItWith({
-      pos: { x: 10, y: 10 },
-      dim: { w: 200, h: 100 }
+      pos: { x: 10, y: 200 },
+      dim: { w: 800, h: 600 }
     })
 
 
@@ -15,9 +15,26 @@ let init = (parentHtmlElement) => {
     .produceWindowOn(parentHtmlElement)
     .and()
     .assembleItWith({
-      pos: { x: 500, y: 10 },
-      dim: { w: 200, h: 100 }
+      pos: { x: 900, y: 200 },
+      dim: { w: 800, h: 600 }
     })
+
+
+  let plotMonster = new Image()
+
+  let monster = document.createElementNS(
+    "http://www.w3.org/1999/xhtml",
+    "img"
+  )
+
+  monster.src = "static/monsterSkeleton.png"
+
+  monster.style.width = String(monster.width * 1.5) + 'px'
+  monster.style.position = 'absolute'
+  monster.style.left = '100px'
+  monster.style.top = '100px'
+
+  myFirstWindow.appendChild(monster)
 
   // let manyWindows = []
   // for(let i = 0; i < 40; i++) {

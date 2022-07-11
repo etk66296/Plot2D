@@ -180,7 +180,7 @@ class DomWindow extends DomAbsolute {
     this.containerElement.style.borderStyle = 'solid'
     this.containerElement.style.borderWidth = '1px'
     this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
-    this.containerElement.style.backgroundColor = 'rgb(0, 0, 0'
+    this.containerElement.style.backgroundColor = 'rgb(117, 55, 114)'
 
     this.topStretcher = new DomSingleDirBorderScaler(
       this.containerElement,
@@ -249,18 +249,6 @@ class DomWindow extends DomAbsolute {
 
     this.init(cfg.pos.x, cfg.pos.y, cfg.dim.w, cfg.dim.h)
 
-    if (!('headerBar' in cfg)) {
-
-      cfg.headerBar = true
-      
-    }
-
-    if(cfg.headerBar) {
-      
-      this.initHeaderBar()
-
-    }
-
     if (!('isStretchable' in cfg)) {
 
       cfg.isStretchable = true
@@ -274,6 +262,20 @@ class DomWindow extends DomAbsolute {
     }
 
     this.initContentContainer()
+
+
+    if (!('headerBar' in cfg)) {
+
+      cfg.headerBar = true
+      
+    }
+
+    if(cfg.headerBar) {
+      
+      this.initHeaderBar()
+
+    }
+
 
     return this
     

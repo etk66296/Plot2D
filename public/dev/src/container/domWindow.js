@@ -249,18 +249,6 @@ class DomWindow extends DomAbsolute {
 
     this.init(cfg.pos.x, cfg.pos.y, cfg.dim.w, cfg.dim.h)
 
-    if (!('headerBar' in cfg)) {
-
-      cfg.headerBar = true
-      
-    }
-
-    if(cfg.headerBar) {
-      
-      this.initHeaderBar()
-
-    }
-
     if (!('isStretchable' in cfg)) {
 
       cfg.isStretchable = true
@@ -274,6 +262,20 @@ class DomWindow extends DomAbsolute {
     }
 
     this.initContentContainer()
+
+
+    if (!('headerBar' in cfg)) {
+
+      cfg.headerBar = true
+      
+    }
+
+    if(cfg.headerBar) {
+      
+      this.initHeaderBar()
+
+    }
+
 
     return this
     
