@@ -1,9 +1,11 @@
-class Image extends Draft {
+class DomStage extends Stage {
   
   constructor() {
 
     super()
 
   }
+
+  
   
 }

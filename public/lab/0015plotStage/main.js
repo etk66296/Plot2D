@@ -20,22 +20,70 @@ let init = (parentHtmlElement) => {
     })
 
 
-  let plotMonster = new Image()
+  let frameController = new FrameController()
 
-  let monster = document.createElementNS(
-    "http://www.w3.org/1999/xhtml",
-    "img"
-  )
+  let monsterImage = new Image()
+  
+  monsterImage.src = "static/monsterSkeleton.png"
 
-  monster.src = "static/monsterSkeleton.png"
+  monsterImage.onload = () => {
 
-  monster.style.width = String(monster.width * 1.5) + 'px'
-  monster.style.position = 'absolute'
-  monster.style.left = '100px'
-  monster.style.top = '100px'
+    let monster = new PixelSurface(monsterImage)
+    let myStage = new DomStage()
 
-  myFirstWindow.appendChild(monster)
+    myStage.admit(monster)
 
+    myFirstWindow.appendStage(myStage)
+    frameController.addStage(myStage)
+    frameController.go()
+
+  }
+
+  // let monster = document.createElementNS(
+  //   "http://www.w3.org/1999/xhtml",
+  //   "img"
+  // )
+
+
+  // let myDomStage = new DomStage()
+  
+  // monster.src = "static/monsterSkeleton.png"
+
+  // monster.onload = () => {
+
+  //   monster.style.width = String(monster.width * 1.5) + 'px'
+  //   monster.style.position = 'absolute'
+  //   monster.style.left = '100px'
+  //   monster.style.top = '100px'
+  //   myDomStage.admit(monster)
+  //   myFirstWindow.appendStage(myDomStage)
+
+  //   frameController.addStage(myDomStage)
+  //   frameController.go()
+
+    
+  // }
+
+
+  // setTimeout(()=>{
+    
+  //   console.log("but now")
+
+  // }, 1000)
+
+  // if (monster.complete) {
+  //   console.log("already loaded")
+  //   myFirstWindow.appendChild(monster)
+  // } else {
+  //   console.log("not loaded yet")
+  //   monster.addEventListener('load', () => {
+  //     console.log("but now")
+  //     setTimeout(()=>{myFirstWindow.appendChild(monster)}, 1000)
+  //   })
+  //   monster.addEventListener('error', function() {
+  //       alert('error')
+  //   })
+  // }
   // let manyWindows = []
   // for(let i = 0; i < 40; i++) {
   //   for(let j = 0; j < 17; j++) {

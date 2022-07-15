@@ -287,5 +287,21 @@ class DomWindow extends DomAbsolute {
     this.contentContainerElement.appendChild(element)
 
   }
+
+  appendStage(stage) {
+
+    stage.members.forEach(member => {
+      
+      member.renderSurface = this.contentContainerElement
+
+      console.log(member.renderSurface)
+
+      this.contentContainerElement.appendChild(member
+        .getDomCompatible()
+      )
+
+    })
+
+  }
   
 }

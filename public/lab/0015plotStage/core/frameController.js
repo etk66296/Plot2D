@@ -20,16 +20,22 @@ class FrameController extends Plot2DAny {
     
   }
 
+  addStage(stage) {
+
+    this.stages.push(stage)
+
+  }
+
   go() {
 
     if(!this.stop) {
 
       this.frameBeginTimeMs = performance.now()
 
-      this.stages.forEach((scene) => {
+      this.stages.forEach((stage) => {
 
-        scene.update()
-        scene.draw()
+        stage.update()
+        stage.draw()
 
       })
 

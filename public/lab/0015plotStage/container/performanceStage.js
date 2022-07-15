@@ -1,4 +1,4 @@
-class Stage extends Container {
+class PerformanceStage extends Stage {
   
   constructor() {
 
