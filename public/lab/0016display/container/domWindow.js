@@ -76,12 +76,16 @@ class DomWindow extends DomAbsolute {
 
   }
 
-  initDisplay(diplayType) {
+  initDisplay(displayType) {
 
-    if(diplayType === 'performance') {
+    if(displayType === 'performance') {
       
       this.display = new PerformanceDisplay(this.containerElement)
       
+    } else if(displayType === 'performance2D') {
+      
+      this.display = new Display2D(this.containerElement)
+
     } else {
       
       this.display = new StandardDisplay(this.containerElement)
@@ -258,15 +262,15 @@ class DomWindow extends DomAbsolute {
 
     }
 
-    let diplayType = 'standard'
+    let displayType = 'standard'
 
-    if (!('displayType' in cfg)) {
+    if ('displayType' in cfg) {
 
-      diplayType = cfg.displayType
+      displayType = cfg.displayType
       
     }
     
-    this.initDisplay(diplayType)
+    this.initDisplay(displayType)
 
     if (('headerBar' in cfg)) {
 

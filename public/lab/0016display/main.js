@@ -18,10 +18,10 @@ let init = (parentHtmlElement) => {
     .assembleItWith({
       pos: { x: 900, y: 200 },
       dim: { w: 800, h: 600 },
-      headerBar: true
+      headerBar: true,
+      displayType: 'performance2D'
     })
-
-  
+    
     
   let testDiv =
     document.createElementNS("http://www.w3.org/1999/xhtml", 'div')
@@ -34,6 +34,8 @@ let init = (parentHtmlElement) => {
   TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST`
 
   myFirstWindow.appendChild(testDiv)
+
+  mySecondWindow.appendChild('')
 
 
 }
