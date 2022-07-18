@@ -20,7 +20,8 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = null
 
-    this.contentContainerElement = null
+    this.display = null
+    // this.contentContainerElement = null
 
     this.rigid = false
 
@@ -49,12 +50,12 @@ class DomWindow extends DomAbsolute {
       this.bottomLeftStretcher
         .setY(this.containerElement.clientHeight)
 
-      this.contentContainerElement.style.width = 
-        this.containerElement.style.width
+      // this.contentContainerElement.style.width = 
+      //   this.containerElement.style.width
 
-      this.contentContainerElement.style.height =
-        String(this.containerElement.clientHeight -
-          this.headerBar.defaultHeight) + 'px'
+      // this.contentContainerElement.style.height =
+      //   String(this.containerElement.clientHeight -
+      //     this.headerBar.defaultHeight) + 'px'
   
     }
 
@@ -81,14 +82,14 @@ class DomWindow extends DomAbsolute {
 
   initContentContainer() {
 
-    this.contentContainerElement.style.overflow = 'scroll'
-    this.contentContainerElement.style.position = 'absolute'
-    this.contentContainerElement.style.color = 'rgb(255, 255, 255)'
-    this.contentContainerElement.style.width = 
-      this.containerElement.style.width
-    this.contentContainerElement.style.height =
-      this.containerElement.style.height
-    this.containerElement.appendChild(this.contentContainerElement)
+    // this.contentContainerElement.style.overflow = 'scroll'
+    // this.contentContainerElement.style.position = 'absolute'
+    // this.contentContainerElement.style.color = 'rgb(255, 255, 255)'
+    // this.contentContainerElement.style.width = 
+    //   this.containerElement.style.width
+    // this.contentContainerElement.style.height =
+    //   this.containerElement.style.height
+    // this.containerElement.appendChild(this.contentContainerElement)
 
 
   }
@@ -161,10 +162,10 @@ class DomWindow extends DomAbsolute {
     this.headerBar.init()
     this.headerBar.initMovability()
 
-    this.contentContainerElement.style.height =
-      String(this.containerElement.clientHeight - 30)  + 'px'
+    // this.contentContainerElement.style.height =
+    //   String(this.containerElement.clientHeight - 30)  + 'px'
 
-    this.contentContainerElement.style.top = '30px'
+    // this.contentContainerElement.style.top = '30px'
 
   }
 
@@ -224,7 +225,7 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = new DomHeaderBar(this.containerElement)
 
-    this.contentContainerElement = this.createHtmlElement("div")
+    // this.contentContainerElement = this.createHtmlElement("div")
 
     this.containerElement
       .addEventListener('mousedown', this.callbackOnMouseDown)
@@ -284,7 +285,7 @@ class DomWindow extends DomAbsolute {
 
   appendChild(element) {
 
-    this.contentContainerElement.appendChild(element)
+    // this.contentContainerElement.appendChild(element)
 
   }
   

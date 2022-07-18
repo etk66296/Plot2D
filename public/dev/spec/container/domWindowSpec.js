@@ -92,11 +92,9 @@ describe("DomWindow", function() {
     }
   )
 
-  it(`should have a attribute contentContainerElement, which should
-    be the parent element for all contents the window should
-    show to the user`, function() {
+  it(`should have a attribute display`, function() {
 
-      expect(myDomWindow.contentContainerElement).toBeDefined()
+      expect(myDomWindow.display).toBeDefined()
 
     }
   )
@@ -254,15 +252,15 @@ describe("DomWindow", function() {
         .toEqual('DomHeaderBar')
     })
 
-    it(`should create a dom div element and save the reference to the
-    attribute contentContainerElement`, function() {
+    // it(`should create a dom div element and save the reference to the
+    // attribute contentContainerElement`, function() {
 
-      myDomWindow.init(20, 30, 50, 70)
-      expect(myDomWindow
-          .contentContainerElement
-          .__proto__.constructor.name).toEqual("HTMLDivElement")
+    //   myDomWindow.init(20, 30, 50, 70)
+    //   expect(myDomWindow
+    //       .contentContainerElement
+    //       .__proto__.constructor.name).toEqual("HTMLDivElement")
 
-    })
+    // })
 
     it(`should add the mouse down event listener with the
       callbackOnMouseDown to the containerElement`, function() {
@@ -293,78 +291,78 @@ describe("DomWindow", function() {
     }
   )
 
-  describe("initContentContainer", function() {
+  // describe("initContentContainer", function() {
 
    
 
-    it(`should set the style of the contentContainer to scroll`,
-      function() {
+    // it(`should set the style of the contentContainer to scroll`,
+    //   function() {
 
-        myDomWindow.init(100, 100, 100, 100)
-        myDomWindow.initContentContainer()
-        expect(myDomWindow.contentContainerElement.style.overflow)
-          .toEqual('scroll')
+    //     myDomWindow.init(100, 100, 100, 100)
+    //     myDomWindow.initContentContainer()
+    //     expect(myDomWindow.contentContainerElement.style.overflow)
+    //       .toEqual('scroll')
             
 
-      }
-    )
+    //   }
+    // )
 
-    it(`should set the style width of the contentContainer to
-      the same with as the container Element`,
-      function() {
+    // it(`should set the style width of the contentContainer to
+    //   the same with as the container Element`,
+    //   function() {
         
-        myDomWindow.init(100, 100, 100, 100)
-        myDomWindow.initContentContainer()
-        expect(myDomWindow.contentContainerElement.style.width)
-          .toEqual(myDomWindow.containerElement.style.width)
+    //     myDomWindow.init(100, 100, 100, 100)
+    //     myDomWindow.initContentContainer()
+    //     expect(myDomWindow.contentContainerElement.style.width)
+    //       .toEqual(myDomWindow.containerElement.style.width)
             
 
-      }
-    )
-    it(`should set the position style attribute to absolute`,
-      function() {
+    //   }
+    // )
+    // it(`should set the position style attribute to absolute`,
+    //   function() {
 
-        myDomWindow.init(100, 100, 100, 100)
-        myDomWindow.initContentContainer()
-        expect(myDomWindow.contentContainerElement.style.position)
-          .toEqual('absolute')
+    //     myDomWindow.init(100, 100, 100, 100)
+    //     myDomWindow.initContentContainer()
+    //     expect(myDomWindow.contentContainerElement.style.position)
+    //       .toEqual('absolute')
 
-      }
-    )
+    //   }
+    // )
 
-    it(`should set the height of the content container. The height
-      should be the container elements height minus the default
-      header bar height of 30`, function() {
+    // it(`should set the height of the content container. The height
+    //   should be the container elements height minus the default
+    //   header bar height of 30`, function() {
 
-        myDomWindow.init(100, 100, 100, 100)
-        myDomWindow.initContentContainer()
-        expect(myDomWindow.contentContainerElement.style.height)
-          .toEqual('100px')
+    //     myDomWindow.init(100, 100, 100, 100)
+    //     myDomWindow.initContentContainer()
+    //     expect(myDomWindow.contentContainerElement.style.height)
+    //       .toEqual('100px')
 
-      }
-    )
+    //   }
+    // )
 
-    it(`should append the content container element to the
-      container element`, function() {
+    // it(`should append the content container element to the
+    //   container element`, function() {
 
-        myDomWindow.init(100, 100, 100, 100)
-        spyOn(myDomWindow.containerElement, 'appendChild')
-        myDomWindow.initContentContainer()
-        expect(myDomWindow.containerElement.appendChild)
-          .toHaveBeenCalled()
+    //     myDomWindow.init(100, 100, 100, 100)
+    //     spyOn(myDomWindow.containerElement, 'appendChild')
+    //     myDomWindow.initContentContainer()
+    //     expect(myDomWindow.containerElement.appendChild)
+    //       .toHaveBeenCalled()
 
-      }
-    )
+    //   }
+    // )
 
-    it(`should set the color to white`, function() {
-      myDomWindow.init(100, 100, 100, 100)
-      myDomWindow.initContentContainer()
-      expect(myDomWindow.contentContainerElement.style.color)
-        .toEqual('rgb(255, 255, 255)')
-    })
+    // it(`should set the color to white`, function() {
+    //   myDomWindow.init(100, 100, 100, 100)
+    //   myDomWindow.initContentContainer()
+    //   expect(myDomWindow.contentContainerElement.style.color)
+    //     .toEqual('rgb(255, 255, 255)')
+    // })
 
 
-  })
+  // })
 
   it(`should have a function for initializing the border stretchers`,
     function() {
@@ -645,22 +643,22 @@ describe("DomWindow", function() {
 
     })
 
-    it(`should reset the content container elements dimensions`,
-    function() {
-      myDomWindow = new DomWindow(testDiv)
-      myDomWindow.init(30, 40, 50, 60)
-      myDomWindow.initHeaderBar()
-      myDomWindow.initContentContainer()
-      myDomWindow.initStretchers()
-      myDomWindow.containerElement.style.width = '345px'
-      myDomWindow.containerElement.style.height = '543px'
-      myDomWindow.callbackOnMouseUp()
-      expect(myDomWindow.contentContainerElement.style.width)
-        .toEqual('345px')
-      expect(myDomWindow.contentContainerElement.style.height)
-        .toEqual('513px')
-    }
-  )
+    // it(`should reset the content container elements dimensions`,
+    // function() {
+    //   myDomWindow = new DomWindow(testDiv)
+    //   myDomWindow.init(30, 40, 50, 60)
+    //   myDomWindow.initHeaderBar()
+    //   myDomWindow.initContentContainer()
+    //   myDomWindow.initStretchers()
+    //   myDomWindow.containerElement.style.width = '345px'
+    //   myDomWindow.containerElement.style.height = '543px'
+    //   myDomWindow.callbackOnMouseUp()
+    //   expect(myDomWindow.contentContainerElement.style.width)
+    //     .toEqual('345px')
+    //   expect(myDomWindow.contentContainerElement.style.height)
+    //     .toEqual('513px')
+    // }
+  // )
 
   })
 
@@ -697,18 +695,18 @@ describe("DomWindow", function() {
 
     })
 
-    it(`should move the content container element down and reduce
-      its height`, function() {
+    // it(`should move the content container element down and reduce
+    //   its height`, function() {
 
-        myDomWindow = new DomWindow(testDiv)
-        myDomWindow.init(30, 40, 50, 60)
-        myDomWindow.initHeaderBar()
-        expect(myDomWindow.contentContainerElement.style.height)
-          .toEqual('30px')
-        expect(myDomWindow.contentContainerElement.style.top)
-          .toEqual('30px')
-      }
-    )
+    //     myDomWindow = new DomWindow(testDiv)
+    //     myDomWindow.init(30, 40, 50, 60)
+    //     myDomWindow.initHeaderBar()
+    //     expect(myDomWindow.contentContainerElement.style.height)
+    //       .toEqual('30px')
+    //     expect(myDomWindow.contentContainerElement.style.top)
+    //       .toEqual('30px')
+    //   }
+    // )
 
   })
 
@@ -720,27 +718,27 @@ describe("DomWindow", function() {
     }
   )
 
-  describe("appendChild", function() {
+  // describe("appendChild", function() {
 
-    it(`should accept html elements for appending to the
-      content container element`, function() {
+    // it(`should accept html elements for appending to the
+    //   content container element`, function() {
 
-        myDomWindow = new DomWindow(testDiv)
-        myDomWindow.init(30, 40, 50, 60)
-        myDomWindow.initContentContainer()
-        spyOn(myDomWindow.contentContainerElement, 'appendChild')
-        let myContent = document
-          .createElementNS("http://www.w3.org/1999/xhtml", 'div')
+    //     myDomWindow = new DomWindow(testDiv)
+    //     myDomWindow.init(30, 40, 50, 60)
+    //     myDomWindow.initContentContainer()
+    //     spyOn(myDomWindow.contentContainerElement, 'appendChild')
+    //     let myContent = document
+    //       .createElementNS("http://www.w3.org/1999/xhtml", 'div')
 
-        myDomWindow.appendChild(myContent)
+    //     myDomWindow.appendChild(myContent)
 
-        expect(myDomWindow.contentContainerElement.appendChild)
-          .toHaveBeenCalledWith(myContent)
+    //     expect(myDomWindow.contentContainerElement.appendChild)
+    //       .toHaveBeenCalledWith(myContent)
 
-      }
-    )
+    //   }
+    // )
 
-  })
+  // })
 
   it(`should have a function assembleItWith to initialize the window
     after a passed configuration`, function() {

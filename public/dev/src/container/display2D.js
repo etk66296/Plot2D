@@ -1,4 +1,4 @@
-class Display extends Container {
+class Display2D extends PerformanceDisplay {
   
   constructor() {
 

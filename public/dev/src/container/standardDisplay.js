@@ -1,4 +1,4 @@
-class PerformanceDisplay extends Display {
+class StandardDisplay extends Display {
   
   constructor() {
 

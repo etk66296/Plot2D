@@ -1,9 +1,9 @@
-describe("PerformanceDisplay", function() {
+describe("StandardDisplay", function() {
   var myPerformanceDisplay
 
   beforeEach(function() {
 
-    myPerformanceDisplay = new PerformanceDisplay()
+    myPerformanceDisplay = new StandardDisplay()
 
   })
 

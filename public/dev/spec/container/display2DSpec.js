@@ -1,16 +1,16 @@
-describe("Display", function() {
+describe("Display2D", function() {
   var myDisplay
 
   beforeEach(function() {
 
-    myDisplay = new Display()
+    myDisplay = new Display2D()
 
   })
 
-  it("should extend Container", function() {
+  it("should extend PerformanceDisplay", function() {
 
     expect(myDisplay.__proto__.__proto__.constructor.name)
-      .toEqual('Container')
+      .toEqual('PerformanceDisplay')
 
   })
 
