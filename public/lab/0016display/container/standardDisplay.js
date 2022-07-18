@@ -1,8 +1,21 @@
 class StandardDisplay extends Display {
   
-  constructor() {
+  constructor(parentElement) {
 
-    super()
+    super(parentElement)
+
+  }
+
+  init() {
+
+    super.init()
+    
+    
+  }
+
+  appendChild(element) {
+
+    this.containerElement.appendChild(element)
 
   }
   

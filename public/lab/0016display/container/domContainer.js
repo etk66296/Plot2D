@@ -9,11 +9,13 @@ class DomContainer extends Container {
 
     this.zIndex = 0
 
+    this.elementType = 'div'
+
   }
 
   init() {
 
-    this.containerElement = this.createHtmlElement('div')
+    this.containerElement = this.createHtmlElement(this.elementType)
 
     this.parentElement.appendChild(this.containerElement)
 

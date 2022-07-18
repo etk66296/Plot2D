@@ -20,6 +20,8 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = null
 
+    this.display = null
+
     // this.contentContainerElement = null
 
     this.rigid = false
@@ -49,12 +51,7 @@ class DomWindow extends DomAbsolute {
       this.bottomLeftStretcher
         .setY(this.containerElement.clientHeight)
 
-      // this.contentContainerElement.style.width = 
-      //   this.containerElement.style.width
-
-      // this.contentContainerElement.style.height =
-      //   String(this.containerElement.clientHeight -
-      //     this.headerBar.defaultHeight) + 'px'
+      this.display.resize(this.headerBar.defaultHeight)
   
     }
 
@@ -79,17 +76,19 @@ class DomWindow extends DomAbsolute {
 
   }
 
-  initDisplay() {
+  initDisplay(diplayType) {
 
-    // this.contentContainerElement.style.overflow = 'scroll'
-    // this.contentContainerElement.style.position = 'absolute'
-    // this.contentContainerElement.style.color = 'rgb(255, 255, 255)'
-    // this.contentContainerElement.style.width = 
-    //   this.containerElement.style.width
-    // this.contentContainerElement.style.height =
-    //   this.containerElement.style.height
-    // this.containerElement.appendChild(this.contentContainerElement)
+    if(diplayType === 'performance') {
+      
+      this.display = new PerformanceDisplay(this.containerElement)
+      
+    } else {
+      
+      this.display = new StandardDisplay(this.containerElement)
 
+    }
+
+    this.display.init()
 
   }
 
@@ -161,10 +160,10 @@ class DomWindow extends DomAbsolute {
     this.headerBar.init()
     this.headerBar.initMovability()
 
-    // this.contentContainerElement.style.height =
-    //   String(this.containerElement.clientHeight - 30)  + 'px'
+    this.display.containerElement.style.height =
+      String(this.containerElement.clientHeight - 30)  + 'px'
 
-    // this.contentContainerElement.style.top = '30px'
+    this.display.containerElement.style.top = '30px'
 
   }
 
@@ -224,8 +223,6 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = new DomHeaderBar(this.containerElement)
 
-    // this.contentContainerElement = this.createHtmlElement("div")
-
     this.containerElement
       .addEventListener('mousedown', this.callbackOnMouseDown)
 
@@ -261,20 +258,27 @@ class DomWindow extends DomAbsolute {
 
     }
 
-    this.initDisplay()
+    let diplayType = 'standard'
 
+    if (!('displayType' in cfg)) {
 
-    if (!('headerBar' in cfg)) {
-
-      cfg.headerBar = true
+      diplayType = cfg.displayType
       
     }
+    
+    this.initDisplay(diplayType)
 
-    if(cfg.headerBar) {
-      
-      this.initHeaderBar()
+    if (('headerBar' in cfg)) {
+
+      if(cfg.headerBar == true) {
+
+        this.initHeaderBar()
+
+      }
 
     }
+
+
 
 
     return this
@@ -284,7 +288,7 @@ class DomWindow extends DomAbsolute {
 
   appendChild(element) {
 
-    // this.contentContainerElement.appendChild(element)
+    this.display.appendChild(element)
 
   }
   
