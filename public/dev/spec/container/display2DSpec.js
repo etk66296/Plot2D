@@ -1,17 +1,53 @@
 describe("Display2D", function() {
-  var myDisplay
+  var myDisplay2D
+  var testDiv
+  var testContainer
 
   beforeEach(function() {
 
-    myDisplay = new Display2D()
+    myDisplay2D = new Display2D(testDiv)
 
+  })
+
+  beforeAll(function() {
+
+    testContainer = document.getElementById('TestContainer')
+    testDiv = document.createElementNS(
+      "http://www.w3.org/1999/xhtml", 'div'
+    )
+
+    testContainer.appendChild(testDiv)
+
+  })
+
+  afterAll(function() {
+    testContainer.removeChild(testDiv)
+    testDiv.remove()
+    testContainer.style.height = '0px'
   })
 
   it("should extend PerformanceDisplay", function() {
 
-    expect(myDisplay.__proto__.__proto__.constructor.name)
+    expect(myDisplay2D.__proto__.__proto__.constructor.name)
       .toEqual('PerformanceDisplay')
 
   })
+
+  describe("init", function() {
+
+    it("should request a context 2d from the canvas container",
+      function() {
+
+        myDisplay2D.init()
+
+        console.log(myDisplay2D.elementType)
+
+        // expect(myDisplay2D.context)
+      }
+    )
+
+  })
+
+  
 
 })

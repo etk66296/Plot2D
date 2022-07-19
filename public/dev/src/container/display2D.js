@@ -1,8 +1,16 @@
 class Display2D extends PerformanceDisplay {
   
-  constructor() {
+  constructor(parentElement) {
 
-    super()
+    super(parentElement)
+
+  }
+
+  init() {
+
+    super.init()
+
+    // this.context = this.containerElement.getContext('2d')
 
   }
   

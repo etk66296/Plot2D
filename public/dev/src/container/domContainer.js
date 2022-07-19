@@ -7,6 +7,8 @@ class DomContainer extends Container {
     this.parentElement = parentElement
     this.containerElement = null
 
+    this.elementType = 'div'
+
     this.zIndex = 0
 
   }

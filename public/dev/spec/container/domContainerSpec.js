@@ -129,6 +129,15 @@ describe("DomContainer", function() {
 
   })
 
+  it(`should have an attribute elementType, which holds the name of
+    the container element that sould be created by the
+    initialization`, function() {
+
+      expect(myDomContainer.elementType).toEqual('div')
+
+    }
+  )
+
 
 
 

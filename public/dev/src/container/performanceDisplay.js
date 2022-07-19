@@ -1,9 +1,19 @@
 class PerformanceDisplay extends Display {
   
-  constructor() {
+  constructor(parentElement) {
 
-    super()
+    super(parentElement)
 
+    this.elementType = 'canvas'
+
+    this.context = null
+
+
+  }
+
+  init() {
+
+    super.init()
 
   }
   

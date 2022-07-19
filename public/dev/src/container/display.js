@@ -11,7 +11,23 @@ class Display extends DomContainer {
     super.init()
 
     this.containerElement.style.position = 'absolute'
-    this.containerElement.style.overflow = 'scroll'
+
+    this.containerElement.style.width =
+      this.parentElement.style.width
+
+    this.containerElement.style.height =
+      this.parentElement.style.height
+
+  }
+
+  alignToParentSize(offsetFromTop = 0) {
+
+    this.containerElement.style.width =
+      this.parentElement.style.width
+
+    this.containerElement.style.height =
+      String(this.parentElement.clientHeight - 
+          offsetFromTop) + 'px'
 
   }
   

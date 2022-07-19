@@ -1,10 +1,24 @@
 class StandardDisplay extends Display {
   
-  constructor() {
+  constructor(parentElement) {
 
-    super()
+    super(parentElement)
 
 
+  }
+
+  init() {
+
+    super.init()
+
+    this.containerElement.style.overflow = 'scroll'
+
+  }
+
+  appendChild(element) {
+
+    this.containerElement.appendChild(element)
+    
   }
   
 }

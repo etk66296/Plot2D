@@ -8,7 +8,7 @@ let init = (parentHtmlElement) => {
     .assembleItWith({
       pos: { x: 10, y: 200 },
       dim: { w: 100, h: 100 },
-      headerBar: false
+      headerBar: true
     })
 
 
