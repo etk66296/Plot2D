@@ -1,6 +1,6 @@
 class DomWindow extends DomAbsolute {
   
-  constructor(parentElement = null) {
+  constructor(parentElement = null, displayType = 'standard') {
 
     super(parentElement)
 
@@ -20,6 +20,7 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = null
 
+    this.displayType = displayType
     this.display = null
     // this.contentContainerElement = null
 
@@ -50,13 +51,8 @@ class DomWindow extends DomAbsolute {
       this.bottomLeftStretcher
         .setY(this.containerElement.clientHeight)
 
-      // this.contentContainerElement.style.width = 
-      //   this.containerElement.style.width
+      this.display.alignToParentSize(this.headerBar.defaultHeight)
 
-      // this.contentContainerElement.style.height =
-      //   String(this.containerElement.clientHeight -
-      //     this.headerBar.defaultHeight) + 'px'
-  
     }
 
     this.callbackOnMouseDown = () => {
@@ -80,17 +76,9 @@ class DomWindow extends DomAbsolute {
 
   }
 
-  initContentContainer() {
-
-    // this.contentContainerElement.style.overflow = 'scroll'
-    // this.contentContainerElement.style.position = 'absolute'
-    // this.contentContainerElement.style.color = 'rgb(255, 255, 255)'
-    // this.contentContainerElement.style.width = 
-    //   this.containerElement.style.width
-    // this.contentContainerElement.style.height =
-    //   this.containerElement.style.height
-    // this.containerElement.appendChild(this.contentContainerElement)
-
+  initDisplay() {
+  
+    this.display.init()
 
   }
 
@@ -225,7 +213,15 @@ class DomWindow extends DomAbsolute {
 
     this.headerBar = new DomHeaderBar(this.containerElement)
 
-    // this.contentContainerElement = this.createHtmlElement("div")
+    if(this.displayType === 'standard') {
+
+      this.display = new StandardDisplay(this.containerElement)
+
+    } else if (this.displayType === 'performance2D') {
+
+      this.display = new Display2D(this.containerElement)
+
+    }
 
     this.containerElement
       .addEventListener('mousedown', this.callbackOnMouseDown)
@@ -262,7 +258,7 @@ class DomWindow extends DomAbsolute {
 
     }
 
-    this.initContentContainer()
+    this.initDisplay()
 
 
     if (!('headerBar' in cfg)) {

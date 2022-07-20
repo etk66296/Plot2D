@@ -15,7 +15,7 @@ class DomContainer extends Container {
 
   init() {
 
-    this.containerElement = this.createHtmlElement('div')
+    this.containerElement = this.createHtmlElement(this.elementType)
 
     this.parentElement.appendChild(this.containerElement)
 

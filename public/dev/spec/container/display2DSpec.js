@@ -40,9 +40,9 @@ describe("Display2D", function() {
 
         myDisplay2D.init()
 
-        console.log(myDisplay2D.elementType)
+        expect(myDisplay2D.context.constructor.name)
+          .toEqual("CanvasRenderingContext2D")
 
-        // expect(myDisplay2D.context)
       }
     )
 

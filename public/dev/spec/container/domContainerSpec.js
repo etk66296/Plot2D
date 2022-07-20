@@ -58,14 +58,15 @@ describe("DomContainer", function() {
   
     })
 
-    it(`should create a new div element and assign it to the
+    it(`should create element types html element and assign it to the
      class attribute containerElement`,
       function() {
         
+        myDomContainer.elementType = 'main'
         spyOn(myDomContainer, 'createHtmlElement').and.callThrough()
         myDomContainer.init()
         expect(myDomContainer.createHtmlElement)
-          .toHaveBeenCalledWith('div')
+          .toHaveBeenCalledWith('main')
 
       }
     )
