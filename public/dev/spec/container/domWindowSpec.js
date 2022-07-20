@@ -252,15 +252,6 @@ describe("DomWindow", function() {
         .toEqual('DomHeaderBar')
     })
 
-    // it(`should create a dom div element and save the reference to the
-    // attribute contentContainerElement`, function() {
-
-    //   myDomWindow.init(20, 30, 50, 70)
-    //   expect(myDomWindow
-    //       .contentContainerElement
-    //       .__proto__.constructor.name).toEqual("HTMLDivElement")
-
-    // })
 
     it(`should add the mouse down event listener with the
       callbackOnMouseDown to the containerElement`, function() {
@@ -627,8 +618,8 @@ describe("DomWindow", function() {
       
       myDomWindow = new DomWindow(testDiv)
       myDomWindow.init(30, 40, 50, 60)
-      myDomWindow.initHeaderBar()
       myDomWindow.initDisplay()
+      myDomWindow.initHeaderBar()
       myDomWindow.initStretchers()
       
       myDomWindow.containerElement.style.width = '345px'
@@ -665,6 +656,7 @@ describe("DomWindow", function() {
     it(`should call the header bars init function`, function() {
 
       myDomWindow.init(10, 20, 30, 40)
+      myDomWindow.initDisplay()
       myDomWindow.initHeaderBar()
       expect(myDomWindow.headerBar.containerElement).not.toEqual(null)
 
@@ -673,24 +665,34 @@ describe("DomWindow", function() {
     it(`should call the initMovablity function`, function() {
 
       myDomWindow.init(30, 40, 50, 60)
+      myDomWindow.initDisplay()
       spyOn(myDomWindow.headerBar, 'initMovability')
       myDomWindow.initHeaderBar()
       expect(myDomWindow.headerBar.initMovability).toHaveBeenCalled()
 
     })
 
-    // it(`should move the content container element down and reduce
-    //   its height`, function() {
+    it(`should move the content container element down and reduce
+      its height`, function() {
 
-    //     myDomWindow = new DomWindow(testDiv)
-    //     myDomWindow.init(30, 40, 50, 60)
-    //     myDomWindow.initHeaderBar()
-    //     expect(myDomWindow.contentContainerElement.style.height)
-    //       .toEqual('30px')
-    //     expect(myDomWindow.contentContainerElement.style.top)
-    //       .toEqual('30px')
-    //   }
-    // )
+        myDomWindow = new DomWindow(testDiv)
+        myDomWindow.init(30, 40, 50, 60)
+        myDomWindow.initDisplay()
+        
+        
+        spyOn(myDomWindow.display, 'alignToParentSize').and.callThrough()
+
+        myDomWindow.initHeaderBar()
+        
+        expect(myDomWindow.display.alignToParentSize)
+          .toHaveBeenCalledWith(myDomWindow.headerBar.defaultHeight)
+
+        expect(myDomWindow.display.containerElement.style.height)
+          .toEqual('30px')
+        expect(myDomWindow.display.containerElement.style.top)
+          .toEqual('30px')
+      }
+    )
 
   })
 
@@ -702,27 +704,27 @@ describe("DomWindow", function() {
     }
   )
 
-  // describe("appendChild", function() {
+  describe("appendChild", function() {
 
-    // it(`should accept html elements for appending to the
-    //   content container element`, function() {
+    it(`should hand out a passed element to the displays
+      appendChild function`, function() {
 
-    //     myDomWindow = new DomWindow(testDiv)
-    //     myDomWindow.init(30, 40, 50, 60)
-    //     myDomWindow.initDisplay()
-    //     spyOn(myDomWindow.contentContainerElement, 'appendChild')
-    //     let myContent = document
-    //       .createElementNS("http://www.w3.org/1999/xhtml", 'div')
+        myDomWindow = new DomWindow(testDiv)
+        myDomWindow.init(30, 40, 50, 60)
+        myDomWindow.initDisplay()
+        spyOn(myDomWindow.display, 'appendChild')
+        let myContent = document
+          .createElementNS("http://www.w3.org/1999/xhtml", 'div')
 
-    //     myDomWindow.appendChild(myContent)
+        myDomWindow.appendChild(myContent)
 
-    //     expect(myDomWindow.contentContainerElement.appendChild)
-    //       .toHaveBeenCalledWith(myContent)
+        expect(myDomWindow.display.appendChild)
+          .toHaveBeenCalledWith(myContent)
 
-    //   }
-    // )
+      }
+    )
 
-  // })
+  })
 
   it(`should have a function assembleItWith to initialize the window
     after a passed configuration`, function() {
@@ -775,7 +777,10 @@ describe("DomWindow", function() {
     it(`should call the initDisplay`, function() {
 
       myDomWindow = new DomWindow(testDiv)
+      spyOn(myDomWindow, 'init')
+      spyOn(myDomWindow, 'initStretchers')
       spyOn(myDomWindow, 'initDisplay')
+      spyOn(myDomWindow, 'initHeaderBar')
       myDomWindow.assembleItWith()
       expect(myDomWindow.initDisplay).toHaveBeenCalled()
 

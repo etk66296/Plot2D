@@ -48,6 +48,16 @@ describe("Display2D", function() {
 
   })
 
+  it("should have a function appendChild", function() {
+    expect(myDisplay2D.appendChild).toBeDefined()
+  })
+
+  // describe("appendChild", function() {
+
+
+
+  // })
+
   
 
 })
