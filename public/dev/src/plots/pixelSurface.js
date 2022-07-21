@@ -1,9 +1,9 @@
-class Image extends Draft {
+class PixelSurface extends Draft {
   
   constructor() {
 
     super()
-
+ 
   }
   
 }

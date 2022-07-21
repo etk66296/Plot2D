@@ -1,4 +1,4 @@
-class Sprite extends Draft {
+class PerformanceStage extends Stage {
   
   constructor() {
 

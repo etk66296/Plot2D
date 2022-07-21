@@ -7,7 +7,7 @@ describe("Plot", function() {
 
   })
 
-  it("should extend Plot2DAny", function() {
+  it("should extend Plot", function() {
 
     expect(myPlot.__proto__.__proto__.constructor.name)
       .toEqual('Plot2DAny')

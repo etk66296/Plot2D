@@ -1,4 +1,4 @@
-class Draft extends Plot {
+class DomStage extends Stage {
   
   constructor() {
 
