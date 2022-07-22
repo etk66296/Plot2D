@@ -100,16 +100,31 @@
       console.log('load')
       let testContainerElement = document.getElementById("LabContainer")
       let myDomObjectTracker = new DomObjectTracker()
-
+      let myFrameController = new FrameController()
+      let simpleStage = new DomStage()
       let domBuilder = new DomBuilder(myDomObjectTracker)
       let testDomWindow = domBuilder
         .produceWindowOn(testContainerElement)
         .and()
         .assembleItWith({
           pos: { x: 10, y: 10 },
-          dim: { w: 200, h: 100 }
+          dim: { w: 800, h: 100 }
           // headerBar: false
         })
+      testDomWindow.display.containerElement.style.color = "#FFFFFF"
+
+      let dinoFossileImage = new Image()
+      dinoFossileImage.src = "src/things/monsterSkeleton.png"
+
+      dinoFossileImage.onload = () => {
+        
+        testDomWindow.appendChild(dinoFossileImage)
+        dinoFossileImage.style.position = 'absolute'
+        dinoFossileImage.style.top = '0px'
+        dinoFossileImage.style.left = '0px'
+        
+      }
+
 
 
       let text = `Lorem ipsum dolor sit amet, consetetur sadipscing

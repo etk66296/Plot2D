@@ -466,6 +466,11 @@ describe("DomWindow", function() {
         expect(myDomWindow.topLeftStretcher.init)
           .toHaveBeenCalledWith(-8, -8, 8, 8)
 
+        document.removeEventListener(
+          'mouseup',
+          myDomWindow.callbackOnMouseUp
+        )
+
       }
     )
 

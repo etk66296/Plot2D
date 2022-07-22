@@ -214,6 +214,7 @@ class DomWindow extends DomAbsolute {
 
       this.display = new StandardDisplay(this.containerElement)
 
+
     } else if (this.displayType === 'performance2D') {
 
       this.display = new Display2D(this.containerElement)

@@ -14,4 +14,16 @@ describe("Plot", function() {
 
   })
 
+  it(`should have an attribute wouldLikeToBeUpdated`, function() {
+
+    expect(myPlot.wouldLikeToBeUpdated).toEqual(true)
+
+  })
+
+  it(`should have an attribute wouldLikeToBeUpdated`, function() {
+
+    expect(myPlot.wouldLikeToBeDrawn).toEqual(true)
+
+  })
+
 })

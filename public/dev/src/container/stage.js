@@ -5,5 +5,19 @@ class Stage extends Container {
     super()
 
   }
+
+  update() {
+
+    this.members.forEach((actor) => {
+
+      if(actor.wouldLikeToBeUpdated) {
+
+        actor.update()
+
+      }
+
+    }) 
+
+  }
   
 }

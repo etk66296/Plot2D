@@ -5,5 +5,19 @@ class PerformanceStage extends Stage {
     super()
 
   }
+
+  draw() {
+
+    this.members.forEach((actor) => {
+
+      if(actor.wouldLikeToBeDrawn) {
+
+        actor.draw()
+
+      }
+
+    }) 
+
+  }
   
 }
