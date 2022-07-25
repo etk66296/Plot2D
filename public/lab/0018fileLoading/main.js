@@ -42,7 +42,7 @@ let init = (parentHtmlElement) => {
   let imageLoader = new ImageLoader()
   imageLoader.init()
 
-  imageLoader.loadList([
+  imageLoader.loadListFromRemote([
     {
       identifier: 'grenadeGuy',
       url: 'things/sprites/grenade-guy-sheet-alpha.png'
@@ -62,7 +62,17 @@ let init = (parentHtmlElement) => {
   ])
 
   imageLoader.onReadyToUse = () => {
-    console.log('loading finished')
+
+    let myPixelSurface = new PixelSurface(imageLoader.loaded['grenadeGuy'])
+    let myDomStage = new DomStage()
+    let myPerformanceStage = new PerformanceStage()
+
+    myDomStage.admit(myPixelSurface)
+    myFirstWindow.appendChild(myDomStage)
+
+    myPerformanceStage.admit(myPixelSurface)
+    mySecondWindow.appendChild(myPerformanceStage)
+
   }
 
 

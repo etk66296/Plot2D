@@ -6,7 +6,7 @@ class ImageLoader extends Loader {
     
   }
 
-  loadList(uriList) {
+  loadListFromRemote(uriList) {
 
     this.filesToLoad = uriList.length
 

@@ -14,10 +14,20 @@ class Display2D extends PerformanceDisplay {
 
   }
 
-  appendChild(plot) {
+  appendChild(element) {
 
-    // plot.display = this
 
+    if(element.constructor.name === 'PerformanceStage') {
+
+      element.members.forEach((stageMember) => {
+
+        this.context.drawImage(stageMember.asCnavasElement(), 0, 0)
+
+      })
+
+    }
+
+    
   }
   
 }

@@ -1,9 +1,23 @@
 class PixelSurface extends Draft {
   
-  constructor() {
+  constructor(image) {
 
     super()
+
+    this.image = image
  
+  }
+
+  asDomElement() {
+
+    return this.image
+
+  }
+
+  asCnavasElement() {
+
+    return this.image
+    
   }
   
 }
