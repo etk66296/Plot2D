@@ -10,6 +10,7 @@ let init = (parentHtmlElement) => {
       dim: { w: 480, h: 320 },
       headerBar: true
     })
+  myFirstWindow.display.containerElement.style.backgroundColor = '#222222'
 
 
   let mySecondWindow = domBuilder
@@ -21,7 +22,7 @@ let init = (parentHtmlElement) => {
       headerBar: true,
       displayType: 'performance2D'
     })
-    
+  mySecondWindow.display.containerElement.style.backgroundColor = '#222222'
     
   let testDiv =
     document.createElementNS("http://www.w3.org/1999/xhtml", 'div')
@@ -37,6 +38,32 @@ let init = (parentHtmlElement) => {
   myFirstWindow.appendChild(testDiv)
 
   mySecondWindow.appendChild('')
+
+  let imageLoader = new ImageLoader()
+  imageLoader.init()
+
+  imageLoader.loadList([
+    {
+      identifier: 'grenadeGuy',
+      url: 'things/sprites/grenade-guy-sheet-alpha.png'
+    },
+    {
+      identifier: 'isometricTrees',
+      url: 'things/sprites/isometricTrees_green.png'
+    },
+    {
+      identifier: 'overworld',
+      url: 'things/sprites/overworld_no_spaces_updated.png',
+    },
+    {
+      identifier: 'monsterSkeleton',
+      url: 'things/sprites/monsterSkeleton.png'
+    }
+  ])
+
+  imageLoader.onReadyToUse = () => {
+    console.log('loading finished')
+  }
 
 
 }
