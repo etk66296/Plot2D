@@ -15,9 +15,17 @@ class StandardDisplay extends Display {
 
   }
 
-  appendChild(element) {
+  appendChild(plotStage) {
 
-    this.containerElement.appendChild(element)
+    if(plotStage.constructor.name === "DomStage") {
+
+      plotStage.members.forEach(member => {
+
+        this.containerElement.appendChild(member.displayElement())
+
+      })
+
+    }
     
   }
   

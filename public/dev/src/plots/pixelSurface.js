@@ -1,9 +1,17 @@
 class PixelSurface extends Draft {
   
-  constructor() {
+  constructor(htmlImageElement = null) {
 
     super()
+
+    this.htmlImageElement = htmlImageElement
  
+  }
+
+  displayElement() {
+
+    return this.htmlImageElement
+
   }
   
 }

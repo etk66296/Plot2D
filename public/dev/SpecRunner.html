@@ -111,20 +111,6 @@
           dim: { w: 800, h: 100 }
           // headerBar: false
         })
-      testDomWindow.display.containerElement.style.color = "#FFFFFF"
-
-      let dinoFossileImage = new Image()
-      dinoFossileImage.src = "src/things/monsterSkeleton.png"
-
-      dinoFossileImage.onload = () => {
-        
-        testDomWindow.appendChild(dinoFossileImage)
-        dinoFossileImage.style.position = 'absolute'
-        dinoFossileImage.style.top = '0px'
-        dinoFossileImage.style.left = '0px'
-        
-      }
-
 
 
       let text = `Lorem ipsum dolor sit amet, consetetur sadipscing
@@ -164,7 +150,36 @@
       )
       contentDiv.innerText = text
 
-      testDomWindow.appendChild(contentDiv)
+      let dinoFossileImage = new PixelSurface(new Image)
+      dinoFossileImage.htmlImageElement.src = "src/things/monsterSkeleton.png"
+
+      let domStage = new DomStage()
+
+      
+      dinoFossileImage.htmlImageElement.onload = () => {
+        
+        domStage.admit(dinoFossileImage)
+
+        testDomWindow.appendChild(domStage)
+
+      }
+
+
+      // testDomWindow.display.containerElement.style.color = "#FFFFFF"
+
+      // let dinoFossileImage = new Image()
+      // dinoFossileImage.src = "src/things/monsterSkeleton.png"
+
+      // dinoFossileImage.onload = () => {
+        
+      //   testDomWindow.appendChild(dinoFossileImage)
+      //   dinoFossileImage.style.position = 'absolute'
+      //   dinoFossileImage.style.top = '0px'
+      //   dinoFossileImage.style.left = '0px'
+        
+      // }
+
+      // testDomWindow.appendChild(contentDiv)
 
 
     })

@@ -19,6 +19,5 @@ class PerformanceStage extends Stage {
     }) 
 
   }
-
   
 }

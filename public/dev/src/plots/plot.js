@@ -9,6 +9,4 @@ class Plot extends Plot2DAny {
 
   }
 
-
-  
 }

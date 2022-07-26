@@ -52,11 +52,49 @@ describe("Display2D", function() {
     expect(myDisplay2D.appendChild).toBeDefined()
   })
 
-  // describe("appendChild", function() {
+  describe("appendChild", function() {
 
 
+    it(`should accept PerformanceStage Objects and append
+      all the members to the display`, function() {
 
-  // })
+        myDisplay2D.init()
+
+        let dummyStage = {
+          constructor: { name: "PerformanceStage" },
+          members: [ {
+            displayElement: () => { return new Image }
+          }, {
+            displayElement: () => { return new Image }
+          } ]
+        }
+
+        spyOn(dummyStage.members, 'forEach')
+
+        myDisplay2D.appendChild(dummyStage)
+
+        expect(dummyStage.members.forEach).toHaveBeenCalled()
+
+        dummyStage = {
+          constructor: { name: "PerformanceStage" },
+          members: [ {
+            displayElement: () => { return new Image }
+          }, {
+            displayElement: () => { return new Image }
+          } ]
+        }
+
+        spyOn(myDisplay2D.context, "drawImage")
+
+        myDisplay2D.appendChild(dummyStage)
+        expect(myDisplay2D.context.drawImage)
+          .toHaveBeenCalledTimes(2)
+
+      }
+    )
+
+
+  })
 
   
 

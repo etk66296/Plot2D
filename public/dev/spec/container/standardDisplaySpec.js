@@ -58,17 +58,40 @@ describe("StandardDisplay", function() {
 
   describe("appendChild", function() {
 
-    it(`should call the container elements appendChild function
-      and pass trough the arguments element`, function() {
+    it(`should accept DomStage Objects and append
+      all the members to the display`, function() {
 
         myStandardDisplay.init()
-        spyOn(myStandardDisplay.containerElement, 'appendChild')
-        let testDummy = document.createElementNS(
-          "http://www.w3.org/1999/xhtml", 'div'
-        )
-        myStandardDisplay.appendChild(testDummy)
+
+        let dummyStage = {
+          constructor: { name: "DomStage" },
+          members: [ {
+            displayElement: () => { return new Image }
+          }, {
+            displayElement: () => { return new Image }
+          } ]
+        }
+
+        spyOn(dummyStage.members, 'forEach')
+
+        myStandardDisplay.appendChild(dummyStage)
+
+        expect(dummyStage.members.forEach).toHaveBeenCalled()
+
+        dummyStage = {
+          constructor: { name: "DomStage" },
+          members: [ {
+            displayElement: () => { return new Image }
+          }, {
+            displayElement: () => { return new Image }
+          } ]
+        }
+
+        spyOn(myStandardDisplay.containerElement, "appendChild")
+
+        myStandardDisplay.appendChild(dummyStage)
         expect(myStandardDisplay.containerElement.appendChild)
-          .toHaveBeenCalledWith(testDummy)
+          .toHaveBeenCalledTimes(2)
 
       }
     )
