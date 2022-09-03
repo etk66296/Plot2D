@@ -285,8 +285,6 @@ class DomWindow extends DomAbsolute {
 
   appendChild(element) {
 
-    console.log(`try to append`)
-
     this.display.appendChild(element)
 
   }

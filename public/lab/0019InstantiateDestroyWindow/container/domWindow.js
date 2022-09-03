@@ -18,6 +18,8 @@ class DomWindow extends DomAbsolute {
     this.bottomLeftStretcher = null
     this.topLeftStretcher = null
 
+    this.stretchersAreInitialized = false
+
     this.headerBar = null
     this.controlPanel = null
 
@@ -144,6 +146,8 @@ class DomWindow extends DomAbsolute {
 
     document.addEventListener('mouseup', this.callbackOnMouseUp)
 
+    this.stretchersAreInitialized = true
+
   }
 
   initHeaderBar() {
@@ -235,6 +239,38 @@ class DomWindow extends DomAbsolute {
     
   }
 
+  destroy() {
+
+    if(this.isInitialized) {
+
+      this.containerElement
+        .removeEventListener('mousedown', this.callbackOnMouseDown)
+
+      if(this.stretchersAreInitialized) {
+
+        document.removeEventListener('mouseup', this.callbackOnMouseUp)
+        this.stretchersAreInitialized = false
+
+        this.topStretcher.destroy()
+        this.rightStretcher.destroy()
+        this.bottomStretcher.destroy()
+        this.leftStretcher.destroy()
+
+        this.topRightStretcher.destroy()
+        this.bottomRightStretcher.destroy()
+        this.bottomLeftStretcher.destroy()
+        this.topLeftStretcher.destroy()
+      }
+
+      this.headerBar.destroy()
+      this.display.destroy()
+
+    }
+
+    super.destroy()
+
+  }
+
   assembleItWith(cfg = {}) {
 
 
@@ -301,11 +337,6 @@ class DomWindow extends DomAbsolute {
     return this
     
   }
-
-  destroy() {
-
-  }
-
 
   appendChild(element) {
 

@@ -53,7 +53,9 @@ class DomWindowControlPanel extends DomAbsolute {
     }
 
     this.callbackOnDestroy = () => {
-      console.log('kill')
+
+      this.clientWindow.destroy()
+      
     }
     
     
@@ -77,6 +79,33 @@ class DomWindowControlPanel extends DomAbsolute {
     this.setW(this.defaultWidth)
     this.setH(this.defaultHeight)
 
+    this.stdCtrl.minimize = this.createHtmlElement('div')
+    this.stdCtrl.minimize.style.display = 'inline-block'
+    this.stdCtrl.minimize.style.backgroundColor = this.backgroundColor
+    this.stdCtrl.minimize.style.width = String(this.ctrlWidth) + 'px'
+    this.stdCtrl.minimize.style.height = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.minimize.style.border = 'solid 1px ' + this.borderColor
+    this.stdCtrl.minimize.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
+    this.stdCtrl.minimize.style.marginTop = String(this.ctrlMarginTop) + 'px'
+    this.stdCtrl.minimize.style.textAlign = 'center'
+    this.stdCtrl.minimize.style.lineHeight = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.minimize.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
+    this.stdCtrl.minimize.style.userSelect = 'none'
+    this.stdCtrl.minimize.innerText = '_'
+    this.stdCtrl.minimize.onmouseover = () => {
+
+      this.stdCtrl.minimize.style.color = this.colorOnMouseOver
+      
+    }
+    this.stdCtrl.minimize.onmouseout = () => {
+
+      this.stdCtrl.minimize.style.color = this.color
+
+    }
+    this.stdCtrl.minimize.onclick = this.callbackOnMinimize
+    this.containerElement.appendChild(this.stdCtrl.minimize)
+    
+
     this.stdCtrl.fullscreen = this.createHtmlElement('div')
     this.stdCtrl.fullscreen.style.display = 'inline-block'
     this.stdCtrl.fullscreen.style.backgroundColor = this.backgroundColor
@@ -89,7 +118,7 @@ class DomWindowControlPanel extends DomAbsolute {
     this.stdCtrl.fullscreen.style.lineHeight = String(this.ctrlHeight) + 'px'
     this.stdCtrl.fullscreen.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
     this.stdCtrl.fullscreen.style.userSelect = 'none'
-    this.stdCtrl.fullscreen.innerText = 'F'
+    this.stdCtrl.fullscreen.innerText = '⌂'
     this.stdCtrl.fullscreen.onmouseover = () => {
 
       this.stdCtrl.fullscreen.style.color = this.colorOnMouseOver
@@ -103,31 +132,6 @@ class DomWindowControlPanel extends DomAbsolute {
     this.stdCtrl.fullscreen.onclick = this.callbackOnFullscreen
     this.containerElement.appendChild(this.stdCtrl.fullscreen)
 
-    this.stdCtrl.minimize = this.createHtmlElement('div')
-    this.stdCtrl.minimize.style.display = 'inline-block'
-    this.stdCtrl.minimize.style.backgroundColor = this.backgroundColor
-    this.stdCtrl.minimize.style.width = String(this.ctrlWidth) + 'px'
-    this.stdCtrl.minimize.style.height = String(this.ctrlHeight) + 'px'
-    this.stdCtrl.minimize.style.border = 'solid 1px ' + this.borderColor
-    this.stdCtrl.minimize.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
-    this.stdCtrl.minimize.style.marginTop = String(this.ctrlMarginTop) + 'px'
-    this.stdCtrl.minimize.style.textAlign = 'center'
-    this.stdCtrl.minimize.style.lineHeight = String(this.ctrlHeight) + 'px'
-    this.stdCtrl.minimize.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
-    this.stdCtrl.minimize.style.userSelect = 'none'
-    this.stdCtrl.minimize.innerText = 'M'
-    this.stdCtrl.minimize.onmouseover = () => {
-
-      this.stdCtrl.minimize.style.color = this.colorOnMouseOver
-      
-    }
-    this.stdCtrl.minimize.onmouseout = () => {
-
-      this.stdCtrl.minimize.style.color = this.color
-
-    }
-    this.stdCtrl.minimize.onclick = this.callbackOnMinimize
-    this.containerElement.appendChild(this.stdCtrl.minimize)
 
     this.stdCtrl.destroy = this.createHtmlElement('div')
     this.stdCtrl.destroy.style.display = 'inline-block'
@@ -155,6 +159,19 @@ class DomWindowControlPanel extends DomAbsolute {
     this.stdCtrl.destroy.onclick = this.callbackOnDestroy
     this.containerElement.appendChild(this.stdCtrl.destroy)
     
+  }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+      this.containerElement.removeChild(this.stdCtrl.fullscreen)
+      this.containerElement.removeChild(this.stdCtrl.minimize)
+      this.containerElement.removeChild(this.stdCtrl.destroy)
+   
+    }
+
+    super.destroy()
 
   }
 

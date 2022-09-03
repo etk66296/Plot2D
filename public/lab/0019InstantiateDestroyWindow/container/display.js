@@ -32,5 +32,16 @@ class Display extends DomContainer {
           offsetFromTop) + 'px'
 
   }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+   
+    }
+
+    super.destroy()
+
+  }
   
 }

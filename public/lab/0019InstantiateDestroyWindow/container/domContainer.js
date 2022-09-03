@@ -26,6 +26,12 @@ class DomContainer extends Container {
 
   destroy() {
 
+    if(this.isInitialized) {
+
+      this.parentElement.removeChild(this.containerElement)
+
+    }
+
     super.destroy()
 
   }

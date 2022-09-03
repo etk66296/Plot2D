@@ -28,5 +28,23 @@ class StandardDisplay extends Display {
     }
     
   }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+      while (this.containerElement.firstChild) {
+
+        this.containerElement.removeChild(this.containerElement.firstChild)
+        
+      }
+
+    
+    }
+
+    super.destroy()
+
+  }
+
   
 }

@@ -35,6 +35,16 @@ class DomBorderScaler extends DomAbsolute {
 
   destroy() {
 
+    if(this.isInitialized) {
+      this.containerElement.removeEventListener(
+        'mousedown', this.callbackOnMouseDown
+      )
+      document.removeEventListener(
+        'mouseup', this.callbackOnMouseUp
+      )
+      
+    }
+
     super.destroy()
 
   }
@@ -49,17 +59,11 @@ class DomBorderScaler extends DomAbsolute {
     this.setH(h)
 
     this.containerElement.addEventListener(
-      'mousedown',
-      (event) => {
-        this.callbackOnMouseDown(event)
-      }
+      'mousedown', this.callbackOnMouseDown
     )
 
     document.addEventListener(
-      'mouseup',
-      (event) => {
-        this.callbackOnMouseUp(event)
-      }
+      'mouseup', this.callbackOnMouseUp
     )
 
     this.containerElement.style.backgroundColor = '#000000'

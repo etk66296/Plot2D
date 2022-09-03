@@ -27,5 +27,16 @@ class Display2D extends PerformanceDisplay {
     }
 
   }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+    
+    }
+
+    super.destroy()
+
+  }
   
 }

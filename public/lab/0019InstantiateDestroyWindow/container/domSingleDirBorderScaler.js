@@ -66,13 +66,20 @@ class DomSingleDirBorderScaler extends DomBorderScaler {
 
     }
 
-    document.addEventListener('mousemove', (event) => {
+    document.addEventListener('mousemove', this.callbackOnMouseMove)
 
-        this.callbackOnMouseMove(event)
+  }
 
-      }
-    )
-
+  destroy() {
+  
+    if(this.isInitialized) {
+      
+      document.addEventListener('mousemove', this.callbackOnMouseMove)
+      
+    }
+    
+    super.destroy()
+    
   }
 
   

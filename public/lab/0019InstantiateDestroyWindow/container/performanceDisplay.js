@@ -16,5 +16,16 @@ class PerformanceDisplay extends Display {
     super.init()
 
   }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+   
+    }
+
+    super.destroy()
+
+  }
   
 }

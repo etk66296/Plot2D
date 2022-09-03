@@ -16,6 +16,12 @@ class Container extends Plot2DAny {
 
   destroy() {
 
+    if(this.isInitialized) {
+      
+      this.members = []
+
+    }
+
     super.destroy()
 
   }
