@@ -100,6 +100,19 @@ describe("DomAbsolute", function() {
 
   })
 
+  describe("destroy", function() {
+
+    it(`should call the destroy functoin of the super class`,
+      function() {
+
+        spyOn(DomContainer.prototype, 'destroy')
+        myDomAbsolute.destroy()
+        expect(DomContainer.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+  })
+
   it("should have a function for setting the x position", function() {
 
       expect(myDomAbsolute.setX).toEqual(jasmine.any(Function))

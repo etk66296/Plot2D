@@ -79,4 +79,17 @@ class DomDoubleDirBorderScaler extends DomBorderScaler {
 
   }
 
+  destroy() {
+
+    
+    if(this.isInitialized) {
+      
+      document.removeEventListener('mousemove', this.callbackOnMouseMove)
+      
+    }
+    
+    super.destroy()
+    
+  }
+
 }

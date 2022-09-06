@@ -26,10 +26,14 @@ class DomWindowControlPanel extends DomAbsolute {
     }
 
     this.callbackOnFullscreen = () => {
-      this.parentElement.style.top = '9px'
-      this.parentElement.style.left = '9px'
-      this.parentElement.style.width = String(window.innerWidth - 18) + 'px'
-      this.parentElement.style.height = String(window.innerHeight - 18) + 'px'
+      // this.parentElement.style.top = '9px'
+      // this.parentElement.style.left = '9px'
+      // this.parentElement.style.width = String(window.innerWidth - 18) + 'px'
+      // this.parentElement.style.height = String(window.innerHeight - 18) + 'px'
+      this.clientWindow.setX(9)
+      this.clientWindow.setY(9)
+      this.clientWindow.setW(window.innerWidth - 18)
+      this.clientWindow.setH(window.innerHeight - 18)
       this.clientWindow.callbackOnMouseUp()
       if (this.clientWindow.headerBar.containerElement != null) {
 
@@ -41,8 +45,10 @@ class DomWindowControlPanel extends DomAbsolute {
     }
 
     this.callbackOnMinimize = () => {
-      this.parentElement.style.width = String(this.defaultWidth * 3) + 'px'
-      this.parentElement.style.height = String(this.defaultHeight + 5) + 'px'
+      this.clientWindow.setW(this.defaultWidth * 3)
+      this.clientWindow.setH(this.defaultHeight + 5)
+      // this.parentElement.style.width = String(this.defaultWidth * 3) + 'px'
+      // this.parentElement.style.height = String(this.defaultHeight + 5) + 'px'
       this.clientWindow.callbackOnMouseUp()
       if (this.clientWindow.headerBar.containerElement != null) {
 

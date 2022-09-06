@@ -20,6 +20,12 @@ class DomAbsolute extends DomContainer {
     
   }
 
+  destroy() {
+
+    super.destroy()
+
+  }
+
   setX(x) {
 
     this.x = x

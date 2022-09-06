@@ -172,6 +172,85 @@ describe("DomBorderScaler", function() {
 
   })
 
+  describe("destroy", function() {
+
+    it(`should call the destroy function of the super class`,
+      function() {
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomBorderScaler.containerElement = containerElement
+        spyOn(DomAbsolute.prototype, 'destroy')
+        myDomBorderScaler.destroy()
+        expect(DomAbsolute.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+    it(`should remove the containerElement mousedown event listener`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomBorderScaler.containerElement = containerElement
+        spyOn(containerElement, 'removeEventListener')
+        myDomBorderScaler.isInitialized = true
+        myDomBorderScaler.destroy()
+        expect(myDomBorderScaler.containerElement.removeEventListener)
+          .toHaveBeenCalledWith('mousedown', myDomBorderScaler.callbackOnMouseDown)
+      }
+    )
+
+    it(`should remove the documents mouseup event listener`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomBorderScaler.containerElement = containerElement
+
+        spyOn(document, 'removeEventListener')
+        myDomBorderScaler.isInitialized = true
+        myDomBorderScaler.destroy()
+        expect(document.removeEventListener)
+          .toHaveBeenCalledWith('mouseup', myDomBorderScaler.callbackOnMouseUp)
+
+      }
+    )
+
+    it(`should not try to remove event listeners when the object is
+      not initialized`, function() {
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomBorderScaler.containerElement = containerElement
+        spyOn(containerElement, 'removeEventListener')
+        spyOn(document, 'removeEventListener')
+        myDomBorderScaler.isInitialized = false
+        myDomBorderScaler.destroy()
+        expect(myDomBorderScaler.containerElement.removeEventListener)
+          .not.toHaveBeenCalled()
+        expect(document.removeEventListener)
+          .not.toHaveBeenCalled()
+
+      }
+    )
+
+  })
+
   it(`should have a method for stretching the parent element in its
     height from the top border`,
     function() {

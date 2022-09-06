@@ -10,6 +10,8 @@ class DomHeaderBar extends DomAbsolute {
 
     this.defaultHeight = 0
 
+    this.movabilityIsInitialized = false
+
     this.callbackOnMouseDown = (mouseDownEvent) => {
 
       mouseDownEvent.preventDefault()
@@ -78,6 +80,26 @@ class DomHeaderBar extends DomAbsolute {
     this.setH(this.defaultHeight)
 
     this.containerElement.style.backgroundColor = '#440044'
+
+  }
+
+  destroy() {
+
+    if(this.movabilityIsInitialized) {
+
+      this.containerElement
+        .removeEventListener('mousedown', this.callbackOnMouseDown)
+
+      document
+        .removeEventListener('mouseup', this.callbackOnMouseUp)
+
+      document
+        .removeEventListener('mousemove', this.callbackOnMouseMove)
+      
+    }
+
+    this.movabilityIsInitialized = false
+    super.destroy()
 
   }
 
