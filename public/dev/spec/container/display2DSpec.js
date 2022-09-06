@@ -46,6 +46,36 @@ describe("Display2D", function() {
       }
     )
 
+    it(`should call the init function of the super class`,
+      function() {
+
+        let containerElem = {
+          getContext: function(type) {
+
+          }
+        }
+
+        spyOn(PerformanceDisplay.prototype, 'init')
+        myDisplay2D.containerElement = containerElem
+        spyOn(myDisplay2D.containerElement, 'getContext')
+        myDisplay2D.init()
+        expect(PerformanceDisplay.prototype.init).toHaveBeenCalled()
+
+    })
+
+  })
+
+  describe("destroy", function() {
+
+    it(`should call the destroy functoin of the super class`,
+      function() {
+
+        spyOn(PerformanceDisplay.prototype, 'destroy')
+        myDisplay2D.destroy()
+        expect(PerformanceDisplay.prototype.destroy).toHaveBeenCalled()
+
+    })
+
   })
 
   it("should have a function appendChild", function() {

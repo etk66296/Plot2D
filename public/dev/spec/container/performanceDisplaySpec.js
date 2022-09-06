@@ -49,4 +49,30 @@ describe("PerformanceDisplay", function() {
     }
   )
 
+  describe("init", function() {
+
+    it(`should call the init functoin of the super class`,
+      function() {
+
+        spyOn(Display.prototype, 'init')
+        myPerformanceDisplay.init()
+        expect(Display.prototype.init).toHaveBeenCalled()
+
+    })
+
+  })
+
+  describe("destroy", function() {
+
+    it(`should call the destroy functoin of the super class`,
+      function() {
+
+        spyOn(Display.prototype, 'destroy')
+        myPerformanceDisplay.destroy()
+        expect(Display.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+  })
+
 })

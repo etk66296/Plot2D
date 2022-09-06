@@ -46,4 +46,30 @@ describe("Container", function() {
 
   })
 
+  describe("init", function() {
+
+    it("should call the super class init", function() {
+
+      spyOn(Plot2DAny.prototype, 'init')
+      myContainer.init()
+      expect(Plot2DAny.prototype.init).toHaveBeenCalled()
+
+    })
+
+  })
+
+  describe("destroy", function() {
+
+    it("should call the super class destroy", function() {
+
+      spyOn(Plot2DAny.prototype, 'destroy')
+      myContainer.destroy()
+      expect(Plot2DAny.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+  })
+
+ 
+
 })

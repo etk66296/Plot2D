@@ -81,6 +81,19 @@ describe("Display", function() {
     }
   )
 
+  describe("destroy", function() {
+
+    it(`should call the destroy functoin of the super class`,
+      function() {
+
+        spyOn(DomContainer.prototype, 'destroy')
+        myDisplay.destroy()
+        expect(DomContainer.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+  })
+
   describe("alignToParentSize", function() {
 
     it(`should update the witdth, so that parent and container

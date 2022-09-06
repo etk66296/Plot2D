@@ -48,6 +48,72 @@ describe("StandardDisplay", function() {
 
   })
 
+  describe("destroy", function() {
+
+    it("should call removeChild for each child Element", function() {
+
+      spyOn(Display.prototype, 'destroy')
+
+      let containerElem = {
+        firstChild: null,
+        childs: [1, 2, 3],
+        removeChild: undefined
+      }
+      containerElem.firstChild = containerElem.childs[0]
+      containerElem.removeChild = function() {
+        containerElem.childs.shift()
+        if(containerElem.childs.length > 0) {
+          containerElem.firstChild = containerElem.childs[0]
+        } else {
+          containerElem.firstChild = 0
+        }
+      }
+      myStandardDisplay.containerElement = containerElem
+      myStandardDisplay.isInitialized = true
+  
+      spyOn(myStandardDisplay.containerElement, 'removeChild').and.callThrough()
+      myStandardDisplay.destroy()
+      expect(myStandardDisplay.containerElement.removeChild).toHaveBeenCalledTimes(3)
+
+    })
+
+    it("should skip removing childs when isInitialized is cleared", function() {
+
+      spyOn(Display.prototype, 'destroy')
+
+      let containerElem = {
+        firstChild: null,
+        childs: [1, 2, 3],
+        removeChild: undefined
+      }
+      containerElem.firstChild = containerElem.childs[0]
+      containerElem.removeChild = function() {
+        containerElem.childs.shift()
+        if(containerElem.childs.length > 0) {
+          containerElem.firstChild = containerElem.childs[0]
+        } else {
+          containerElem.firstChild = 0
+        }
+      }
+      myStandardDisplay.containerElement = containerElem
+      myStandardDisplay.isInitialized = false
+  
+      spyOn(myStandardDisplay.containerElement, 'removeChild').and.callThrough()
+      myStandardDisplay.destroy()
+      expect(myStandardDisplay.containerElement.removeChild).not.toHaveBeenCalled()
+
+    })
+
+    it("should call the super class destroy", function() {
+
+      spyOn(Display.prototype, 'destroy')
+      myStandardDisplay.destroy()
+      expect(Display.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+  })
+
   it(`should have a function appendChild for adding elements to
     the display element`, function() {
 

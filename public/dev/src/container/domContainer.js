@@ -15,10 +15,24 @@ class DomContainer extends Container {
 
   init() {
 
+    super.init()
+
     this.containerElement = this.createHtmlElement(this.elementType)
 
     this.parentElement.appendChild(this.containerElement)
 
+
+  }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+      this.parentElement.removeChild(this.containerElement)
+
+    }
+
+    super.destroy()
 
   }
 

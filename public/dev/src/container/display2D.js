@@ -14,6 +14,12 @@ class Display2D extends PerformanceDisplay {
 
   }
 
+  destroy() {
+
+    super.destroy()
+
+  }
+
   appendChild(plotStage) {
 
     if(plotStage.constructor.name === "PerformanceStage") {
