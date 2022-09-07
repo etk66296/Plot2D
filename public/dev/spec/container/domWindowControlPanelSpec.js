@@ -25,11 +25,23 @@ describe("DomWindowControlPanel", function() {
 
     myDomWindowControlPanel = new DomWindowControlPanel(testDiv,
       {
+        x: 44,
+        y: 55,
+        w: 999,
+        h: 1000,
         setX: function(value) {},
         setY: function(value) {},
         setW: function(value) {},
         setH: function(value) {},
-        callbackOnMouseUp: function() {}
+        callbackOnMouseUp: function() {},
+        headerBar: {
+          setW: function() {},
+          isInitialized: true,
+          defaultHeight: 123
+        },
+        display: {
+          alignToParentSize: function() {}
+        }
       }
     )
 
@@ -150,6 +162,38 @@ describe("DomWindowControlPanel", function() {
     }
   )
 
+  it(`should have an attribute lastWidth, which is initialized to
+    the second argument client window width`, function() {
+
+      expect(myDomWindowControlPanel.lastW).toEqual(999)
+
+    }
+  )
+
+  it(`should have an attribute lastHeight, which is initialized to
+    the second argument client window height`, function() {
+
+      expect(myDomWindowControlPanel.lastH).toEqual(1000)
+
+    }
+  )
+
+  it(`should have an attribute last x position, which is initialized to
+    the second argument client window x pos`, function() {
+
+      expect(myDomWindowControlPanel.lastX).toEqual(44)
+
+    }
+  )
+
+  it(`should have an attribute last y position, which is initialized to
+  the second argument client window y pos`, function() {
+
+      expect(myDomWindowControlPanel.lastY).toEqual(55)
+
+    }
+  )
+
   it(`should have a callback function callbackOnFullscreen`,
     function() {
 
@@ -159,6 +203,38 @@ describe("DomWindowControlPanel", function() {
   )
 
   describe("callbackOnFullscreen", function() {
+
+    it(`should save the x position before change it`, function() {
+
+      myDomWindowControlPanel.clientWindow.x = 4325
+      myDomWindowControlPanel.callbackOnFullscreen()
+      expect(myDomWindowControlPanel.lastX).toEqual(4325)
+
+    })
+
+    it(`should save the y position before change it`, function() {
+
+      myDomWindowControlPanel.clientWindow.y = 1234
+      myDomWindowControlPanel.callbackOnFullscreen()
+      expect(myDomWindowControlPanel.lastY).toEqual(1234)
+
+    })
+
+    it(`should save the width before change it`, function() {
+
+      myDomWindowControlPanel.clientWindow.w = 800
+      myDomWindowControlPanel.callbackOnFullscreen()
+      expect(myDomWindowControlPanel.lastW).toEqual(800)
+
+    })
+
+    it(`should save the height before change it`, function() {
+
+      myDomWindowControlPanel.clientWindow.h = 600
+      myDomWindowControlPanel.callbackOnFullscreen()
+      expect(myDomWindowControlPanel.lastH).toEqual(600)
+
+    })
 
     it(`it should set the top position of the client window`,
       function() {
@@ -213,6 +289,114 @@ describe("DomWindowControlPanel", function() {
         myDomWindowControlPanel.callbackOnFullscreen()
         expect(myDomWindowControlPanel.clientWindow.callbackOnMouseUp)
           .toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should set the width of the header bar when there is one
+      initialized`, function() {
+
+        spyOn(myDomWindowControlPanel.clientWindow.headerBar, 'setW')
+        myDomWindowControlPanel.callbackOnFullscreen()
+        expect(myDomWindowControlPanel.clientWindow.headerBar.setW)
+          .toHaveBeenCalledWith(
+            myDomWindowControlPanel.parentElement.clientWidth
+          )
+
+      }
+    )
+
+    it(`should not set the width of the header bar when there is none
+      initialized`, function() {
+
+        spyOn(myDomWindowControlPanel.clientWindow.headerBar, 'setW')
+        myDomWindowControlPanel.clientWindow.headerBar.isInitialized = false
+        myDomWindowControlPanel.callbackOnFullscreen()
+        expect(myDomWindowControlPanel.clientWindow.headerBar.setW)
+          .not.toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should align the client window display to the new size`,
+      function() {
+
+        spyOn(myDomWindowControlPanel.clientWindow.display, 'alignToParentSize')
+        myDomWindowControlPanel.callbackOnFullscreen()
+        expect(myDomWindowControlPanel.clientWindow.display.alignToParentSize)
+          .toHaveBeenCalledWith(123)
+
+      }
+    )
+
+  })
+
+  it(`should have a callback function callbackOnMinimize`,
+    function() {
+
+      expect(myDomWindowControlPanel.callbackOnMinimize).toBeDefined()
+
+    }
+  )
+
+  describe("callbackOnMinimize", function() {
+
+    it(`should restore the x position`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, 'setX')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.setX)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.lastX)
+
+    })
+
+    it(`should restore the y position`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, 'setY')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.setY)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.lastY)
+
+    })
+
+    it(`should restore the width`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, 'setW')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.setW)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.lastW)
+
+    })
+
+    it(`should restore the height`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, 'setH')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.setH)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.lastH)
+
+    })
+
+    it(`it should call the callbackOnMouseUp of the client window,
+      which updates the stretchers`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, 'callbackOnMouseUp')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.callbackOnMouseUp)
+        .toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should set the width of the header bar when there is one
+      initialized`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow.headerBar, 'setW')
+      myDomWindowControlPanel.callbackOnMinimize()
+      expect(myDomWindowControlPanel.clientWindow.headerBar.setW)
+        .toHaveBeenCalledWith(
+          myDomWindowControlPanel.parentElement.clientWidth
+        )
 
       }
     )

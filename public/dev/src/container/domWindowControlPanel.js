@@ -19,6 +19,12 @@ class DomWindowControlPanel extends DomAbsolute {
     this.ctrlMarginLeft = 0
     this.ctrlBorderRadius = 0
 
+    this.lastX = this.clientWindow.x
+    this.lastY = this.clientWindow.y
+
+    this.lastW = this.clientWindow.w
+    this.lastH = this.clientWindow.h
+
     this.stdCtrl = {
       fullscreen: null,
       destroy: null,
@@ -26,31 +32,41 @@ class DomWindowControlPanel extends DomAbsolute {
     }
 
     this.callbackOnFullscreen = () => {
+
+      this.lastX = this.clientWindow.x
+      this.lastY = this.clientWindow.y
+      this.lastW = this.clientWindow.w
+      this.lastH = this.clientWindow.h
+
       this.clientWindow.setX(9)
       this.clientWindow.setY(9)
       this.clientWindow.setW(window.innerWidth - 18)
       this.clientWindow.setH(window.innerHeight - 18)
       this.clientWindow.callbackOnMouseUp()
-      // if (this.clientWindow.headerBar.containerElement != null) {
+      if(this.clientWindow.headerBar.isInitialized) {
 
-      //   this.clientWindow.headerBar.setW(this.parentElement.clientWidth)
+        this.clientWindow.headerBar.setW(this.parentElement.clientWidth)
 
-      // }
-      // this.clientWindow.display.alignToParentSize(this.clientWindow.headerBar.defaultHeight)
+      }
+      this.clientWindow.display.alignToParentSize(this.clientWindow.headerBar.defaultHeight)
 
     }
 
-    // this.callbackOnMinimize = () => {
-    //   this.parentElement.style.width = String(this.defaultWidth * 3) + 'px'
-    //   this.parentElement.style.height = String(this.defaultHeight + 5) + 'px'
-    //   this.clientWindow.callbackOnMouseUp()
+    this.callbackOnMinimize = () => {
+
+      this.clientWindow.setX(this.lastX)
+      this.clientWindow.setY(this.lastY)
+      this.clientWindow.setW(this.lastW)
+      this.clientWindow.setH(this.lastH)
+  
+      this.clientWindow.callbackOnMouseUp()
     //   if (this.clientWindow.headerBar.containerElement != null) {
 
-    //     this.clientWindow.headerBar.setW(this.parentElement.clientWidth)
+        this.clientWindow.headerBar.setW(this.parentElement.clientWidth)
 
     //   }
     //   this.clientWindow.display.alignToParentSize(this.clientWindow.headerBar.defaultHeight)
-    // }
+    }
 
     // this.callbackOnDestroy = () => {
 
