@@ -41,7 +41,8 @@ describe("DomWindowControlPanel", function() {
         },
         display: {
           alignToParentSize: function() {}
-        }
+        },
+        destroy: function() {}
       }
     )
 
@@ -397,6 +398,79 @@ describe("DomWindowControlPanel", function() {
         .toHaveBeenCalledWith(
           myDomWindowControlPanel.parentElement.clientWidth
         )
+
+      }
+    )
+
+    it(`should not set the width of the header bar when there is none
+      initialized`, function() {
+
+        spyOn(myDomWindowControlPanel.clientWindow.headerBar, 'setW')
+        myDomWindowControlPanel.clientWindow.headerBar.isInitialized = false
+        myDomWindowControlPanel.callbackOnMinimize()
+        expect(myDomWindowControlPanel.clientWindow.headerBar.setW)
+          .not.toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should align the client window display to the new size`,
+      function() {
+
+        spyOn(myDomWindowControlPanel.clientWindow.display, 'alignToParentSize')
+        myDomWindowControlPanel.callbackOnMinimize()
+        expect(myDomWindowControlPanel.clientWindow.display.alignToParentSize)
+          .toHaveBeenCalledWith(123)
+
+      }
+    )
+
+  })
+
+  it(`should have a callback function callbackOnDestroy`,
+    function() {
+
+      expect(myDomWindowControlPanel.callbackOnDestroy).toBeDefined()
+
+    }
+  )
+
+  describe("callbackOnDestroy", function() {
+
+    it(`should call the client windows destroy function`, function() {
+
+      spyOn(myDomWindowControlPanel.clientWindow, "destroy")
+      myDomWindowControlPanel.callbackOnDestroy()
+      expect(myDomWindowControlPanel.clientWindow.destroy)
+        .toHaveBeenCalled()
+
+    })
+
+  })
+
+  describe("init", function() {
+
+    it(`should call the init function of the super class`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'init')
+        myDomWindowControlPanel.init()
+        expect(DomAbsolute.prototype.init).toHaveBeenCalled()
+
+    })
+
+    it(`should set the default values of the attributes`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'init')
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.defaultHeight).toEqual(26)
+        expect(myDomWindowControlPanel.defaultWidth).toEqual(85)
+        expect(myDomWindowControlPanel.ctrlMarginLeft).toEqual(3)
+        expect(myDomWindowControlPanel.ctrlMarginTop).toEqual(3)
+        expect(myDomWindowControlPanel.ctrlHeight).toEqual(myDomWindowControlPanel.defaultHeight - 4)
+        expect(myDomWindowControlPanel.ctrlWidth).toEqual(myDomWindowControlPanel.ctrlHeight)
+        expect(myDomWindowControlPanel.ctrlBorderRadius).toEqual(5)
 
       }
     )

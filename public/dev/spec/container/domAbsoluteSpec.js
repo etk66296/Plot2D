@@ -102,7 +102,7 @@ describe("DomAbsolute", function() {
 
   describe("destroy", function() {
 
-    it(`should call the destroy functoin of the super class`,
+    it(`should call the destroy function of the super class`,
       function() {
 
         spyOn(DomContainer.prototype, 'destroy')

@@ -60,34 +60,35 @@ class DomWindowControlPanel extends DomAbsolute {
       this.clientWindow.setH(this.lastH)
   
       this.clientWindow.callbackOnMouseUp()
-    //   if (this.clientWindow.headerBar.containerElement != null) {
+      if(this.clientWindow.headerBar.isInitialized) {
 
         this.clientWindow.headerBar.setW(this.parentElement.clientWidth)
 
-    //   }
-    //   this.clientWindow.display.alignToParentSize(this.clientWindow.headerBar.defaultHeight)
+      }
+      this.clientWindow.display.alignToParentSize(this.clientWindow.headerBar.defaultHeight)
+
     }
 
-    // this.callbackOnDestroy = () => {
+    this.callbackOnDestroy = () => {
 
-    //   this.clientWindow.destroy()
+      this.clientWindow.destroy()
       
-    // }
+    }
     
     
   }
   
   init() {
     
-    // super.init()
+    super.init()
 
-    // this.defaultHeight = 26
-    // this.defaultWidth = 85
-    // this.ctrlMarginLeft = 3
-    // this.ctrlMarginTop = 3
-    // this.ctrlHeight = this.defaultHeight - 4
-    // this.ctrlWidth = this.ctrlHeight
-    // this.ctrlBorderRadius = 5
+    this.defaultHeight = 26
+    this.defaultWidth = 85
+    this.ctrlMarginLeft = 3
+    this.ctrlMarginTop = 3
+    this.ctrlHeight = this.defaultHeight - 4
+    this.ctrlWidth = this.ctrlHeight
+    this.ctrlBorderRadius = 5
     
     // // this.containerElement.style.backgroundColor = '#00ff00'
     // this.containerElement.style.color = this.color
