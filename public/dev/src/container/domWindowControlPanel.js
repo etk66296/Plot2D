@@ -90,35 +90,35 @@ class DomWindowControlPanel extends DomAbsolute {
     this.ctrlWidth = this.ctrlHeight
     this.ctrlBorderRadius = 5
     
-    // // this.containerElement.style.backgroundColor = '#00ff00'
-    // this.containerElement.style.color = this.color
-    // this.containerElement.style.right = '0px'
-    // this.setW(this.defaultWidth)
-    // this.setH(this.defaultHeight)
+    this.containerElement.style.backgroundColor = this.backgroundColor
+    this.containerElement.style.color = this.color
+    this.containerElement.style.right = '0px'
+    this.setW(this.defaultWidth)
+    this.setH(this.defaultHeight)
 
-    // this.stdCtrl.minimize = this.createHtmlElement('div')
-    // this.stdCtrl.minimize.style.display = 'inline-block'
-    // this.stdCtrl.minimize.style.backgroundColor = this.backgroundColor
-    // this.stdCtrl.minimize.style.width = String(this.ctrlWidth) + 'px'
-    // this.stdCtrl.minimize.style.height = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.minimize.style.border = 'solid 1px ' + this.borderColor
-    // this.stdCtrl.minimize.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
-    // this.stdCtrl.minimize.style.marginTop = String(this.ctrlMarginTop) + 'px'
-    // this.stdCtrl.minimize.style.textAlign = 'center'
-    // this.stdCtrl.minimize.style.lineHeight = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.minimize.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
-    // this.stdCtrl.minimize.style.userSelect = 'none'
-    // this.stdCtrl.minimize.innerText = '_'
-    // this.stdCtrl.minimize.onmouseover = () => {
+    this.stdCtrl.minimize = this.createHtmlElement('div')
+    this.stdCtrl.minimize.style.display = 'inline-block'
+    this.stdCtrl.minimize.style.backgroundColor = this.backgroundColor
+    this.stdCtrl.minimize.style.width = String(this.ctrlWidth) + 'px'
+    this.stdCtrl.minimize.style.height = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.minimize.style.border = 'solid 1px ' + this.borderColor
+    this.stdCtrl.minimize.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
+    this.stdCtrl.minimize.style.marginTop = String(this.ctrlMarginTop) + 'px'
+    this.stdCtrl.minimize.style.textAlign = 'center'
+    this.stdCtrl.minimize.style.lineHeight = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.minimize.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
+    this.stdCtrl.minimize.style.userSelect = 'none'
+    this.stdCtrl.minimize.innerText = '≈'
+    this.stdCtrl.minimize.onmouseover = () => {
 
-    //   this.stdCtrl.minimize.style.color = this.colorOnMouseOver
+      this.stdCtrl.minimize.style.color = this.colorOnMouseOver
       
-    // }
-    // this.stdCtrl.minimize.onmouseout = () => {
+    }
+    this.stdCtrl.minimize.onmouseout = () => {
 
-    //   this.stdCtrl.minimize.style.color = this.color
+      this.stdCtrl.minimize.style.color = this.color
 
-    // }
+    }
     // this.stdCtrl.minimize.onclick = this.callbackOnMinimize
     // this.containerElement.appendChild(this.stdCtrl.minimize)
     

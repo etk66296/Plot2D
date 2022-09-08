@@ -453,7 +453,7 @@ describe("DomWindowControlPanel", function() {
     it(`should call the init function of the super class`,
       function() {
 
-        spyOn(DomAbsolute.prototype, 'init')
+        spyOn(DomAbsolute.prototype, 'init').and.callThrough()
         myDomWindowControlPanel.init()
         expect(DomAbsolute.prototype.init).toHaveBeenCalled()
 
@@ -462,7 +462,7 @@ describe("DomWindowControlPanel", function() {
     it(`should set the default values of the attributes`,
       function() {
 
-        spyOn(DomAbsolute.prototype, 'init')
+        // spyOn(DomAbsolute.prototype, 'init')
         myDomWindowControlPanel.init()
         expect(myDomWindowControlPanel.defaultHeight).toEqual(26)
         expect(myDomWindowControlPanel.defaultWidth).toEqual(85)
@@ -471,6 +471,114 @@ describe("DomWindowControlPanel", function() {
         expect(myDomWindowControlPanel.ctrlHeight).toEqual(myDomWindowControlPanel.defaultHeight - 4)
         expect(myDomWindowControlPanel.ctrlWidth).toEqual(myDomWindowControlPanel.ctrlHeight)
         expect(myDomWindowControlPanel.ctrlBorderRadius).toEqual(5)
+
+      }
+    )
+
+    it(`should set the attributes of its container element`,
+      function() {
+
+        myDomWindowControlPanel.init()
+
+        expect(
+          myDomWindowControlPanel.containerElement.style.backgroundColor
+        ).toEqual('rgb(92, 48, 122)')
+
+        expect(
+          myDomWindowControlPanel.containerElement.style.color
+        ).toEqual('rgb(197, 181, 208)')
+
+        expect(
+          myDomWindowControlPanel.containerElement.style.right
+        ).toEqual('0px')
+
+      }
+    )
+
+    it(`should call its setW and setH functions with the default
+      value attributes`, function() {
+
+        spyOn(myDomWindowControlPanel, 'setW')
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.setW)
+          .toHaveBeenCalledWith(myDomWindowControlPanel.defaultWidth)
+
+        spyOn(myDomWindowControlPanel, 'setH')
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.setH)
+          .toHaveBeenCalledWith(myDomWindowControlPanel.defaultHeight)
+
+      }
+    )
+
+    it(`should create a div element for the minimize button`,
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.minimize.constructor.name)
+          .toEqual('HTMLDivElement')
+
+      }
+    )
+
+    it(`should set the style of the minimize button div element`,
+      function() {
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.display).toEqual('inline-block')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.backgroundColor).toEqual('rgb(92, 48, 122)')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.width).toEqual(String(myDomWindowControlPanel.ctrlWidth) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.height).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.border).toEqual('1px solid ' + 'rgb(192, 142, 227)')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.marginLeft).toEqual(String(myDomWindowControlPanel.ctrlMarginLeft) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.marginTop).toEqual(String(myDomWindowControlPanel.ctrlMarginTop) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.textAlign).toEqual('center')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.lineHeight).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.borderRadius).toEqual(String(myDomWindowControlPanel.ctrlBorderRadius) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.userSelect).toEqual('none')
+        expect(myDomWindowControlPanel.stdCtrl.minimize.innerText).toEqual('≈')
+      }
+    )
+
+    it('should an onmouseover event to the control minimize button',
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(
+          myDomWindowControlPanel.stdCtrl.minimize.onmouseover
+        ).toEqual(jasmine.any(Function))
+
+      }
+    )
+
+    it('should change the color on mouse over',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.minimize.onmouseover()
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.color)
+          .toEqual('rgb(241, 231, 249)')
+
+      }
+    )
+
+    it('should an onmouseout event to the control minimize button',
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(
+          myDomWindowControlPanel.stdCtrl.minimize.onmouseout
+        ).toEqual(jasmine.any(Function))
+
+      }
+    )
+
+    it('should change the color on mouse out',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.minimize.onmouseout()
+        expect(myDomWindowControlPanel.stdCtrl.minimize.style.color)
+          .toEqual('rgb(197, 181, 208)')
 
       }
     )
