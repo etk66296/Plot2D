@@ -119,76 +119,77 @@ class DomWindowControlPanel extends DomAbsolute {
       this.stdCtrl.minimize.style.color = this.color
 
     }
-    // this.stdCtrl.minimize.onclick = this.callbackOnMinimize
-    // this.containerElement.appendChild(this.stdCtrl.minimize)
+    this.stdCtrl.minimize.onclick = this.callbackOnMinimize
+    this.containerElement.appendChild(this.stdCtrl.minimize)
     
 
-    // this.stdCtrl.fullscreen = this.createHtmlElement('div')
-    // this.stdCtrl.fullscreen.style.display = 'inline-block'
-    // this.stdCtrl.fullscreen.style.backgroundColor = this.backgroundColor
-    // this.stdCtrl.fullscreen.style.width = String(this.ctrlWidth) + 'px'
-    // this.stdCtrl.fullscreen.style.height = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.fullscreen.style.border = 'solid 1px ' + this.borderColor
-    // this.stdCtrl.fullscreen.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
-    // this.stdCtrl.fullscreen.style.marginTop = String(this.ctrlMarginTop) + 'px'
-    // this.stdCtrl.fullscreen.style.textAlign = 'center'
-    // this.stdCtrl.fullscreen.style.lineHeight = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.fullscreen.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
-    // this.stdCtrl.fullscreen.style.userSelect = 'none'
-    // this.stdCtrl.fullscreen.innerText = '⌂'
-    // this.stdCtrl.fullscreen.onmouseover = () => {
+    this.stdCtrl.fullscreen = this.createHtmlElement('div')
+    this.stdCtrl.fullscreen.style.display = 'inline-block'
+    this.stdCtrl.fullscreen.style.backgroundColor = this.backgroundColor
+    this.stdCtrl.fullscreen.style.width = String(this.ctrlWidth) + 'px'
+    this.stdCtrl.fullscreen.style.height = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.fullscreen.style.border = 'solid 1px ' + this.borderColor
+    this.stdCtrl.fullscreen.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
+    this.stdCtrl.fullscreen.style.marginTop = String(this.ctrlMarginTop) + 'px'
+    this.stdCtrl.fullscreen.style.textAlign = 'center'
+    this.stdCtrl.fullscreen.style.lineHeight = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.fullscreen.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
+    this.stdCtrl.fullscreen.style.userSelect = 'none'
+    this.stdCtrl.fullscreen.innerText = '⌂'
+    this.stdCtrl.fullscreen.onmouseover = () => {
 
-    //   this.stdCtrl.fullscreen.style.color = this.colorOnMouseOver
+      this.stdCtrl.fullscreen.style.color = this.colorOnMouseOver
 
-    // }
-    // this.stdCtrl.fullscreen.onmouseout = () => {
+    }
+    this.stdCtrl.fullscreen.onmouseout = () => {
 
-    //   this.stdCtrl.fullscreen.style.color = this.color
+      this.stdCtrl.fullscreen.style.color = this.color
 
-    // }
-    // this.stdCtrl.fullscreen.onclick = this.callbackOnFullscreen
-    // this.containerElement.appendChild(this.stdCtrl.fullscreen)
+    }
+    this.stdCtrl.fullscreen.onclick = this.callbackOnFullscreen
+    this.containerElement.appendChild(this.stdCtrl.fullscreen)
 
 
-    // this.stdCtrl.destroy = this.createHtmlElement('div')
-    // this.stdCtrl.destroy.style.display = 'inline-block'
-    // this.stdCtrl.destroy.style.backgroundColor = this.backgroundColor
-    // this.stdCtrl.destroy.style.width = String(this.ctrlWidth) + 'px'
-    // this.stdCtrl.destroy.style.height = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.destroy.style.border = 'solid 1px ' + this.borderColor
-    // this.stdCtrl.destroy.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
-    // this.stdCtrl.destroy.style.marginTop = String(this.ctrlMarginTop) + 'px'
-    // this.stdCtrl.destroy.style.textAlign = 'center'
-    // this.stdCtrl.destroy.style.lineHeight = String(this.ctrlHeight) + 'px'
-    // this.stdCtrl.destroy.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
-    // this.stdCtrl.destroy.style.userSelect = 'none'
-    // this.stdCtrl.destroy.innerText = 'X'
-    // this.stdCtrl.destroy.onmouseover = () => {
+    this.stdCtrl.destroy = this.createHtmlElement('div')
+    this.stdCtrl.destroy.style.display = 'inline-block'
+    this.stdCtrl.destroy.style.backgroundColor = this.backgroundColor
+    this.stdCtrl.destroy.style.width = String(this.ctrlWidth) + 'px'
+    this.stdCtrl.destroy.style.height = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.destroy.style.border = 'solid 1px ' + this.borderColor
+    this.stdCtrl.destroy.style.marginLeft = String(this.ctrlMarginLeft) + 'px'
+    this.stdCtrl.destroy.style.marginTop = String(this.ctrlMarginTop) + 'px'
+    this.stdCtrl.destroy.style.textAlign = 'center'
+    this.stdCtrl.destroy.style.lineHeight = String(this.ctrlHeight) + 'px'
+    this.stdCtrl.destroy.style.borderRadius = String(this.ctrlBorderRadius) + 'px'
+    this.stdCtrl.destroy.style.userSelect = 'none'
+    this.stdCtrl.destroy.innerText = 'X'
+    this.stdCtrl.destroy.onmouseover = () => {
 
-    //   this.stdCtrl.destroy.style.color = this.colorOnMouseOver
+      this.stdCtrl.destroy.style.color = this.colorOnMouseOver
       
-    // }
-    // this.stdCtrl.destroy.onmouseout = () => {
+    }
+    this.stdCtrl.destroy.onmouseout = () => {
 
-    //   this.stdCtrl.destroy.style.color = this.color
+      this.stdCtrl.destroy.style.color = this.color
 
-    // }
-    // this.stdCtrl.destroy.onclick = this.callbackOnDestroy
-    // this.containerElement.appendChild(this.stdCtrl.destroy)
+    }
+
+    this.stdCtrl.destroy.onclick = this.callbackOnDestroy
+    this.containerElement.appendChild(this.stdCtrl.destroy)
     
   }
 
   destroy() {
 
-    // if(this.isInitialized) {
+    if(this.isInitialized) {
 
-    //   this.containerElement.removeChild(this.stdCtrl.fullscreen)
-    //   this.containerElement.removeChild(this.stdCtrl.minimize)
-    //   this.containerElement.removeChild(this.stdCtrl.destroy)
+      this.containerElement.removeChild(this.stdCtrl.fullscreen)
+      this.containerElement.removeChild(this.stdCtrl.minimize)
+      this.containerElement.removeChild(this.stdCtrl.destroy)
    
-    // }
+    }
 
-    // super.destroy()
+    super.destroy()
 
   }
 

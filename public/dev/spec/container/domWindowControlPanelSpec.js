@@ -462,7 +462,6 @@ describe("DomWindowControlPanel", function() {
     it(`should set the default values of the attributes`,
       function() {
 
-        // spyOn(DomAbsolute.prototype, 'init')
         myDomWindowControlPanel.init()
         expect(myDomWindowControlPanel.defaultHeight).toEqual(26)
         expect(myDomWindowControlPanel.defaultWidth).toEqual(85)
@@ -511,6 +510,7 @@ describe("DomWindowControlPanel", function() {
       }
     )
 
+    // ------------------------------------------------------------
     it(`should create a div element for the minimize button`,
       function() {
 
@@ -550,7 +550,7 @@ describe("DomWindowControlPanel", function() {
       }
     )
 
-    it('should change the color on mouse over',
+    it('should change the minimize button color on mouse over',
       function() {
 
         myDomWindowControlPanel.init()
@@ -561,7 +561,7 @@ describe("DomWindowControlPanel", function() {
       }
     )
 
-    it('should an onmouseout event to the control minimize button',
+    it('should add onmouseout event to the control minimize button',
       function() {
 
         myDomWindowControlPanel.init()
@@ -572,7 +572,7 @@ describe("DomWindowControlPanel", function() {
       }
     )
 
-    it('should change the color on mouse out',
+    it('should change the minimize button color on mouse out',
       function() {
 
         myDomWindowControlPanel.init()
@@ -582,6 +582,272 @@ describe("DomWindowControlPanel", function() {
 
       }
     )
+
+    it(`should set the callbackOnMinimize to the onclick listener`,
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.minimize.onclick)
+          .toEqual(myDomWindowControlPanel.callbackOnMinimize)
+
+      }
+    )
+
+    it(`should append the stdCtrl minimize div to the container
+      element`, function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.containerElement.childNodes[0].innerText)
+          .toEqual('≈')
+
+      }
+    )
+
+    // ------------------------------------------------------------
+    it(`should create a div element for the fullscreen button`,
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.constructor.name)
+          .toEqual('HTMLDivElement')
+
+      }
+    )
+
+    it(`should set the style of the minimize button div element`,
+      function() {
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.display).toEqual('inline-block')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.backgroundColor).toEqual('rgb(92, 48, 122)')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.width).toEqual(String(myDomWindowControlPanel.ctrlWidth) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.height).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.border).toEqual('1px solid ' + 'rgb(192, 142, 227)')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.marginLeft).toEqual(String(myDomWindowControlPanel.ctrlMarginLeft) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.marginTop).toEqual(String(myDomWindowControlPanel.ctrlMarginTop) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.textAlign).toEqual('center')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.lineHeight).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.borderRadius).toEqual(String(myDomWindowControlPanel.ctrlBorderRadius) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.userSelect).toEqual('none')
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.innerText).toEqual('⌂')
+      }
+    )
+
+    it('should an onmouseover event to the control fullscreen button',
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(
+          myDomWindowControlPanel.stdCtrl.fullscreen.onmouseover
+        ).toEqual(jasmine.any(Function))
+
+      }
+    )
+
+    it('should change the color of the fullscreen button on mouse over',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.fullscreen.onmouseover()
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.color)
+          .toEqual('rgb(241, 231, 249)')
+
+      }
+    )
+
+    it('should add onmouseout event to the control fullscreen button',
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(
+          myDomWindowControlPanel.stdCtrl.fullscreen.onmouseout
+        ).toEqual(jasmine.any(Function))
+
+      }
+    )
+
+    it('should change the color fullscreen button on mouse out',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.fullscreen.onmouseout()
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.style.color)
+          .toEqual('rgb(197, 181, 208)')
+
+      }
+    )
+
+    it(`should set the callbackOnFullscreen to the onclick listener`,
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.fullscreen.onclick)
+          .toEqual(myDomWindowControlPanel.callbackOnFullscreen)
+
+      }
+    )
+
+    it(`should append the stdCtrl fullscreen div to the container
+      element`, function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.containerElement.childNodes[1].innerText)
+          .toEqual('⌂')
+
+
+      }
+    )
+
+    // ------------------------------------------------------------
+    it(`should create a div element for the destroy button`,
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.destroy.constructor.name)
+          .toEqual('HTMLDivElement')
+
+      }
+    )
+
+    it(`should set the style of the destroy button div element`,
+      function() {
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.display).toEqual('inline-block')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.backgroundColor).toEqual('rgb(92, 48, 122)')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.width).toEqual(String(myDomWindowControlPanel.ctrlWidth) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.height).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.border).toEqual('1px solid ' + 'rgb(192, 142, 227)')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.marginLeft).toEqual(String(myDomWindowControlPanel.ctrlMarginLeft) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.marginTop).toEqual(String(myDomWindowControlPanel.ctrlMarginTop) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.textAlign).toEqual('center')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.lineHeight).toEqual(String(myDomWindowControlPanel.ctrlHeight) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.borderRadius).toEqual(String(myDomWindowControlPanel.ctrlBorderRadius) + 'px')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.userSelect).toEqual('none')
+        expect(myDomWindowControlPanel.stdCtrl.destroy.innerText).toEqual('X')
+      }
+    )
+
+    it('should an onmouseover event to the control destroy button',
+      function() {
+
+        myDomWindowControlPanel.init()
+        expect(
+          myDomWindowControlPanel.stdCtrl.destroy.onmouseover
+        ).toEqual(jasmine.any(Function))
+
+      }
+    )
+
+    it('should change the color of the destroy button on mouse over',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.destroy.onmouseover()
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.color)
+          .toEqual('rgb(241, 231, 249)')
+
+      }
+    )
+
+    it('should add onmouseout event to the control destroy button',
+    function() {
+
+      myDomWindowControlPanel.init()
+      expect(
+        myDomWindowControlPanel.stdCtrl.destroy.onmouseout
+      ).toEqual(jasmine.any(Function))
+
+    }
+  )
+
+    it('should change the color destroy button on mouse out',
+      function() {
+
+        myDomWindowControlPanel.init()
+        myDomWindowControlPanel.stdCtrl.destroy.onmouseout()
+        expect(myDomWindowControlPanel.stdCtrl.destroy.style.color)
+          .toEqual('rgb(197, 181, 208)')
+
+      }
+    )
+
+    it(`should set the callbackOnDestroy to the onclick listener`,
+    function() {
+
+      myDomWindowControlPanel.init()
+      expect(myDomWindowControlPanel.stdCtrl.destroy.onclick)
+        .toEqual(myDomWindowControlPanel.callbackOnDestroy)
+
+      }
+    )
+
+    it(`should append the stdCtrl destroy div to the container
+      element`, function() {
+
+        myDomWindowControlPanel.init()
+        expect(myDomWindowControlPanel.containerElement.childNodes[2].innerText)
+          .toEqual('X')
+
+      }
+    )
+
+  })
+
+  describe("destroy", function() {
+
+    it(`should call the destroy function of the super class`,
+      function() {
+
+        myDomWindowControlPanel.containerElement = {
+          removeChild: function() {}
+        }
+        spyOn(DomAbsolute.prototype, 'destroy')
+        myDomWindowControlPanel.destroy()
+        expect(DomAbsolute.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+    it(`should remove the fullscreen div element`, function() {
+
+      myDomWindowControlPanel.init()
+      spyOn(myDomWindowControlPanel.containerElement, 'removeChild')
+      myDomWindowControlPanel.destroy()
+      expect(myDomWindowControlPanel.containerElement.removeChild)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.stdCtrl.fullscreen)
+
+    })
+
+    it(`should remove the minimize div element`, function() {
+
+      myDomWindowControlPanel.init()
+      spyOn(myDomWindowControlPanel.containerElement, 'removeChild')
+      myDomWindowControlPanel.destroy()
+      expect(myDomWindowControlPanel.containerElement.removeChild)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.stdCtrl.minimize)
+
+    })
+
+    it(`should remove the destroy div element`, function() {
+
+      myDomWindowControlPanel.init()
+      spyOn(myDomWindowControlPanel.containerElement, 'removeChild')
+      myDomWindowControlPanel.destroy()
+      expect(myDomWindowControlPanel.containerElement.removeChild)
+        .toHaveBeenCalledWith(myDomWindowControlPanel.stdCtrl.destroy)
+
+    })
+
+    it(`should not remove any element when the object is not
+      initialized`, function() {
+
+      myDomWindowControlPanel.containerElement = {
+        removeChild: function() {}
+      }
+      spyOn(myDomWindowControlPanel.containerElement, 'removeChild')
+      myDomWindowControlPanel.destroy()
+      expect(myDomWindowControlPanel.containerElement.removeChild)
+        .not.toHaveBeenCalled()
+
+    })
 
   })
 
