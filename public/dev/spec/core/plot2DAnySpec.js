@@ -19,6 +19,13 @@ describe("Plot2DAny", function() {
     }
   )
 
+  it(`should have an boolean attribute isInitialized, which should be
+    set to false by the constructor`, function() {
+
+    expect(anyObject.isInitialized).toEqual(false)
+
+  })
+
   it(`should have a method for creating HTML -
     http://www.w3.org/1999/xhtml Elements`, function() {
 
@@ -49,6 +56,41 @@ describe("Plot2DAny", function() {
 
       }
     )
+
+  })
+
+  it("should have a function init", function() {
+
+    expect(anyObject.init).toEqual(jasmine.any(Function))
+
+  })
+
+  describe('init', function() {
+
+    it(`should set the isInitialized attribute to true`, function() {
+
+      anyObject.init()
+      expect(anyObject.isInitialized).toEqual(true)
+
+    })
+
+  })
+
+  it(`should have a function destroy`, function() {
+
+    expect(anyObject.destroy).toEqual(jasmine.any(Function))
+
+  })
+
+  describe('destroy', function() {
+
+    it(`should set the isInitialized attribute to false`, function() {
+
+      anyObject.isInitialized = true
+      anyObject.destroy()
+      expect(anyObject.isInitialized).toEqual(false)
+
+    })
 
   })
 

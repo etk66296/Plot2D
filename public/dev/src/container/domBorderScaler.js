@@ -61,6 +61,22 @@ class DomBorderScaler extends DomAbsolute {
 
   }
 
+  destroy() {
+
+    if(this.isInitialized) {
+      this.containerElement.removeEventListener(
+        'mousedown', this.callbackOnMouseDown
+      )
+
+      document.removeEventListener(
+        'mouseup', this.callbackOnMouseUp
+      )
+    }
+
+    super.destroy()
+
+  }
+
   stretchParentFromTopBy(event) {
 
     let staticEdgeY = this.parentElement.offsetTop +

@@ -6,6 +6,20 @@ class Plot2DAny {
     
     this.tracker = null
 
+    this.isInitialized = false
+
+  }
+
+  init() {
+
+    this.isInitialized = true
+
+  }
+
+  destroy() {
+
+    this.isInitialized = false
+
   }
 
   createHtmlElement(elementName) {

@@ -16,5 +16,11 @@ class PerformanceDisplay extends Display {
     super.init()
 
   }
+
+  destroy() {
+
+    super.destroy()
+
+  }
   
 }

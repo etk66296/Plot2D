@@ -142,6 +142,45 @@ describe("DomDoubleDirBorderScaler", function() {
 
   })
 
+  describe("destroy", function() {
+
+    it(`should call the destroy function of the super class`,
+      function() {
+
+        spyOn(DomBorderScaler.prototype, 'destroy')
+        myDomDoubleDirBorderScaler.destroy()
+        expect(DomBorderScaler.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+    it(`should remove the documents mousemove event listener`,
+      function() {
+
+        spyOn(DomBorderScaler.prototype, 'destroy')
+        spyOn(document, 'removeEventListener')
+        myDomDoubleDirBorderScaler.isInitialized = true
+        myDomDoubleDirBorderScaler.destroy()
+        expect(document.removeEventListener)
+          .toHaveBeenCalledWith('mousemove', myDomDoubleDirBorderScaler.callbackOnMouseMove)
+
+      }
+    )
+
+    it(`should not remove any event listener when isInitialized is
+      cleared`, function() {
+
+        spyOn(DomBorderScaler.prototype, 'destroy')
+        spyOn(document, 'removeEventListener')
+        myDomDoubleDirBorderScaler.isInitialized = false
+        myDomDoubleDirBorderScaler.destroy()
+        expect(document.removeEventListener).not.toHaveBeenCalled()
+
+
+      }
+    )
+
+  })
+
   it(`should have a event function which should be called with the
     initialized mousemove event`, function() {
       

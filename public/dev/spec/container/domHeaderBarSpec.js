@@ -44,6 +44,15 @@ describe("DomHeaderBar", function() {
     }
   )
 
+  it(`should have an attribute movabilityIsInitialized, which is
+    initialy false`,
+    function() {
+
+      expect(myDomHeaderBar.movabilityIsInitialized).toEqual(false)
+
+    }
+  )
+
   it(`should have an object attribute for saving the offset of the
     click position on a mouse down event on the conatiner element`,
     function() {
@@ -302,6 +311,120 @@ describe("DomHeaderBar", function() {
 
     })
     
+  })
+
+  describe("destroy", function() {
+
+    it(`should call the destroy function of the super class`,
+      function() {
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+        spyOn(DomAbsolute.prototype, 'destroy')
+        myDomHeaderBar.destroy()
+        expect(DomAbsolute.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+    it(`should remove the containerElement mousedown event listener`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+        spyOn(containerElement, 'removeEventListener')
+        myDomHeaderBar.movabilityIsInitialized = true
+        myDomHeaderBar.destroy()
+        expect(myDomHeaderBar.containerElement.removeEventListener)
+          .toHaveBeenCalledWith('mousedown', myDomHeaderBar.callbackOnMouseDown)
+      }
+    )
+
+    it(`should remove the documents mouseup event listener`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+
+        spyOn(document, 'removeEventListener')
+        myDomHeaderBar.movabilityIsInitialized = true
+        myDomHeaderBar.destroy()
+        expect(document.removeEventListener)
+          .toHaveBeenCalledWith('mouseup', myDomHeaderBar.callbackOnMouseUp)
+
+      }
+    )
+
+    it(`should remove the documents mouseup event listener`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+
+        spyOn(document, 'removeEventListener')
+        myDomHeaderBar.movabilityIsInitialized = true
+        myDomHeaderBar.destroy()
+        expect(document.removeEventListener)
+          .toHaveBeenCalledWith('mousemove', myDomHeaderBar.callbackOnMouseMove)
+
+      }
+    )
+
+    it(`should remove no event listener when the object is not
+      initialized`, function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+        spyOn(document, 'removeEventListener')
+        myDomHeaderBar.movabilityIsInitialized = false
+        myDomHeaderBar.destroy()
+        expect(document.removeEventListener).not.toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should reset the attribute movabilityIsInitialized to false`,
+      function() {
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomHeaderBar.containerElement = containerElement
+        spyOn(document, 'removeEventListener')
+        myDomHeaderBar.movabilityIsInitialized = true
+        myDomHeaderBar.destroy()
+        expect(myDomHeaderBar.movabilityIsInitialized).toEqual(false)
+      }
+    )
+
+
   })
 
   it(`should have a function for initialize the event Listeners`,

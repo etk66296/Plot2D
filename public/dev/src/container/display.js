@@ -20,6 +20,12 @@ class Display extends DomContainer {
 
   }
 
+  destroy() {
+
+    super.destroy()
+
+  }
+
   alignToParentSize(offsetFromTop = 0) {
 
     this.containerElement.style.width =

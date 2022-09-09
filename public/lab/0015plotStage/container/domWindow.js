@@ -294,8 +294,6 @@ class DomWindow extends DomAbsolute {
       
       member.renderSurface = this.contentContainerElement
 
-      console.log(member.renderSurface)
-
       this.contentContainerElement.appendChild(member
         .getDomCompatible()
       )

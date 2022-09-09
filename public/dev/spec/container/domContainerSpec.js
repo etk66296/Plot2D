@@ -92,6 +92,65 @@ describe("DomContainer", function() {
       }
     )
 
+    it(`should call the super class init function`, function() {
+
+      spyOn(Container.prototype, 'init')
+      myDomContainer.init()
+      expect(Container.prototype.init).toHaveBeenCalled()
+
+    })
+
+  })
+
+  describe("destroy", function() {
+
+    it(`should remove the containerElement child, when the object is
+      initialized`, function() {
+
+        
+        let parent = {
+          removeChild: function() {
+
+          }
+        }
+        myDomContainer.parentElement = parent
+        myDomContainer.isInitialized = true
+
+        spyOn(myDomContainer.parentElement, 'removeChild')
+        myDomContainer.destroy()
+        expect(myDomContainer.parentElement.removeChild).toHaveBeenCalled()
+
+
+      }
+    )
+
+    it(`should omit the removeChild call when it is not initialized`,
+      function() {
+
+        let parent = {
+          removeChild: function() {
+
+          }
+        }
+        myDomContainer.parentElement = parent
+        myDomContainer.isInitialized = false
+
+        spyOn(myDomContainer.parentElement, 'removeChild')
+        myDomContainer.destroy()
+        expect(myDomContainer.parentElement.removeChild).not.toHaveBeenCalled()
+
+      }
+    )
+
+    it("should call the super class destroy", function() {
+
+      spyOn(Container.prototype, 'destroy')
+      myDomContainer.destroy()
+      expect(Container.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+
   })
 
   it(`should have a function setZIndex`, function() {
