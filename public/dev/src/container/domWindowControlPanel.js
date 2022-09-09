@@ -90,7 +90,7 @@ class DomWindowControlPanel extends DomAbsolute {
     this.ctrlWidth = this.ctrlHeight
     this.ctrlBorderRadius = 5
     
-    this.containerElement.style.backgroundColor = this.backgroundColor
+  
     this.containerElement.style.color = this.color
     this.containerElement.style.right = '0px'
     this.setW(this.defaultWidth)

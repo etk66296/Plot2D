@@ -480,10 +480,6 @@ describe("DomWindowControlPanel", function() {
         myDomWindowControlPanel.init()
 
         expect(
-          myDomWindowControlPanel.containerElement.style.backgroundColor
-        ).toEqual('rgb(92, 48, 122)')
-
-        expect(
           myDomWindowControlPanel.containerElement.style.color
         ).toEqual('rgb(197, 181, 208)')
 

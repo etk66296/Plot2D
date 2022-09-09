@@ -92,6 +92,20 @@ describe("DomWindow", function() {
     }
   )
 
+  it(`should have a attribute headerBar`, function() {
+
+    expect(myDomWindow.headerBar).toBeDefined()
+
+    }
+  )
+
+  it(`should have a attribute controlPanel`, function() {
+
+    expect(myDomWindow.controlPanel).toBeDefined()
+
+    }
+  )
+
   it(`should have a attribute display`, function() {
 
       expect(myDomWindow.display).toBeDefined()
@@ -252,6 +266,12 @@ describe("DomWindow", function() {
         .toEqual('DomHeaderBar')
     })
 
+    it(`should instantiate a control panel object`, function() {
+      myDomWindow.init(100, 100, 200, 400)
+      expect(myDomWindow.controlPanel.__proto__.constructor.name)
+        .toEqual('DomWindowControlPanel')
+    })
+
 
     it(`should add the mouse down event listener with the
       callbackOnMouseDown to the containerElement`, function() {
@@ -298,6 +318,235 @@ describe("DomWindow", function() {
 
       }
     )
+
+
+  })
+
+  describe("destroy", function() {
+
+    it(`should call the destroy function of the super class`,
+      function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        myDomWindow.destroy()
+        expect(DomAbsolute.prototype.destroy).toHaveBeenCalled()
+
+    })
+
+    it(`should remove the containerElement mousedown event listener`,
+      function() {
+
+        myDomWindow.headerBar = {destroy: function() {}}
+        myDomWindow.display = {destroy: function() {}}
+        myDomWindow.controlPanel = {destroy: function() {}}
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+        spyOn(containerElement, 'removeEventListener')
+        myDomWindow.isInitialized = true
+        myDomWindow.destroy()
+        expect(myDomWindow.containerElement.removeEventListener)
+          .toHaveBeenCalledWith('mousedown', myDomWindow.callbackOnMouseDown)
+      }
+    )
+
+    it(`should not remove the containerElement mousedown event
+      listener, when the window is not initialized`, function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+        spyOn(containerElement, 'removeEventListener')
+        myDomWindow.isInitialized = false
+        myDomWindow.destroy()
+        expect(myDomWindow.containerElement.removeEventListener)
+          .not.toHaveBeenCalled()
+      }
+    )
+
+    it(`should remove the document mouseup event when the stretchers
+      are initialized`, function() {
+
+        myDomWindow.topStretcher = {destroy: function() {}}
+        myDomWindow.rightStretcher = {destroy: function() {}}
+        myDomWindow.bottomStretcher = {destroy: function() {}}
+        myDomWindow.leftStretcher = {destroy: function() {}}
+        myDomWindow.topRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomLeftStretcher = {destroy: function() {}}
+        myDomWindow.topLeftStretcher = {destroy: function() {}}
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+
+        myDomWindow.headerBar = {destroy: function() {}}
+        myDomWindow.display = {destroy: function() {}}
+        myDomWindow.controlPanel = {destroy: function() {}}
+
+        spyOn(document, 'removeEventListener')
+        myDomWindow.isInitialized = true
+        myDomWindow.stretchersAreInitialized = true
+        myDomWindow.destroy()
+        expect(document.removeEventListener)
+          .toHaveBeenCalledWith('mouseup', myDomWindow.callbackOnMouseUp)
+
+      }
+    )
+
+    it(`should not remove the document mouseup event when the stretchers
+      are not initialized`, function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        myDomWindow.headerBar = {destroy: function() {}}
+        myDomWindow.display = {destroy: function() {}}
+        myDomWindow.controlPanel = {destroy: function() {}}
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+
+        spyOn(document, 'removeEventListener')
+        myDomWindow.isInitialized = true
+        myDomWindow.stretchersAreInitialized = false
+        myDomWindow.destroy()
+        expect(document.removeEventListener)
+          .not.toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should set the stretchersAreInitialized attribute to false`,
+      function() {
+
+        myDomWindow.topStretcher = {destroy: function() {}}
+        myDomWindow.rightStretcher = {destroy: function() {}}
+        myDomWindow.bottomStretcher = {destroy: function() {}}
+        myDomWindow.leftStretcher = {destroy: function() {}}
+        myDomWindow.topRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomLeftStretcher = {destroy: function() {}}
+        myDomWindow.topLeftStretcher = {destroy: function() {}}
+
+        myDomWindow.headerBar = {destroy: function() {}}
+        myDomWindow.display = {destroy: function() {}}
+        myDomWindow.controlPanel = {destroy: function() {}}
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+
+        myDomWindow.isInitialized = true
+        myDomWindow.stretchersAreInitialized = true
+        myDomWindow.destroy()
+        expect(myDomWindow.stretchersAreInitialized).toEqual(false)
+      }
+    )
+
+    it(`should call all stretchers destroy functions when they are
+      initialized`, function() {
+
+        spyOn(DomAbsolute.prototype, 'destroy')
+
+        myDomWindow.topStretcher = {destroy: function() {}}
+        myDomWindow.rightStretcher = {destroy: function() {}}
+        myDomWindow.bottomStretcher = {destroy: function() {}}
+        myDomWindow.leftStretcher = {destroy: function() {}}
+        myDomWindow.topRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomRightStretcher = {destroy: function() {}}
+        myDomWindow.bottomLeftStretcher = {destroy: function() {}}
+        myDomWindow.topLeftStretcher = {destroy: function() {}}
+        spyOn(myDomWindow.topStretcher, 'destroy')
+        spyOn(myDomWindow.rightStretcher, 'destroy')
+        spyOn(myDomWindow.bottomStretcher, 'destroy')
+        spyOn(myDomWindow.leftStretcher, 'destroy')
+
+        spyOn(myDomWindow.topRightStretcher, 'destroy')
+        spyOn(myDomWindow.bottomRightStretcher, 'destroy')
+        spyOn(myDomWindow.bottomLeftStretcher, 'destroy')
+        spyOn(myDomWindow.topLeftStretcher, 'destroy')
+
+        myDomWindow.headerBar = {destroy: function() {}}
+        myDomWindow.display = {destroy: function() {}}
+        myDomWindow.controlPanel = {destroy: function() {}}
+
+
+        let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+        myDomWindow.containerElement = containerElement
+
+        myDomWindow.isInitialized = true
+        myDomWindow.stretchersAreInitialized = true
+        myDomWindow.destroy()
+
+        expect(myDomWindow.topStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.rightStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.bottomStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.leftStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.topRightStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.bottomRightStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.bottomLeftStretcher.destroy).toHaveBeenCalled()
+        expect(myDomWindow.topLeftStretcher.destroy).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should call the destroy function of the display, header
+     bar element and control panel`, function() {
+
+      spyOn(DomAbsolute.prototype, 'destroy')
+
+      let containerElement = {
+          removeEventListener: function(eventType, callback) {
+
+          }
+        }
+      myDomWindow.containerElement = containerElement
+        
+      myDomWindow.headerBar = {destroy: function() {}}
+      myDomWindow.display = {destroy: function() {}}
+      myDomWindow.controlPanel = {destroy: function() {}}
+
+      spyOn(myDomWindow.headerBar, 'destroy')
+      spyOn(myDomWindow.display, 'destroy')
+      spyOn(myDomWindow.controlPanel, 'destroy')
+
+      myDomWindow.isInitialized = true
+      myDomWindow.stretchersAreInitialized = false
+
+      myDomWindow.destroy()
+
+      expect(myDomWindow.headerBar.destroy).toHaveBeenCalled()
+      expect(myDomWindow.display.destroy).toHaveBeenCalled()
+      expect(myDomWindow.controlPanel.destroy).toHaveBeenCalled()
+
+     })
 
 
   })
@@ -701,6 +950,27 @@ describe("DomWindow", function() {
 
   })
 
+  it('should have a function initControlPanel', function() {
+
+    expect(myDomWindow.initControlPanel).toBeDefined()
+
+  })
+
+  describe("initControlPanel", function() {
+
+    it(`should call the controlPanels object init function`,
+      function() {
+
+        myDomWindow.init(10, 20, 30, 40)
+        myDomWindow.initDisplay()
+        myDomWindow.initHeaderBar()
+        myDomWindow.initControlPanel()
+        expect(myDomWindow.controlPanel.containerElement).not.toEqual(null)
+
+    })
+
+  })
+
   it(`should have a function appendChild for appending html dom
     elements to the window`, function() {
 
@@ -746,6 +1016,7 @@ describe("DomWindow", function() {
 
         spyOn(myDomWindow, 'init')
         spyOn(myDomWindow, 'initDisplay')
+        spyOn(myDomWindow, 'initControlPanel')
         myDomWindow.assembleItWith({ headerBar: false, isStretchable: false})
         expect(myDomWindow.init).toHaveBeenCalledWith(
           100, 100, 320, 240
@@ -760,6 +1031,26 @@ describe("DomWindow", function() {
         spyOn(myDomWindow, 'initHeaderBar')
         myDomWindow.assembleItWith()
         expect(myDomWindow.initHeaderBar).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should call the function for initializing the control panel when
+      the corresponding configuration flag is set`, function() {
+
+        spyOn(myDomWindow, 'initControlPanel')
+        myDomWindow.assembleItWith({controlPanel: true})
+        expect(myDomWindow.initControlPanel).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should not call the function for initializing the control panel when
+      the corresponding configuration flag is cleared`, function() {
+
+        spyOn(myDomWindow, 'initControlPanel')
+        myDomWindow.assembleItWith({controlPanel: false})
+        expect(myDomWindow.initControlPanel).not.toHaveBeenCalled()
 
       }
     )
@@ -786,6 +1077,7 @@ describe("DomWindow", function() {
       spyOn(myDomWindow, 'initStretchers')
       spyOn(myDomWindow, 'initDisplay')
       spyOn(myDomWindow, 'initHeaderBar')
+      spyOn(myDomWindow, 'initControlPanel')
       myDomWindow.assembleItWith()
       expect(myDomWindow.initDisplay).toHaveBeenCalled()
 

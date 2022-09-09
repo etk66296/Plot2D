@@ -19,6 +19,7 @@ class DomWindow extends DomAbsolute {
     this.topLeftStretcher = null
 
     this.headerBar = null
+    this.controlPanel = null
 
     this.displayType = 'standard'
     this.display = null
@@ -154,6 +155,12 @@ class DomWindow extends DomAbsolute {
 
   }
 
+  initControlPanel() {
+
+    this.controlPanel.init()
+
+  }
+
   init(x, y, w, h) {
 
     super.init()
@@ -209,6 +216,7 @@ class DomWindow extends DomAbsolute {
     )
 
     this.headerBar = new DomHeaderBar(this.containerElement)
+    this.controlPanel = new DomWindowControlPanel(this.containerElement, this)
 
     if(this.displayType === 'standard') {
 
@@ -226,6 +234,44 @@ class DomWindow extends DomAbsolute {
 
     
   }
+
+  destroy() {
+
+    if(this.isInitialized) {
+
+      this.containerElement
+        .removeEventListener('mousedown', this.callbackOnMouseDown)
+
+        if(this.stretchersAreInitialized) {
+
+          document.removeEventListener('mouseup', this.callbackOnMouseUp)
+          this.stretchersAreInitialized = false
+
+          this.topStretcher.destroy()
+          this.rightStretcher.destroy()
+          this.bottomStretcher.destroy()
+          this.leftStretcher.destroy()
+
+          this.topRightStretcher.destroy()
+          this.bottomRightStretcher.destroy()
+          this.bottomLeftStretcher.destroy()
+          this.topLeftStretcher.destroy()
+
+        }
+
+        this.headerBar.destroy()
+        this.display.destroy()
+        this.controlPanel.destroy()
+
+    }
+
+
+
+    super.destroy()
+
+  }
+
+
 
   assembleItWith(cfg = {}) {
 
@@ -274,6 +320,18 @@ class DomWindow extends DomAbsolute {
     if(cfg.headerBar) {
       
       this.initHeaderBar()
+
+    }
+
+    if (!('controlPanel' in cfg)) {
+
+      cfg.controlPanel = true
+      
+    }
+
+    if(cfg.controlPanel) {
+      
+      this.initControlPanel()
 
     }
 
