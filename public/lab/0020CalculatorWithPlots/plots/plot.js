@@ -6,25 +6,18 @@ class Plot extends Plot2DAny {
 
     this.wouldLikeToBeUpdated = true
     this.wouldLikeToBeDrawn = true
+
     this.DOM_ELEM = 1
     this.PERFORMANCE_ELEM = 2
-    this.IS_A_SOURCE = 1
-    this.IS_A_SINK = 2
-    this.IS_A_SINK_SOURCE = 3
+
+    this.REPORTER = 1
+    this.PUBLICIST = 2
+    this.READER = 3
+
     this.persistsAs = this.DOM_ELEM
-    this.dataFlowType = this.IS_A_SOURCE
+    this.interpretableHandlerType = this.REPORTER
 
-    this.executionCode = ""
-    this.productionCode = ""
-    this.dataReceiver = []
-    this.dataTransmitter = null
-
-    this.injectedCallback = () => {}
-
-    this.callbackOnNudge = () => {
-
-      
-    }
+    this.interpretableHandler = null
 
   }
 
@@ -37,43 +30,61 @@ class Plot extends Plot2DAny {
     return false
   }
 
-  isASource() {
-    if(this.dataFlowType === this.IS_A_SOURCE) {
+  isAReporter() {
+    if(this.interpretableHandlerType === this.REPORTER) {
       return true
     }
     return false
   }
 
-  actAsSource() {
+  actAsReporter(reporter = null) {
 
-    this.dataFlowType = this.IS_A_SOURCE
+    this.interpretableHandlerType = this.REPORTER
+
+    if(reporter == null) {
+
+      this.interpretableHandler = new InterpretableReporter()
+
+    } else {
+
+      this.interpretableHandler = reporter
+
+    }
 
   }
 
-  actAsSink() {
+  actAsPublicist(publicist = null) {
 
-    this.dataFlowType = this.IS_A_SINK
+    this.interpretableHandlerType = this.PUBLICIST
+    
+    if(publicist == null) {
+
+      this.interpretableHandler = new InterpretablePublicist()
+
+    } else {
+
+      this.interpretableHandler = publicist
+
+    }
+
   }
 
-  actAsSinkSource() {
+  actAsReader(reader = null) {
 
-    this.dataFlowType = this.IS_A_SINK_SOURCE
-  }
+    this.interpretableHandlerType = this.READER
+    
+    if(reader == null) {
 
-  addReceiver(receiver) {
+      this.interpretableHandler = new InterpretableReader()
 
-    this.dataReceiver.push(receiver)
+    } else {
+
+      this.interpretableHandler = reader
+
+    }
 
   }
   
-  injectCallback(callback) {
-
-    this.injectedCallback = callback
-
-  }
-
-  
-
   init() {
     
   }

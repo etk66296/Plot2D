@@ -9,6 +9,9 @@ class Primitive extends Plot {
     this.x = 0
     this.y = 0
 
+    this.callbackOnPublish = () => {
+      console.error('reporter does not publish ... define callbackOnPublish')
+    }
 
   }
 
@@ -28,7 +31,6 @@ class Primitive extends Plot {
     this.setBorder()
 
     this.displayElement.style.textAlign = 'center'
-    this.displayElement.onclick = this.callbackOnNudge
 
   }
 
@@ -73,6 +75,19 @@ class Primitive extends Plot {
 
   setTextAlign(orientation) {
     this.displayElement.style.textAlign = orientation
+  }
+
+  actAsReporter(reporter = null) {
+    super.actAsReporter(reporter)
+
+    this.displayElement.onclick = this.callbackOnPublish
+  }
+
+  setCallbackOnPublish(callback) {
+
+    this.callbackOnPublish = callback
+    this.displayElement.onclick = this.callbackOnPublish
+
   }
   
 }

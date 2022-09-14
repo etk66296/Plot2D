@@ -8,6 +8,8 @@ let init = (parentHtmlElement) => {
     .assembleItWith({
       pos: { x: 50, y: 200 },
       dim: { w: 480, h: 320 },
+      isStretchable: false,
+      controlPanel: false,
       headerBar: true
     })
 
@@ -23,47 +25,18 @@ let init = (parentHtmlElement) => {
       displayType: 'performance2D'
     })
 
-  let calculatorDisplay = new Rect()
-  calculatorDisplay.init(10, 10, 460, 40)
-  calculatorDisplay.setBackgroundColor("#6f6a52")
-  calculatorDisplay.setBorder()
-  calculatorDisplay.actAsSink()
-  calculatorDisplay.setTextAlign('right')
-  calculatorDisplay.injectCallback(() => {
 
 
-    if(calculatorDisplay.executionCode === '+') {
 
-      calculatorDisplay.executionCode = ''
-
-    }
-    calculatorDisplay.displayElement.innerText = calculatorDisplay.executionCode
-
-  })
-  myFirstWindow.appendChild(calculatorDisplay)
-
-
-  let calculatorProdNumberEqual = new Rect()
-  calculatorProdNumberEqual.init(110, 210, 40, 40)
-  calculatorProdNumberEqual.setBackgroundColor()
-  calculatorProdNumberEqual.setBorder()
-  calculatorProdNumberEqual.setText('=')
-  calculatorProdNumberEqual.actAsSinkSource()
-  calculatorProdNumberEqual.addReceiver(calculatorDisplay)
-  calculatorProdNumberEqual.productionCode = "="
-  myFirstWindow.appendChild(calculatorProdNumberEqual)
-
-
+  // numbers
 
   let calculatorProdNumberSeven = new Rect()
   calculatorProdNumberSeven.init(10, 60, 40, 40)
   calculatorProdNumberSeven.setBackgroundColor()
   calculatorProdNumberSeven.setBorder()
   calculatorProdNumberSeven.setText('7')
-  calculatorProdNumberSeven.actAsSource()
-  calculatorProdNumberSeven.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberSeven.addReceiver(calculatorDisplay)
-  calculatorProdNumberSeven.productionCode = "7"
+  calculatorProdNumberSeven.actAsReporter()
+  calculatorProdNumberSeven.interpretableHandler.publication = "7"
   myFirstWindow.appendChild(calculatorProdNumberSeven)
 
   let calculatorProdNumberEight = new Rect()
@@ -71,10 +44,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberEight.setBackgroundColor()
   calculatorProdNumberEight.setBorder()
   calculatorProdNumberEight.setText('8')
-  calculatorProdNumberEight.actAsSource()
-  calculatorProdNumberEight.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberEight.addReceiver(calculatorDisplay)
-  calculatorProdNumberEight.productionCode = "8"
+  calculatorProdNumberEight.actAsReporter()
+  calculatorProdNumberEight.interpretableHandler.publication = "8"
   myFirstWindow.appendChild(calculatorProdNumberEight)
 
   let calculatorProdNumberNine = new Rect()
@@ -82,10 +53,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberNine.setBackgroundColor()
   calculatorProdNumberNine.setBorder()
   calculatorProdNumberNine.setText('9')
-  calculatorProdNumberNine.actAsSource()
-  calculatorProdNumberNine.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberNine.addReceiver(calculatorDisplay)
-  calculatorProdNumberNine.productionCode = "9"
+  calculatorProdNumberNine.actAsReporter()
+  calculatorProdNumberNine.interpretableHandler.publication = "9"
   myFirstWindow.appendChild(calculatorProdNumberNine)
 
   let calculatorProdNumberFour = new Rect()
@@ -93,10 +62,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberFour.setBackgroundColor()
   calculatorProdNumberFour.setBorder()
   calculatorProdNumberFour.setText('4')
-  calculatorProdNumberFour.actAsSource()
-  calculatorProdNumberFour.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberFour.addReceiver(calculatorDisplay)
-  calculatorProdNumberFour.productionCode = "4"
+  calculatorProdNumberFour.actAsReporter()
+  calculatorProdNumberFour.interpretableHandler.publication = "4"
   myFirstWindow.appendChild(calculatorProdNumberFour)
 
   let calculatorProdNumberFive = new Rect()
@@ -104,10 +71,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberFive.setBackgroundColor()
   calculatorProdNumberFive.setBorder()
   calculatorProdNumberFive.setText('5')
-  calculatorProdNumberFive.actAsSource()
-  calculatorProdNumberFive.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberFive.addReceiver(calculatorDisplay)
-  calculatorProdNumberFive.productionCode = "5"
+  calculatorProdNumberFive.actAsReporter()
+  calculatorProdNumberFive.interpretableHandler.publication = "5"
   myFirstWindow.appendChild(calculatorProdNumberFive)
 
   let calculatorProdNumberSix = new Rect()
@@ -115,10 +80,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberSix.setBackgroundColor()
   calculatorProdNumberSix.setBorder()
   calculatorProdNumberSix.setText('6')
-  calculatorProdNumberSix.actAsSource()
-  calculatorProdNumberSix.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberSix.addReceiver(calculatorDisplay)
-  calculatorProdNumberSix.productionCode = "6"
+  calculatorProdNumberSix.actAsReporter()
+  calculatorProdNumberSix.interpretableHandler.publication = "6"
   myFirstWindow.appendChild(calculatorProdNumberSix)
 
   let calculatorProdNumberOne = new Rect()
@@ -126,10 +89,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberOne.setBackgroundColor()
   calculatorProdNumberOne.setBorder()
   calculatorProdNumberOne.setText('1')
-  calculatorProdNumberOne.actAsSource()
-  calculatorProdNumberOne.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberOne.addReceiver(calculatorDisplay)
-  calculatorProdNumberOne.productionCode = "1"
+  calculatorProdNumberOne.actAsReporter()
+  calculatorProdNumberOne.interpretableHandler.publication = "1"
   myFirstWindow.appendChild(calculatorProdNumberOne)
 
   let calculatorProdNumberTwo = new Rect()
@@ -137,10 +98,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberTwo.setBackgroundColor()
   calculatorProdNumberTwo.setBorder()
   calculatorProdNumberTwo.setText('2')
-  calculatorProdNumberTwo.actAsSource()
-  calculatorProdNumberTwo.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberTwo.addReceiver(calculatorDisplay)
-  calculatorProdNumberTwo.productionCode = "2"
+  calculatorProdNumberTwo.actAsReporter()
+  calculatorProdNumberTwo.interpretableHandler.publication = "2"
   myFirstWindow.appendChild(calculatorProdNumberTwo)
 
   let calculatorProdNumberThree = new Rect()
@@ -148,10 +107,8 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberThree.setBackgroundColor()
   calculatorProdNumberThree.setBorder()
   calculatorProdNumberThree.setText('3')
-  calculatorProdNumberThree.actAsSource()
-  calculatorProdNumberThree.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberThree.addReceiver(calculatorDisplay)
-  calculatorProdNumberThree.productionCode = "3"
+  calculatorProdNumberThree.actAsReporter()
+  calculatorProdNumberThree.interpretableHandler.publication = "3"
   myFirstWindow.appendChild(calculatorProdNumberThree)
 
   let calculatorProdNumberZero = new Rect()
@@ -159,76 +116,149 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberZero.setBackgroundColor()
   calculatorProdNumberZero.setBorder()
   calculatorProdNumberZero.setText('0')
-  calculatorProdNumberZero.actAsSource()
-  calculatorProdNumberZero.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberZero.addReceiver(calculatorDisplay)
-  calculatorProdNumberZero.productionCode = "1"
+  calculatorProdNumberZero.actAsReporter()
+  calculatorProdNumberZero.interpretableHandler.publication = "0"
   myFirstWindow.appendChild(calculatorProdNumberZero)
 
+
+  // operators
   let calculatorProdNumberPlus = new Rect()
-  calculatorProdNumberPlus.init(60, 210, 40, 40)
+  calculatorProdNumberPlus.init(430, 60, 40, 40)
   calculatorProdNumberPlus.setBackgroundColor()
   calculatorProdNumberPlus.setBorder()
   calculatorProdNumberPlus.setText('+')
-  calculatorProdNumberPlus.actAsSource()
-  calculatorProdNumberPlus.addReceiver(calculatorProdNumberEqual)
-  calculatorProdNumberPlus.addReceiver(calculatorDisplay)
-  calculatorProdNumberPlus.productionCode = "+"
+  calculatorProdNumberPlus.actAsReporter()
+  calculatorProdNumberPlus.interpretableHandler.publication = "+"
   myFirstWindow.appendChild(calculatorProdNumberPlus)
 
-  
+  let calculatorProdNumberMinus = new Rect()
+  calculatorProdNumberMinus.init(430, 110, 40, 40)
+  calculatorProdNumberMinus.setBackgroundColor()
+  calculatorProdNumberMinus.setBorder()
+  calculatorProdNumberMinus.setText('-')
+  calculatorProdNumberMinus.actAsReporter()
+  calculatorProdNumberMinus.interpretableHandler.publication = "-"
+  myFirstWindow.appendChild(calculatorProdNumberMinus)
 
-  
-    
-  // let testDiv =
-  //   document.createElementNS("http://www.w3.org/1999/xhtml", 'div')
 
-  // testDiv.style.color = '#FFFFFF'
-  // testDiv.style.fontSize = '12px'
-  // testDiv.style.backgroundColor = '#000000'
-  // testDiv.innerText = `TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-  // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-  // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-  // TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST`
+  // control
+  let calculatorSolve = new Rect()
+  calculatorSolve.init(430, 210, 40, 40)
+  calculatorSolve.setBackgroundColor()
+  calculatorSolve.setBorder()
+  calculatorSolve.setText('=')
+  calculatorSolve.actAsPublicist()
+  calculatorSolve.interpretableHandler.publication = ""
+  calculatorSolve.productionCode = "="
+  myFirstWindow.appendChild(calculatorSolve)
 
-  // myFirstWindow.appendChild(testDiv)
+  let calculatorDisplay = new Rect()
+  calculatorDisplay.init(10, 10, 460, 40)
+  calculatorDisplay.setBackgroundColor("#6f6a52")
+  calculatorDisplay.setBorder()
+  calculatorDisplay.actAsReader()
+  calculatorDisplay.setTextAlign('right')
+  myFirstWindow.appendChild(calculatorDisplay)
 
-  // mySecondWindow.appendChild('')
 
-  // let imageLoader = new ImageLoader()
-  // imageLoader.init()
 
-  // imageLoader.loadListFromRemote([
-  //   {
-  //     identifier: 'grenadeGuy',
-  //     url: 'things/sprites/grenade-guy-sheet-alpha.png'
-  //   },
-  //   {
-  //     identifier: 'isometricTrees',
-  //     url: 'things/sprites/isometricTrees_green.png'
-  //   },
-  //   {
-  //     identifier: 'overworld',
-  //     url: 'things/sprites/overworld_no_spaces_updated.png',
-  //   },
-  //   {
-  //     identifier: 'monsterSkeleton',
-  //     url: 'things/sprites/monsterSkeleton.png'
-  //   }
-  // ])
+  calculatorProdNumberSeven.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberSeven.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberSeven.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+    calculatorProdNumberEight.setCallbackOnPublish(() => {
+      calculatorDisplay.interpretableHandler.see = calculatorProdNumberEight.interpretableHandler.publication
+      calculatorSolve.interpretableHandler.see += calculatorProdNumberEight.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberNine.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberNine.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberNine.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberFour.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberFour.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberFour.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberFive.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberFive.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberFive.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberSix.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberSix.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberSix.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberOne.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberOne.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberOne.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberTwo.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberTwo.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberTwo.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
+  calculatorProdNumberThree.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberThree.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberThree.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
 
-  // imageLoader.onReadyToUse = () => {
+  calculatorProdNumberZero.setCallbackOnPublish(() => {
+    calculatorDisplay.interpretableHandler.see = calculatorProdNumberZero.interpretableHandler.publication
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberZero.interpretableHandler.publication
+    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  })
 
-  //   let myPixelSurface = new PixelSurface(imageLoader.loaded['grenadeGuy'])
-  //   let myDomStage = new DomStage()
-  //   let myPerformanceStage = new PerformanceStage()
+  calculatorProdNumberPlus.setCallbackOnPublish(() => {
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberPlus.interpretableHandler.publication
+    calculatorDisplay.interpretableHandler.see = ""
+    calculatorDisplay.displayElement.innerText = ""
+  })
 
-  //   myDomStage.admit(myPixelSurface)
-  //   myFirstWindow.appendChild(myDomStage)
+  calculatorProdNumberMinus.setCallbackOnPublish(() => {
+    calculatorSolve.interpretableHandler.see += calculatorProdNumberMinus.interpretableHandler.publication
+    calculatorDisplay.interpretableHandler.see = ""
+    calculatorDisplay.displayElement.innerText = ""
+  })
 
-  //   myPerformanceStage.admit(myPixelSurface)
-  //   mySecondWindow.appendChild(myPerformanceStage)
 
-  // }
+  calculatorSolve.setCallbackOnPublish(() => {
+
+    calculatorSolve.interpretableHandler.see = String(eval(calculatorSolve.interpretableHandler.see))
+    calculatorDisplay.interpretableHandler.see = calculatorSolve.interpretableHandler.see
+    calculatorDisplay.displayElement.innerText = calculatorDisplay.interpretableHandler.see
+
+  })
+
+
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
+
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
+
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
+  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
+
+
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
+  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
 
 }
