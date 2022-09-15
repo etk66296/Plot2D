@@ -35,7 +35,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberSeven.setBackgroundColor()
   calculatorProdNumberSeven.setBorder()
   calculatorProdNumberSeven.setText('7')
-  calculatorProdNumberSeven.actAsReporter()
+  calculatorProdNumberSeven.actAsReporterOnclick()
   calculatorProdNumberSeven.interpretableHandler.publication = "7"
   myFirstWindow.appendChild(calculatorProdNumberSeven)
 
@@ -44,7 +44,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberEight.setBackgroundColor()
   calculatorProdNumberEight.setBorder()
   calculatorProdNumberEight.setText('8')
-  calculatorProdNumberEight.actAsReporter()
+  calculatorProdNumberEight.actAsReporterOnclick()
   calculatorProdNumberEight.interpretableHandler.publication = "8"
   myFirstWindow.appendChild(calculatorProdNumberEight)
 
@@ -53,7 +53,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberNine.setBackgroundColor()
   calculatorProdNumberNine.setBorder()
   calculatorProdNumberNine.setText('9')
-  calculatorProdNumberNine.actAsReporter()
+  calculatorProdNumberNine.actAsReporterOnclick()
   calculatorProdNumberNine.interpretableHandler.publication = "9"
   myFirstWindow.appendChild(calculatorProdNumberNine)
 
@@ -62,7 +62,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberFour.setBackgroundColor()
   calculatorProdNumberFour.setBorder()
   calculatorProdNumberFour.setText('4')
-  calculatorProdNumberFour.actAsReporter()
+  calculatorProdNumberFour.actAsReporterOnclick()
   calculatorProdNumberFour.interpretableHandler.publication = "4"
   myFirstWindow.appendChild(calculatorProdNumberFour)
 
@@ -71,7 +71,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberFive.setBackgroundColor()
   calculatorProdNumberFive.setBorder()
   calculatorProdNumberFive.setText('5')
-  calculatorProdNumberFive.actAsReporter()
+  calculatorProdNumberFive.actAsReporterOnclick()
   calculatorProdNumberFive.interpretableHandler.publication = "5"
   myFirstWindow.appendChild(calculatorProdNumberFive)
 
@@ -80,7 +80,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberSix.setBackgroundColor()
   calculatorProdNumberSix.setBorder()
   calculatorProdNumberSix.setText('6')
-  calculatorProdNumberSix.actAsReporter()
+  calculatorProdNumberSix.actAsReporterOnclick()
   calculatorProdNumberSix.interpretableHandler.publication = "6"
   myFirstWindow.appendChild(calculatorProdNumberSix)
 
@@ -89,7 +89,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberOne.setBackgroundColor()
   calculatorProdNumberOne.setBorder()
   calculatorProdNumberOne.setText('1')
-  calculatorProdNumberOne.actAsReporter()
+  calculatorProdNumberOne.actAsReporterOnclick()
   calculatorProdNumberOne.interpretableHandler.publication = "1"
   myFirstWindow.appendChild(calculatorProdNumberOne)
 
@@ -98,7 +98,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberTwo.setBackgroundColor()
   calculatorProdNumberTwo.setBorder()
   calculatorProdNumberTwo.setText('2')
-  calculatorProdNumberTwo.actAsReporter()
+  calculatorProdNumberTwo.actAsReporterOnclick()
   calculatorProdNumberTwo.interpretableHandler.publication = "2"
   myFirstWindow.appendChild(calculatorProdNumberTwo)
 
@@ -107,7 +107,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberThree.setBackgroundColor()
   calculatorProdNumberThree.setBorder()
   calculatorProdNumberThree.setText('3')
-  calculatorProdNumberThree.actAsReporter()
+  calculatorProdNumberThree.actAsReporterOnclick()
   calculatorProdNumberThree.interpretableHandler.publication = "3"
   myFirstWindow.appendChild(calculatorProdNumberThree)
 
@@ -116,7 +116,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberZero.setBackgroundColor()
   calculatorProdNumberZero.setBorder()
   calculatorProdNumberZero.setText('0')
-  calculatorProdNumberZero.actAsReporter()
+  calculatorProdNumberZero.actAsReporterOnclick()
   calculatorProdNumberZero.interpretableHandler.publication = "0"
   myFirstWindow.appendChild(calculatorProdNumberZero)
 
@@ -127,7 +127,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberPlus.setBackgroundColor()
   calculatorProdNumberPlus.setBorder()
   calculatorProdNumberPlus.setText('+')
-  calculatorProdNumberPlus.actAsReporter()
+  calculatorProdNumberPlus.actAsReporterOnclick()
   calculatorProdNumberPlus.interpretableHandler.publication = "+"
   myFirstWindow.appendChild(calculatorProdNumberPlus)
 
@@ -136,7 +136,7 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberMinus.setBackgroundColor()
   calculatorProdNumberMinus.setBorder()
   calculatorProdNumberMinus.setText('-')
-  calculatorProdNumberMinus.actAsReporter()
+  calculatorProdNumberMinus.actAsReporterOnclick()
   calculatorProdNumberMinus.interpretableHandler.publication = "-"
   myFirstWindow.appendChild(calculatorProdNumberMinus)
 
@@ -147,10 +147,13 @@ let init = (parentHtmlElement) => {
   calculatorSolve.setBackgroundColor()
   calculatorSolve.setBorder()
   calculatorSolve.setText('=')
-  calculatorSolve.actAsPublicist()
+  calculatorSolve.actAsPublicistOnclick()
   calculatorSolve.interpretableHandler.publication = ""
   calculatorSolve.productionCode = "="
   myFirstWindow.appendChild(calculatorSolve)
+  calculatorSolve.interpretableHandler.callbackOnReadPublication = () => {
+    console.log(calculatorSolve.interpretableHandler.receivedPublications)
+  }
 
   let calculatorDisplay = new Rect()
   calculatorDisplay.init(10, 10, 460, 40)
@@ -158,107 +161,136 @@ let init = (parentHtmlElement) => {
   calculatorDisplay.setBorder()
   calculatorDisplay.actAsReader()
   calculatorDisplay.setTextAlign('right')
+  calculatorDisplay.interpretableHandler.callbackOnReadPublication = () => {
+
+    let received = calculatorDisplay.interpretableHandler.receivedPublications
+    let lastReceived = received.charAt(received.length - 1)
+
+    if(lastReceived == '+' || lastReceived == '-') {
+
+      calculatorDisplay.interpretableHandler.receivedPublications = ""
+
+    }
+
+    calculatorDisplay.displayElement.innerText =
+      calculatorDisplay.interpretableHandler.receivedPublications
+
+  }
   myFirstWindow.appendChild(calculatorDisplay)
 
 
+  calculatorProdNumberZero.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberOne.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberTwo.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberThree.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberFour.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberFive.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberSix.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberSeven.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberEight.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberNine.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
 
-  calculatorProdNumberSeven.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberSeven.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberSeven.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-    calculatorProdNumberEight.setCallbackOnPublish(() => {
-      calculatorDisplay.interpretableHandler.see = calculatorProdNumberEight.interpretableHandler.publication
-      calculatorSolve.interpretableHandler.see += calculatorProdNumberEight.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberNine.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberNine.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberNine.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberFour.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberFour.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberFour.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberFive.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberFive.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberFive.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberSix.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberSix.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberSix.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberOne.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberOne.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberOne.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberTwo.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberTwo.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberTwo.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-  calculatorProdNumberThree.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberThree.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberThree.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-
-  calculatorProdNumberZero.setCallbackOnPublish(() => {
-    calculatorDisplay.interpretableHandler.see = calculatorProdNumberZero.interpretableHandler.publication
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberZero.interpretableHandler.publication
-    calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
-  })
-
-  calculatorProdNumberPlus.setCallbackOnPublish(() => {
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberPlus.interpretableHandler.publication
-    calculatorDisplay.interpretableHandler.see = ""
-    calculatorDisplay.displayElement.innerText = ""
-  })
-
-  calculatorProdNumberMinus.setCallbackOnPublish(() => {
-    calculatorSolve.interpretableHandler.see += calculatorProdNumberMinus.interpretableHandler.publication
-    calculatorDisplay.interpretableHandler.see = ""
-    calculatorDisplay.displayElement.innerText = ""
-  })
+  calculatorProdNumberPlus.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
+  calculatorProdNumberMinus.interpretableHandler.registerSubscriber(calculatorDisplay, calculatorSolve)
 
 
-  calculatorSolve.setCallbackOnPublish(() => {
+  // calculatorProdNumberSeven.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberSeven.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberSeven.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  //   calculatorProdNumberEight.setCallbackOnPublish(() => {
+  //     calculatorDisplay.interpretableHandler.see = calculatorProdNumberEight.interpretableHandler.publication
+  //     calculatorSolve.interpretableHandler.see += calculatorProdNumberEight.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberNine.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberNine.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberNine.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberFour.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberFour.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberFour.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberFive.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberFive.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberFive.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberSix.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberSix.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberSix.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberOne.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberOne.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberOne.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberTwo.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberTwo.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberTwo.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
+  // calculatorProdNumberThree.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberThree.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberThree.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
 
-    calculatorSolve.interpretableHandler.see = String(eval(calculatorSolve.interpretableHandler.see))
-    calculatorDisplay.interpretableHandler.see = calculatorSolve.interpretableHandler.see
-    calculatorDisplay.displayElement.innerText = calculatorDisplay.interpretableHandler.see
+  // calculatorProdNumberZero.setCallbackOnPublish(() => {
+  //   calculatorDisplay.interpretableHandler.see = calculatorProdNumberZero.interpretableHandler.publication
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberZero.interpretableHandler.publication
+  //   calculatorDisplay.displayElement.innerText += calculatorDisplay.interpretableHandler.see
+  // })
 
-  })
+  // calculatorProdNumberPlus.setCallbackOnPublish(() => {
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberPlus.interpretableHandler.publication
+  //   calculatorDisplay.interpretableHandler.see = ""
+  //   calculatorDisplay.displayElement.innerText = ""
+  // })
+
+  // calculatorProdNumberMinus.setCallbackOnPublish(() => {
+  //   calculatorSolve.interpretableHandler.see += calculatorProdNumberMinus.interpretableHandler.publication
+  //   calculatorDisplay.interpretableHandler.see = ""
+  //   calculatorDisplay.displayElement.innerText = ""
+  // })
 
 
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
+  // calculatorSolve.setCallbackOnPublish(() => {
 
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
+  //   calculatorSolve.interpretableHandler.see = String(eval(calculatorSolve.interpretableHandler.see))
+  //   calculatorDisplay.interpretableHandler.see = calculatorSolve.interpretableHandler.see
+  //   calculatorDisplay.displayElement.innerText = calculatorDisplay.interpretableHandler.see
 
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
-  calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
+  // })
 
 
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
-  calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
+
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
+
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
+  // calculatorDisplay.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
+
+
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSeven)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberEight)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberNine)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFour)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberFive)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberSix)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberOne)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberTwo)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberThree)
+  // calculatorSolve.interpretableHandler.subscribeAtReporter(calculatorProdNumberZero)
 
 }

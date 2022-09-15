@@ -1,8 +1,8 @@
 class InterpretableReporter extends InterpretableHandler {
   
-  constructor() {
+  constructor(clientElement) {
 
-    super()
+    super(clientElement)
 
     this.publication = ""
 
@@ -16,9 +16,23 @@ class InterpretableReporter extends InterpretableHandler {
     
   }
 
-  registerSubscriber(client) {
+  registerSubscriber() {
 
-    this.subscribers.push(client)
+    for (let i = 0; i < arguments.length; i++){
+
+      this.subscribers.push(arguments[i])
+
+    }
+
+  }
+
+  publish() {
+
+    this.subscribers.forEach(subscriber => {
+
+      subscriber.interpretableHandler.facePublication(this.publication)
+
+    })
 
   }
 

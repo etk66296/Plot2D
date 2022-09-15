@@ -1,8 +1,10 @@
 class InterpretableHandler extends Plot2DAny {
   
-  constructor() {
+  constructor(clientElement) {
 
     super()
+
+    this.clientElement = clientElement
 
   }
 

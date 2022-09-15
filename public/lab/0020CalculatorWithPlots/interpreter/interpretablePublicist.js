@@ -1,11 +1,20 @@
 class InterpretablePublicist extends InterpretableHandler {
   
-  constructor() {
+  constructor(clientElement) {
 
-    super()
+    super(clientElement)
 
-    this.see = ""
+    this.receivedPublications = ""
     this.reporters = []
+    this.subscribers = []
+
+    this.callbackOnReadPublication = () => {
+
+    }
+
+    this.callbackOnParticipate = () => {
+
+    }
 
   }
 
@@ -20,6 +29,34 @@ class InterpretablePublicist extends InterpretableHandler {
     this.reporters.push(reporter)
 
     reporter.interpretableHandler.registerSubscriber(this)
+
+  }
+
+  registerSubscriber() {
+
+    for (let i = 0; i < arguments.length; i++){
+
+      this.subscribers.push(arguments[i])
+
+    }
+
+  }
+
+  facePublication(publication) {
+
+    this.receivedPublications += publication
+    this.callbackOnReadPublication()
+    this.callbackOnParticipate()
+
+  }
+
+  publish() {
+
+    this.subscribers.forEach(subscriber => {
+
+      subscriber.interpretableHandler.facePublication(this.publication)
+
+    })
 
   }
   

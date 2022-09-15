@@ -19,6 +19,7 @@ class Plot extends Plot2DAny {
 
     this.interpretableHandler = null
 
+
   }
 
   persistsAsDomElem() {
@@ -43,7 +44,7 @@ class Plot extends Plot2DAny {
 
     if(reporter == null) {
 
-      this.interpretableHandler = new InterpretableReporter()
+      this.interpretableHandler = new InterpretableReporter(this)
 
     } else {
 
@@ -59,7 +60,7 @@ class Plot extends Plot2DAny {
     
     if(publicist == null) {
 
-      this.interpretableHandler = new InterpretablePublicist()
+      this.interpretableHandler = new InterpretablePublicist(this)
 
     } else {
 
@@ -75,7 +76,7 @@ class Plot extends Plot2DAny {
     
     if(reader == null) {
 
-      this.interpretableHandler = new InterpretableReader()
+      this.interpretableHandler = new InterpretableReader(this)
 
     } else {
 

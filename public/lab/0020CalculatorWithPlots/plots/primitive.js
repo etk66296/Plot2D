@@ -9,10 +9,7 @@ class Primitive extends Plot {
     this.x = 0
     this.y = 0
 
-    this.callbackOnPublish = () => {
-      console.error('reporter does not publish ... define callbackOnPublish')
-    }
-
+    
   }
 
   init(x, y) {
@@ -77,17 +74,28 @@ class Primitive extends Plot {
     this.displayElement.style.textAlign = orientation
   }
 
-  actAsReporter(reporter = null) {
+  actAsReporterOnclick(reporter = null) {
     super.actAsReporter(reporter)
 
-    this.displayElement.onclick = this.callbackOnPublish
+    this.displayElement.onclick = () => {
+      this.interpretableHandler.publish()
+    }
   }
 
-  setCallbackOnPublish(callback) {
+  actAsPublicistOnclick(reporter = null) {
+    super.actAsPublicist(reporter)
 
-    this.callbackOnPublish = callback
-    this.displayElement.onclick = this.callbackOnPublish
-
+    this.displayElement.onclick = () => {
+      this.interpretableHandler.publish()
+    }
+    
   }
+
+  // setCallbackOnPublish(callback) {
+
+  //   this.callbackOnPublish = callback
+  //   this.displayElement.onclick = this.callbackOnPublish
+
+  // }
   
 }

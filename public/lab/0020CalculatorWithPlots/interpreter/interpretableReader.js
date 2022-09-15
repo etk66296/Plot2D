@@ -1,12 +1,15 @@
 class InterpretableReader extends InterpretableHandler {
   
-  constructor() {
+  constructor(clientElement) {
 
-    super()
+    super(clientElement)
 
-    this.see = ""
-
+    this.receivedPublications = ""
     this.reporters = []
+
+    this.callbackOnReadPublication = () => {
+
+    }
 
   }
 
@@ -22,6 +25,13 @@ class InterpretableReader extends InterpretableHandler {
 
     reporter.interpretableHandler.registerSubscriber(this)
 
+  }
+
+  facePublication(publication) {
+
+    this.receivedPublications += publication
+    this.callbackOnReadPublication()
+    
   }
   
 }
