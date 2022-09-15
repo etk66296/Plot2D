@@ -5,6 +5,7 @@ class InterpretablePublicist extends InterpretableHandler {
     super(clientElement)
 
     this.receivedPublications = ""
+    this.publication = ""
     this.reporters = []
     this.subscribers = []
 
@@ -24,13 +25,13 @@ class InterpretablePublicist extends InterpretableHandler {
     
   }
 
-  subscribeAtReporter(reporter) {
+  // subscribeAtReporter(reporter) {
 
-    this.reporters.push(reporter)
+  //   this.reporters.push(reporter)
 
-    reporter.interpretableHandler.registerSubscriber(this)
+  //   reporter.interpretableHandler.registerSubscriber(this)
 
-  }
+  // }
 
   registerSubscriber() {
 
@@ -46,12 +47,15 @@ class InterpretablePublicist extends InterpretableHandler {
 
     this.receivedPublications += publication
     this.callbackOnReadPublication()
-    this.callbackOnParticipate()
 
   }
 
   publish() {
 
+    this.callbackOnParticipate()
+
+    this.publication = eval(this.receivedPublications)
+    
     this.subscribers.forEach(subscriber => {
 
       subscriber.interpretableHandler.facePublication(this.publication)

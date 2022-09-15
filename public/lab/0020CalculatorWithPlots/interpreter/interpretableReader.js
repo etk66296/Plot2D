@@ -19,13 +19,13 @@ class InterpretableReader extends InterpretableHandler {
     
   }
 
-  subscribeAtReporter(reporter) {
+  // subscribeAtReporter(reporter) {
 
-    this.reporters.push(reporter)
+  //   this.reporters.push(reporter)
 
-    reporter.interpretableHandler.registerSubscriber(this)
+  //   reporter.interpretableHandler.registerSubscriber(this)
 
-  }
+  // }
 
   facePublication(publication) {
 

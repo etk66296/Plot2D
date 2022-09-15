@@ -86,6 +86,7 @@ class Primitive extends Plot {
     super.actAsPublicist(reporter)
 
     this.displayElement.onclick = () => {
+      
       this.interpretableHandler.publish()
     }
     

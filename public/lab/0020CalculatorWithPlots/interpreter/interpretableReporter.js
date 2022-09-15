@@ -8,6 +8,10 @@ class InterpretableReporter extends InterpretableHandler {
 
     this.subscribers = []
 
+    this.callbackOnPublish = () => {
+
+    }
+
   }
 
   init() {
@@ -25,8 +29,11 @@ class InterpretableReporter extends InterpretableHandler {
     }
 
   }
+  
 
   publish() {
+
+    this.callbackOnPublish()
 
     this.subscribers.forEach(subscriber => {
 
