@@ -12,12 +12,13 @@ class Plot extends Plot2DAny {
 
     this.REPORTER = 1
     this.PUBLICIST = 2
-    this.READER = 3
+    this.STATIC_PUBLICIST = 3
+    this.READER = 4
 
     this.persistsAs = this.DOM_ELEM
-    this.interpretableHandlerType = this.REPORTER
+    this.codeHandlerType = this.REPORTER
 
-    this.interpretableHandler = null
+    this.codeHandler = null
 
 
   }
@@ -32,7 +33,7 @@ class Plot extends Plot2DAny {
   }
 
   isAReporter() {
-    if(this.interpretableHandlerType === this.REPORTER) {
+    if(this.codeHandlerType === this.REPORTER) {
       return true
     }
     return false
@@ -40,15 +41,15 @@ class Plot extends Plot2DAny {
 
   actAsReporter(reporter = null) {
 
-    this.interpretableHandlerType = this.REPORTER
+    this.codeHandlerType = this.REPORTER
 
     if(reporter == null) {
 
-      this.interpretableHandler = new InterpretableReporter(this)
+      this.codeHandler = new CodeReporter(this)
 
     } else {
 
-      this.interpretableHandler = reporter
+      this.codeHandler = reporter
 
     }
 
@@ -56,15 +57,31 @@ class Plot extends Plot2DAny {
 
   actAsPublicist(publicist = null) {
 
-    this.interpretableHandlerType = this.PUBLICIST
+    this.codeHandlerType = this.PUBLICIST
     
     if(publicist == null) {
 
-      this.interpretableHandler = new InterpretablePublicist(this)
+      this.codeHandler = new CodePublicist(this)
 
     } else {
 
-      this.interpretableHandler = publicist
+      this.codeHandler = publicist
+
+    }
+
+  }
+
+  actAsStaticPublicist(publicist = null) {
+
+    this.codeHandlerType = this.STATIC_PUBLICIST
+    
+    if(publicist == null) {
+
+      this.codeHandler = new CodePublicist(this)
+
+    } else {
+
+      this.codeHandler = publicist
 
     }
 
@@ -72,15 +89,15 @@ class Plot extends Plot2DAny {
 
   actAsReader(reader = null) {
 
-    this.interpretableHandlerType = this.READER
+    this.codeHandlerType = this.READER
     
     if(reader == null) {
 
-      this.interpretableHandler = new InterpretableReader(this)
+      this.codeHandler = new CodeReader(this)
 
     } else {
 
-      this.interpretableHandler = reader
+      this.codeHandler = reader
 
     }
 

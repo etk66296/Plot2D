@@ -1,4 +1,4 @@
-class InterpretablePublicist extends InterpretableHandler {
+class CodePublicist extends CodeHandler {
   
   constructor(clientElement) {
 
@@ -8,6 +8,8 @@ class InterpretablePublicist extends InterpretableHandler {
     this.publication = ""
     this.reporters = []
     this.subscribers = []
+
+    this.foward = false
 
     this.callbackOnReadPublication = () => {
 
@@ -25,13 +27,6 @@ class InterpretablePublicist extends InterpretableHandler {
     
   }
 
-  // subscribeAtReporter(reporter) {
-
-  //   this.reporters.push(reporter)
-
-  //   reporter.interpretableHandler.registerSubscriber(this)
-
-  // }
 
   registerSubscriber() {
 
@@ -43,25 +38,41 @@ class InterpretablePublicist extends InterpretableHandler {
 
   }
 
-  facePublication(publication) {
+  facePublication(publication, overwrite) {
 
-    this.receivedPublications += publication
+    if(overwrite) {
+      
+      this.receivedPublications = publication
+
+    } else {
+
+      this.receivedPublications += publication
+
+    }
+ 
     this.callbackOnReadPublication()
+   
+    if(this.forward) {
+        
+      this.publish()
+
+    }
 
   }
 
   publish() {
 
     this.callbackOnParticipate()
-
-    this.publication = eval(this.receivedPublications)
+   
+    this.publication = this.receivedPublications
     
     this.subscribers.forEach(subscriber => {
-
-      subscriber.interpretableHandler.facePublication(this.publication)
+ 
+      subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.overwrite)
 
     })
 
   }
+
   
 }

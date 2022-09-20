@@ -1,4 +1,4 @@
-class InterpretableReporter extends InterpretableHandler {
+class CodeToggleReporter extends CodeReporter {
   
   constructor(clientElement) {
 
@@ -7,6 +7,9 @@ class InterpretableReporter extends InterpretableHandler {
     this.publication = ""
 
     this.subscribers = []
+
+    this.appendAsFunction = false
+    this.overwriteOnPublicate = false
 
     this.callbackOnPublish = () => {
 
@@ -36,8 +39,8 @@ class InterpretableReporter extends InterpretableHandler {
     this.callbackOnPublish()
 
     this.subscribers.forEach(subscriber => {
-
-      subscriber.interpretableHandler.facePublication(this.publication)
+      
+      subscriber.interpretableHandler.facePublication(this.publication, this.overwriteOnPublicate, this.appendAsFunction)
 
     })
 

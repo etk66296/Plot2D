@@ -19,6 +19,7 @@ class Primitive extends Plot {
     this.displayElement = this.createHtmlElement('div')
 
     this.displayElement.style.position = 'absolute'
+    // this.displayElement.style.overflow = 'scroll'
     this.displayElement.style.userSelect =  'none'
 
     this.setX(x)
@@ -28,6 +29,14 @@ class Primitive extends Plot {
     this.setBorder()
 
     this.displayElement.style.textAlign = 'center'
+
+    this.displayElement.onmouseover = () => {
+      this.displayElement.style.color = "#ffffff"
+    }
+
+    this.displayElement.onmouseout = () => {
+      this.displayElement.style.color = "#000000"
+    }
 
   }
 
@@ -78,7 +87,7 @@ class Primitive extends Plot {
     super.actAsReporter(reporter)
 
     this.displayElement.onclick = () => {
-      this.interpretableHandler.publish()
+      this.codeHandler.publish()
     }
   }
 
@@ -87,10 +96,11 @@ class Primitive extends Plot {
 
     this.displayElement.onclick = () => {
       
-      this.interpretableHandler.publish()
+      this.codeHandler.publish()
     }
     
   }
+  
 
   // setCallbackOnPublish(callback) {
 

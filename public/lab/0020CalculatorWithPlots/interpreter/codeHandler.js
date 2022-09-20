@@ -1,4 +1,4 @@
-class InterpretableHandler extends Plot2DAny {
+class CodeHandler extends Plot2DAny {
   
   constructor(clientElement) {
 
