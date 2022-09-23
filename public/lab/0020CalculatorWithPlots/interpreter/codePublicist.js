@@ -38,11 +38,28 @@ class CodePublicist extends CodeHandler {
 
   }
 
-  facePublication(publication, overwrite) {
+  facePublication(publication, mode) {
 
-    if(overwrite) {
+    if(mode == CodeHandleMode.OVERWRITE) {
       
       this.receivedPublications = publication
+
+    } else if (mode == CodeHandleMode.DELETE) {
+
+      this.receivedPublications = ""
+
+    } else if (mode == CodeHandleMode.EVALUATE) {
+
+      try {
+        
+        this.receivedPublications = String(eval(publication))
+
+      } catch {
+
+        this.receivedPublications = "ERROR"
+
+      }
+
 
     } else {
 
@@ -64,11 +81,11 @@ class CodePublicist extends CodeHandler {
 
     this.callbackOnParticipate()
    
-    this.publication = this.receivedPublications
+    let publication = this.receivedPublications + this.publication
     
     this.subscribers.forEach(subscriber => {
- 
-      subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.overwrite)
+
+      subscriber.plotObject.codeHandler.facePublication(publication, subscriber.mode)
 
     })
 

@@ -19,11 +19,19 @@ class CodeReader extends CodeHandler {
     
   }
 
-  facePublication(publication, overwrite) {
+  facePublication(publication, mode) {
 
-    if(overwrite) {
+    if(mode == CodeHandleMode.OVERWRITE) {
       
       this.receivedPublications = publication
+
+    } else if (mode == CodeHandleMode.DELETE) {
+
+      this.receivedPublications = ""
+
+    } else if (mode == CodeHandleMode.EVALUATE) {
+
+      this.receivedPublications = String(eval(publication))
 
     } else {
 

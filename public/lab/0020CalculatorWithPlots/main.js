@@ -129,20 +129,27 @@ let init = (parentHtmlElement) => {
   calculatorProdNumberPi.codeHandler.publication = "Math.PI"
   myFirstWindow.appendChild(calculatorProdNumberPi)
 
-  let calculatorNumbersRegister = new Rect()
-  calculatorNumbersRegister.init(10, 10, 460, 40)
-  calculatorNumbersRegister.setBackgroundColor("#6f6a52")
-  calculatorNumbersRegister.setBorder()
-  calculatorNumbersRegister.actAsPublicist()
-  calculatorNumbersRegister.setTextAlign('right')
-  calculatorNumbersRegister.codeHandler.forward = true
+  let calculatorProdComma = new Rect()
+  calculatorProdComma.init(60, 210, 40, 40)
+  calculatorProdComma.setBackgroundColor()
+  calculatorProdComma.setBorder()
+  calculatorProdComma.setText(',')
+  calculatorProdComma.actAsReporterOnclick()
+  calculatorProdComma.codeHandler.evaluate = true
+  calculatorProdComma.codeHandler.publication = "."
+  myFirstWindow.appendChild(calculatorProdComma)
+  
 
   let calculatorDisplay = new Rect()
   calculatorDisplay.init(10, 10, 460, 40)
   calculatorDisplay.setBackgroundColor("#6f6a52")
   calculatorDisplay.setBorder()
-  calculatorDisplay.actAsReader()
+  calculatorDisplay.actAsPublicist()
   calculatorDisplay.setTextAlign('right')
+  // calculatorDisplay.codeHandler.forward = true
+  calculatorDisplay.codeHandler.receivedPublications = ""
+  calculatorDisplay.displayElement.innerText =
+      calculatorDisplay.codeHandler.receivedPublications
   calculatorDisplay.codeHandler.callbackOnReadPublication = () => {
 
     // let received = calculatorDisplay.codeHandler.receivedPublications
@@ -166,46 +173,157 @@ let init = (parentHtmlElement) => {
 
   // operator
   let calculatorOperatorPlus = new Rect()
-  calculatorOperatorPlus.init(430, 110, 40, 40)
+  calculatorOperatorPlus.init(160, 60, 40, 40)
   calculatorOperatorPlus.setBackgroundColor()
   calculatorOperatorPlus.setBorder()
   calculatorOperatorPlus.setText('+')
   calculatorOperatorPlus.actAsPublicistOnclick()
   calculatorOperatorPlus.codeHandler.publication = "+"
   myFirstWindow.appendChild(calculatorOperatorPlus)
-  calculatorOperatorPlus.codeHandler.callbackOnReadPublication = () => {
-    console.log('plus operator', calculatorOperatorPlus.codeHandler.receivedPublications)
+
+  let calculatorOperatorMinus = new Rect()
+  calculatorOperatorMinus.init(160, 110, 40, 40)
+  calculatorOperatorMinus.setBackgroundColor()
+  calculatorOperatorMinus.setBorder()
+  calculatorOperatorMinus.setText('-')
+  calculatorOperatorMinus.actAsPublicistOnclick()
+  calculatorOperatorMinus.codeHandler.publication = "-"
+  myFirstWindow.appendChild(calculatorOperatorMinus)
+
+  let calculatorOperatorDivide = new Rect()
+  calculatorOperatorDivide.init(160, 160, 40, 40)
+  calculatorOperatorDivide.setBackgroundColor()
+  calculatorOperatorDivide.setBorder()
+  calculatorOperatorDivide.setText('/')
+  calculatorOperatorDivide.actAsPublicistOnclick()
+  calculatorOperatorDivide.codeHandler.publication = "/"
+  myFirstWindow.appendChild(calculatorOperatorDivide)
+
+  let calculatorOperatorMultiply = new Rect()
+  calculatorOperatorMultiply.init(160, 210, 40, 40)
+  calculatorOperatorMultiply.setBackgroundColor()
+  calculatorOperatorMultiply.setBorder()
+  calculatorOperatorMultiply.setText('·')
+  calculatorOperatorMultiply.actAsPublicistOnclick()
+  calculatorOperatorMultiply.codeHandler.publication = "*"
+  myFirstWindow.appendChild(calculatorOperatorMultiply)
+
+  let calculatorClear = new Rect()
+  calculatorClear.init(380, 60, 90, 40)
+  calculatorClear.setBackgroundColor()
+  calculatorClear.setBorder()
+  calculatorClear.setText('CE')
+  calculatorClear.actAsPublicistOnclick()
+  calculatorClear.codeHandler.publication = ""
+  myFirstWindow.appendChild(calculatorClear)
+
+  let calculatorOperatorSolve = new Rect()
+  calculatorOperatorSolve.init(380, 210, 90, 40)
+  calculatorOperatorSolve.setBackgroundColor()
+  calculatorOperatorSolve.setBorder()
+  calculatorOperatorSolve.setText('=')
+  calculatorOperatorSolve.actAsPublicistOnclick()
+  myFirstWindow.appendChild(calculatorOperatorSolve)
+  calculatorOperatorSolve.codeHandler.callbackOnReadPublication = () => {
+
+    console.log('received', calculatorOperatorSolve.codeHandler.receivedPublications, 'publication', calculatorOperatorSolve.codeHandler.publication)
+
   }
 
-  let calculatorSolver = new Rect()
-  calculatorSolver.init(160, 210, 90, 40)
-  calculatorSolver.setBackgroundColor()
-  calculatorSolver.setBorder()
-  calculatorSolver.setText('=')
-  calculatorSolver.actAsPublicistOnclick()
-  calculatorSolver.codeHandler.publication = "="
-  myFirstWindow.appendChild(calculatorSolver)
+  calculatorProdNumberZero.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberOne.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberTwo.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberThree.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberFour.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberFive.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberSix.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberSeven.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberEight.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberNine.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+  calculatorProdNumberPi.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
 
-  calculatorProdNumberZero.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberOne.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberTwo.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberThree.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberFour.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberFive.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberSix.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberSeven.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberEight.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberNine.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
-  calculatorProdNumberPi.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
+  calculatorProdComma.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.APPEND },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+
+
+  calculatorOperatorPlus.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+
+  calculatorOperatorMinus.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+
+  calculatorOperatorMultiply.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+
+  calculatorOperatorDivide.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND }
+  )
+
+  calculatorOperatorSolve.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.EVALUATE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.EVALUATE }
+  )
+
+  calculatorClear.codeHandler.registerSubscriber(
+    { plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE },
+    { plotObject: calculatorOperatorSolve, mode: CodeHandleMode.DELETE }
+  )
   
-  calculatorNumbersRegister.codeHandler.registerSubscriber({ plotObject: calculatorOperatorPlus, overwrite: true })
+  // calculatorDisplay.codeHandler.registerSubscriber({ plotObject: calculatorOperatorPlus, mode: CodeHandleMode.APPEND })
+  // calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorDisplay, mode: CodeHandleMode.DELETE })
+  // calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorOperatorSolve, mode: CodeHandleMode.APPEND })
+
+
+  // calculatorNumbersRegister.codeHandler.registerSubscriber({ plotObject: calculatorOperatorPlus, overwrite: false })
+  // calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: true })
+  // calculatorNumbersRegister.codeHandler.registerSubscriber({ plotObject: calculatorDisplay, overwrite: true })
   
-  calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorSolver, overwrite: false })
   
-  calculatorSolver.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
+  // calculatorSolver.codeHandler.registerSubscriber({ plotObject: calculatorNumbersRegister, overwrite: false })
   
-  calculatorNumbersRegister.codeHandler.registerSubscriber({ plotObject: calculatorDisplay, overwrite: true })
-  calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorDisplay, overwrite: false })
+  // calculatorOperatorPlus.codeHandler.registerSubscriber({ plotObject: calculatorDisplay, overwrite: false })
 
   // let calculatorDisplay = new Rect()
   // calculatorDisplay.init(10, 10, 460, 40)
@@ -304,7 +422,7 @@ let init = (parentHtmlElement) => {
   // calculatorOperatorSqrt.setBorder()
   // calculatorOperatorSqrt.setText('√')
   // calculatorOperatorSqrt.actAsReporterOnclick()
-  // calculatorOperatorSqrt.codeHandler.appendAsFunction = true
+  // calculatorOperatorSqrt.CodeHandleMode.APPENDAsFunction = true
   // calculatorOperatorSqrt.codeHandler.publication = "Math.sqrt"
   // myFirstWindow.appendChild(calculatorOperatorSqrt)
   
@@ -314,7 +432,7 @@ let init = (parentHtmlElement) => {
   // calculatorOperatorSin.setBorder()
   // calculatorOperatorSin.setText('sin')
   // calculatorOperatorSin.actAsReporterOnclick()
-  // calculatorOperatorSin.codeHandler.appendAsFunction = true
+  // calculatorOperatorSin.CodeHandleMode.APPENDAsFunction = true
   // calculatorOperatorSin.codeHandler.publication = "Math.sin"
   // myFirstWindow.appendChild(calculatorOperatorSin)
   
@@ -324,7 +442,7 @@ let init = (parentHtmlElement) => {
   // calculatorOperatorCos.setBorder()
   // calculatorOperatorCos.setText('cos')
   // calculatorOperatorCos.actAsReporterOnclick()
-  // calculatorOperatorCos.codeHandler.appendAsFunction = true
+  // calculatorOperatorCos.CodeHandleMode.APPENDAsFunction = true
   // calculatorOperatorCos.codeHandler.publication = "Math.cos"
   // myFirstWindow.appendChild(calculatorOperatorCos)
   
@@ -334,7 +452,7 @@ let init = (parentHtmlElement) => {
   // calculatorOperatorTan.setBorder()
   // calculatorOperatorTan.setText('tan')
   // calculatorOperatorTan.actAsReporterOnclick()
-  // calculatorOperatorTan.codeHandler.appendAsFunction = true
+  // calculatorOperatorTan.CodeHandleMode.APPENDAsFunction = true
   // calculatorOperatorTan.codeHandler.publication = "Math.tan"
   // myFirstWindow.appendChild(calculatorOperatorTan)
 
