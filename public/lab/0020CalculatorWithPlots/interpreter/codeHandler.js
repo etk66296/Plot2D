@@ -1,9 +1,12 @@
 const CodeHandleMode = {
   
   APPEND: 0,
-  OVERWRITE: 1,
-  DELETE: 2,
-  EVALUATE: 3
+  APPEND_AS_FUNCTION: 1,
+  OVERWRITE: 2,
+  DELETE_WITH_NEXT_PUBLICATION: 3,
+  DELETE: 4,
+  EVALUATE: 5,
+  PUBLISH: 6
 
 }
 

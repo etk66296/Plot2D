@@ -37,7 +37,7 @@ class CodeReporter extends CodeHandler {
 
     this.subscribers.forEach((subscriber) => {
       
-      subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.overwrite)
+      subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.duty)
 
     })
 

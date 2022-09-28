@@ -10,6 +10,7 @@ class CodePublicist extends CodeHandler {
     this.subscribers = []
 
     this.foward = false
+    this.delteWithNextPublication = false
 
     this.callbackOnReadPublication = () => {
 
@@ -38,40 +39,79 @@ class CodePublicist extends CodeHandler {
 
   }
 
-  facePublication(publication, mode) {
+  facePublication(publication, duty, dutyIndex = 0) {
+
+    if(this.delteWithNextPublication) {
+      duty.unshift(CodeHandleMode.DELETE)
+      this.delteWithNextPublication = false
+    }
+
+    let mode = duty[dutyIndex]
 
     if(mode == CodeHandleMode.OVERWRITE) {
       
       this.receivedPublications = publication
 
+      console.log("overwrite", this.receivedPublications)
+
     } else if (mode == CodeHandleMode.DELETE) {
 
       this.receivedPublications = ""
 
-    } else if (mode == CodeHandleMode.EVALUATE) {
+      console.log("delete", this.receivedPublications, "publication" , publication)
 
-      try {
+      if(dutyIndex < (duty.length - 1)) {
+
+        this.facePublication(publication, duty, dutyIndex += 1)
+
+        return
         
-        this.receivedPublications = String(eval(publication))
-
-      } catch {
-
-        this.receivedPublications = "ERROR"
-
       }
 
+    } else if (mode == CodeHandleMode.EVALUATE) {
+
+      this.receivedPublications = String(eval(publication))
+
+      console.log("evaluate", this.receivedPublications)
+
+
+    } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
+
+      this.delteWithNextPublication = true
+
+      console.log("overwrite_with_next_publication", this.receivedPublications)
 
     } else {
 
-      this.receivedPublications += publication
+      if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
+
+        this.receivedPublications = publication + '(' + this.receivedPublications + ')'
+
+        console.log("append_as_function", this.receivedPublications)
+
+      } else {
+        
+        this.receivedPublications += publication
+
+        console.log("append", this.receivedPublications)
+
+      }
 
     }
- 
-    this.callbackOnReadPublication()
-   
-    if(this.forward) {
-        
-      this.publish()
+
+    if(dutyIndex < (duty.length - 1)) {
+
+      this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
+      
+    } else {
+
+      this.callbackOnReadPublication()
+      
+      if(this.forward || (mode == CodeHandleMode.PUBLISH)) {
+          
+        this.publish()
+  
+      }
 
     }
 
@@ -81,11 +121,13 @@ class CodePublicist extends CodeHandler {
 
     this.callbackOnParticipate()
    
-    let publication = this.receivedPublications + this.publication
     
     this.subscribers.forEach(subscriber => {
-
-      subscriber.plotObject.codeHandler.facePublication(publication, subscriber.mode)
+      
+      let publication = this.receivedPublications + this.publication
+      
+      console.log("-->", publication, "<--")
+      subscriber.plotObject.codeHandler.facePublication(publication, subscriber.duty)
 
     })
 
