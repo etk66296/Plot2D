@@ -7,7 +7,7 @@ let init = (parentHtmlElement) => {
     .and()
     .assembleItWith({
       pos: { x: 50, y: 200 },
-      dim: { w: 520, h: 290 },
+      dim: { w: 520, h: 400 },
       isStretchable: false,
       controlPanel: false,
       headerBar: true
@@ -205,13 +205,25 @@ let init = (parentHtmlElement) => {
   calculatorOperatorMultiply.codeHandler.publication = "*"
   myCalculatorWindow.appendChild(calculatorOperatorMultiply)
 
+  let calculatorAngleMode = new Rect()
+  calculatorAngleMode.init(260, 210, 90, 40)
+  calculatorAngleMode.setBackgroundColor("#888888")
+  calculatorAngleMode.setBorder()
+  calculatorAngleMode.setText('deg') // initial value
+  calculatorAngleMode.actAsTogglePublicistOnclick()
+  calculatorAngleMode.codeHandler.publication.push( "Math.PI / 180 * ")
+  calculatorAngleMode.codeHandler.publication.push("1 * ")
+  calculatorAngleMode.codeHandler.publicationText.push("deg")
+  calculatorAngleMode.codeHandler.publicationText.push("rad")
+  myCalculatorWindow.appendChild(calculatorAngleMode)
+
   let calculatorFunctionTan = new Rect()
   calculatorFunctionTan.init(210, 60, 90, 40)
   calculatorFunctionTan.setBackgroundColor()
   calculatorFunctionTan.setBorder()
   calculatorFunctionTan.setText('tan')
   calculatorFunctionTan.actAsPublicistOnclick()
-  calculatorFunctionTan.codeHandler.publication = "Math.tan"
+  calculatorFunctionTan.codeHandler.publication = "Math.tan("
   myCalculatorWindow.appendChild(calculatorFunctionTan)
 
   let calculatorFunctionATan = new Rect()
@@ -220,7 +232,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionATan.setBorder()
   calculatorFunctionATan.setText('atan')
   calculatorFunctionATan.actAsPublicistOnclick()
-  calculatorFunctionATan.codeHandler.publication = "Math.atan"
+  calculatorFunctionATan.codeHandler.publication = "Math.atan("
   myCalculatorWindow.appendChild(calculatorFunctionATan)
 
 
@@ -230,7 +242,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionCos.setBorder()
   calculatorFunctionCos.setText('cos')
   calculatorFunctionCos.actAsPublicistOnclick()
-  calculatorFunctionCos.codeHandler.publication = "Math.cos"
+  calculatorFunctionCos.codeHandler.publication = "Math.cos("
   myCalculatorWindow.appendChild(calculatorFunctionCos)
 
   let calculatorFunctionACos = new Rect()
@@ -239,7 +251,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionACos.setBorder()
   calculatorFunctionACos.setText('acos')
   calculatorFunctionACos.actAsPublicistOnclick()
-  calculatorFunctionACos.codeHandler.publication = "Math.acos"
+  calculatorFunctionACos.codeHandler.publication = "Math.acos("
   myCalculatorWindow.appendChild(calculatorFunctionACos)
 
 
@@ -249,7 +261,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionSin.setBorder()
   calculatorFunctionSin.setText('sin')
   calculatorFunctionSin.actAsPublicistOnclick()
-  calculatorFunctionSin.codeHandler.publication = "Math.sin"
+  calculatorFunctionSin.codeHandler.publication = "Math.sin("
   myCalculatorWindow.appendChild(calculatorFunctionSin)
 
   let calculatorFunctionASin = new Rect()
@@ -258,7 +270,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionASin.setBorder()
   calculatorFunctionASin.setText('asin')
   calculatorFunctionASin.actAsPublicistOnclick()
-  calculatorFunctionASin.codeHandler.publication = "Math.asin"
+  calculatorFunctionASin.codeHandler.publication = "Math.asin("
   myCalculatorWindow.appendChild(calculatorFunctionASin)
 
   let calculatorFunctionSqrt = new Rect()
@@ -267,7 +279,7 @@ let init = (parentHtmlElement) => {
   calculatorFunctionSqrt.setBorder()
   calculatorFunctionSqrt.setText('√')
   calculatorFunctionSqrt.actAsPublicistOnclick()
-  calculatorFunctionSqrt.codeHandler.publication = "Math.sqrt"
+  calculatorFunctionSqrt.codeHandler.publication = "Math.sqrt("
   myCalculatorWindow.appendChild(calculatorFunctionSqrt)
 
   let calculatorClear = new Rect()
@@ -286,11 +298,11 @@ let init = (parentHtmlElement) => {
   calculatorOperatorSolve.setText('=')
   calculatorOperatorSolve.actAsPublicistOnclick()
   myCalculatorWindow.appendChild(calculatorOperatorSolve)
-  // calculatorOperatorSolve.codeHandler.callbackOnReadPublication = () => {
+  calculatorOperatorSolve.codeHandler.callbackOnReadPublication = () => {
 
-  //   console.log('calculatorOperatorSolve:')
+    console.log('-->next is the solver')
 
-  // }
+  }
 
   calculatorProdNumberZero.codeHandler.registerSubscriber(
     { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND ] },
@@ -377,39 +389,33 @@ let init = (parentHtmlElement) => {
     { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
   )
 
-  calculatorFunctionSin.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-  )
-
-  calculatorFunctionASin.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-  )
-
   calculatorFunctionTan.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
   )
-
   calculatorFunctionATan.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
   )
-
+  calculatorFunctionSin.codeHandler.registerSubscriber(
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
+  )
+  calculatorFunctionASin.codeHandler.registerSubscriber(
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
+  )
   calculatorFunctionCos.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
+  )
+  calculatorFunctionACos.codeHandler.registerSubscriber(
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.APPEND, CodeHandleMode.PUBLISH ] }
   )
 
-  calculatorFunctionACos.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+  calculatorAngleMode.codeHandler.registerSubscriber(
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.PUBLISH ] }
   )
   
   calculatorClear.codeHandler.registerSubscriber(
     { plotObject: calculatorDisplay, duty: [ CodeHandleMode.DELETE ] },
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.DELETE ] }
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.DELETE ] },
+    { plotObject: calculatorAngleMode, duty: [ CodeHandleMode.DELETE ] }
   )
 
   calculatorOperatorSolve.codeHandler.registerSubscriber(

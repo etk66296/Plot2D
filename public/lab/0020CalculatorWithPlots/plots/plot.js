@@ -56,8 +56,6 @@ class Plot extends Plot2DAny {
   }
 
   actAsPublicist(publicist = null) {
-
-    this.codeHandlerType = this.PUBLICIST
     
     if(publicist == null) {
 
@@ -71,13 +69,12 @@ class Plot extends Plot2DAny {
 
   }
 
-  actAsStaticPublicist(publicist = null) {
-
-    this.codeHandlerType = this.STATIC_PUBLICIST
+  actAsTogglePublicist(publicist = null) {
     
     if(publicist == null) {
 
-      this.codeHandler = new CodePublicist(this)
+      this.codeHandler = new CodeTogglePublicist(this)
+      this.codeHandler.init()
 
     } else {
 

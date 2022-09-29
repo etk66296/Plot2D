@@ -67,7 +67,7 @@ class CodeReader extends CodeHandler {
 
       if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
 
-        this.receivedPublications = publication + '(' + this.receivedPublications + ')'
+        this.receivedPublications = publication + this.receivedPublications + ')'
 
         console.log("append_as_function", this.receivedPublications)
 

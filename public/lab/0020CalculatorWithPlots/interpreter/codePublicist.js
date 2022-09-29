@@ -9,7 +9,6 @@ class CodePublicist extends CodeHandler {
     this.reporters = []
     this.subscribers = []
 
-    this.foward = false
     this.delteWithNextPublication = false
 
     this.callbackOnReadPublication = () => {
@@ -81,21 +80,35 @@ class CodePublicist extends CodeHandler {
 
       console.log("overwrite_with_next_publication", this.receivedPublications)
 
-    } else {
+    } else if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
 
-      if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
+      let numberOfOpenBrackets = (this.receivedPublications.match(/\(/g) || []).length
 
-        this.receivedPublications = publication + '(' + this.receivedPublications + ')'
+      if(numberOfOpenBrackets > 0) {
 
-        console.log("append_as_function", this.receivedPublications)
+        for(let i = 0; i < numberOfOpenBrackets; i++) {
+          
+          this.receivedPublications += ')'
 
-      } else {
+        }
+
+      }
+      
+      this.receivedPublications = publication + this.receivedPublications + ')'
+      
+      console.log("append_as_function", this.receivedPublications)
+
+    } else if(mode == CodeHandleMode.APPEND){
         
         this.receivedPublications += publication
 
         console.log("append", this.receivedPublications)
 
-      }
+    } else if(mode == CodeHandleMode.PUBLISH) {
+
+      console.log("mode == CodeHandleMode.PUBLISH")
+        
+      this.publish()
 
     }
 
@@ -107,12 +120,6 @@ class CodePublicist extends CodeHandler {
 
       this.callbackOnReadPublication()
       
-      if(this.forward || (mode == CodeHandleMode.PUBLISH)) {
-          
-        this.publish()
-  
-      }
-
     }
 
   }

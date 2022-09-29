@@ -97,6 +97,21 @@ class Primitive extends Plot {
     this.displayElement.onclick = () => {
       
       this.codeHandler.publish()
+
+    }
+    
+  }
+
+  actAsTogglePublicistOnclick(reporter = null) {
+
+    super.actAsTogglePublicist(reporter)
+
+    this.displayElement.onclick = () => {
+      
+      this.codeHandler.toggle()
+
+      this.displayElement.innerText = this.codeHandler.publicationText[this.codeHandler.publicationIndex]
+      
     }
     
   }
