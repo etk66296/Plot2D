@@ -80,7 +80,15 @@ class Primitive extends Plot {
   }
 
   setTextAlign(orientation) {
+
     this.displayElement.style.textAlign = orientation
+
+  }
+
+  setFontSize(sizeInPixel) {
+
+    this.displayElement.style.fontSize = sizeInPixel
+
   }
 
   actAsReporterOnclick(reporter = null) {

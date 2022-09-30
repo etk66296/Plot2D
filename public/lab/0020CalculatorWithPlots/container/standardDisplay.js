@@ -11,7 +11,7 @@ class StandardDisplay extends Display {
 
     super.init()
 
-    this.containerElement.style.overflow = 'scroll'
+    this.containerElement.style.overflow = 'hidden'
 
   }
 

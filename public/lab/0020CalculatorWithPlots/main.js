@@ -206,9 +206,10 @@ let init = (parentHtmlElement) => {
   myCalculatorWindow.appendChild(calculatorOperatorMultiply)
 
   let calculatorAngleMode = new Rect()
-  calculatorAngleMode.init(260, 210, 90, 40)
+  calculatorAngleMode.init(260, 210, 40, 40)
   calculatorAngleMode.setBackgroundColor("#888888")
   calculatorAngleMode.setBorder()
+  calculatorAngleMode.setFontSize('16px')
   calculatorAngleMode.setText('deg') // initial value
   calculatorAngleMode.actAsTogglePublicistOnclick()
   calculatorAngleMode.codeHandler.publication.push( "Math.PI / 180 * ")
@@ -218,56 +219,60 @@ let init = (parentHtmlElement) => {
   myCalculatorWindow.appendChild(calculatorAngleMode)
 
   let calculatorFunctionTan = new Rect()
-  calculatorFunctionTan.init(210, 60, 90, 40)
+  calculatorFunctionTan.init(210, 60, 40, 40)
   calculatorFunctionTan.setBackgroundColor()
   calculatorFunctionTan.setBorder()
+  calculatorFunctionTan.setFontSize('20px')
   calculatorFunctionTan.setText('tan')
   calculatorFunctionTan.actAsPublicistOnclick()
   calculatorFunctionTan.codeHandler.publication = "Math.tan("
   myCalculatorWindow.appendChild(calculatorFunctionTan)
 
   let calculatorFunctionATan = new Rect()
-  calculatorFunctionATan.init(310, 60, 90, 40)
+  calculatorFunctionATan.init(260, 60, 40, 40)
   calculatorFunctionATan.setBackgroundColor()
   calculatorFunctionATan.setBorder()
+  calculatorFunctionATan.setFontSize('16px')
   calculatorFunctionATan.setText('atan')
   calculatorFunctionATan.actAsPublicistOnclick()
   calculatorFunctionATan.codeHandler.publication = "Math.atan("
   myCalculatorWindow.appendChild(calculatorFunctionATan)
 
-
   let calculatorFunctionCos = new Rect()
-  calculatorFunctionCos.init(210, 110, 90, 40)
+  calculatorFunctionCos.init(210, 110, 40, 40)
   calculatorFunctionCos.setBackgroundColor()
   calculatorFunctionCos.setBorder()
+  calculatorFunctionCos.setFontSize('20px')
   calculatorFunctionCos.setText('cos')
   calculatorFunctionCos.actAsPublicistOnclick()
   calculatorFunctionCos.codeHandler.publication = "Math.cos("
   myCalculatorWindow.appendChild(calculatorFunctionCos)
 
   let calculatorFunctionACos = new Rect()
-  calculatorFunctionACos.init(310, 110, 90, 40)
+  calculatorFunctionACos.init(260, 110, 40, 40)
   calculatorFunctionACos.setBackgroundColor()
   calculatorFunctionACos.setBorder()
+  calculatorFunctionACos.setFontSize('16px')
   calculatorFunctionACos.setText('acos')
   calculatorFunctionACos.actAsPublicistOnclick()
   calculatorFunctionACos.codeHandler.publication = "Math.acos("
   myCalculatorWindow.appendChild(calculatorFunctionACos)
 
-
   let calculatorFunctionSin = new Rect()
-  calculatorFunctionSin.init(210, 160, 90, 40)
+  calculatorFunctionSin.init(210, 160, 40, 40)
   calculatorFunctionSin.setBackgroundColor()
   calculatorFunctionSin.setBorder()
+  calculatorFunctionSin.setFontSize('20px')
   calculatorFunctionSin.setText('sin')
   calculatorFunctionSin.actAsPublicistOnclick()
   calculatorFunctionSin.codeHandler.publication = "Math.sin("
   myCalculatorWindow.appendChild(calculatorFunctionSin)
 
   let calculatorFunctionASin = new Rect()
-  calculatorFunctionASin.init(310, 160, 90, 40)
+  calculatorFunctionASin.init(260, 160, 40, 40)
   calculatorFunctionASin.setBackgroundColor()
   calculatorFunctionASin.setBorder()
+  calculatorFunctionASin.setFontSize('16px')
   calculatorFunctionASin.setText('asin')
   calculatorFunctionASin.actAsPublicistOnclick()
   calculatorFunctionASin.codeHandler.publication = "Math.asin("
