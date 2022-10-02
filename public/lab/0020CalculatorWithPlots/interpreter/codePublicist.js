@@ -84,6 +84,8 @@ class CodePublicist extends CodeHandler {
 
       let numberOfOpenBrackets = (this.receivedPublications.match(/\(/g) || []).length
 
+      console.log("number of brackets", this.receivedPublications, numberOfOpenBrackets)
+
       if(numberOfOpenBrackets > 0) {
 
         for(let i = 0; i < numberOfOpenBrackets; i++) {
