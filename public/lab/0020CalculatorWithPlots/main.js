@@ -337,6 +337,16 @@ let init = (parentHtmlElement) => {
   calculatorFunctionPow.codeHandler.publication = "Math.pow("
   myCalculatorWindow.appendChild(calculatorFunctionPow)
 
+  let calculatorFunctionPowTwo = new Rect()
+  calculatorFunctionPowTwo.init(360, 110, 40, 40)
+  calculatorFunctionPowTwo.setBackgroundColor()
+  calculatorFunctionPowTwo.setBorder()
+  calculatorFunctionPowTwo.setText('x²')
+  calculatorFunctionPowTwo.setFontSize('26px')
+  calculatorFunctionPowTwo.actAsPublicistOnclick()
+  calculatorFunctionPowTwo.codeHandler.publication = "Math.pow(.+, 2"
+  myCalculatorWindow.appendChild(calculatorFunctionPowTwo)
+
   let calculatorClear = new Rect()
   calculatorClear.init(420, 60, 90, 40)
   calculatorClear.setBackgroundColor()
@@ -354,8 +364,6 @@ let init = (parentHtmlElement) => {
   calculatorOperatorSolve.actAsPublicistOnclick()
   myCalculatorWindow.appendChild(calculatorOperatorSolve)
   calculatorOperatorSolve.codeHandler.callbackOnReadPublication = () => {
-
-    console.log('-->next is the solver')
 
   }
 
@@ -446,27 +454,31 @@ let init = (parentHtmlElement) => {
 
   calculatorFunctionSqrt.codeHandler.registerSubscriber(
     { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] }
   )
 
-  calculatorFunctionSqrt.codeHandler.registerSubscriber(
-    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION ] },
+  calculatorFunctionPow.codeHandler.registerSubscriber(
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION_EXPECT_PARAMS ] },
+    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION ] }
+  )
+
+  calculatorFunctionPowTwo.codeHandler.registerSubscriber(
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT, CodeHandleMode.PUBLISH ] }
   )
 
   calculatorFunctionLn10.codeHandler.registerSubscriber(
     { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] }
   )
 
   calculatorFunctionLnE.codeHandler.registerSubscriber(
     { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] }
   )
 
   calculatorFunctionLn2.codeHandler.registerSubscriber(
     { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
-    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] },
+    { plotObject: calculatorDisplay, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.EVALUATE ] }
   )
 
   calculatorFunctionTan.codeHandler.registerSubscriber(

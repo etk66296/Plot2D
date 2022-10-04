@@ -27,21 +27,15 @@ class CodeReader extends CodeHandler {
       this.delteWithNextPublication = false
     }
 
-    console.log("<< received publication")
-
     let mode = duty[dutyIndex]
 
     if(mode == CodeHandleMode.OVERWRITE) {
       
       this.receivedPublications = publication
 
-      console.log("overwrite", this.receivedPublications)
-
     } else if (mode == CodeHandleMode.DELETE) {
 
       this.receivedPublications = ""
-
-      console.log("delete", this.receivedPublications)
 
       if(dutyIndex < (duty.length - 1)) {
 
@@ -55,13 +49,9 @@ class CodeReader extends CodeHandler {
 
       this.receivedPublications = String(eval(publication))
 
-      console.log("evaluate", this.receivedPublications)
-
     } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
 
       this.delteWithNextPublication = true
-
-      console.log("overwrite_with_next_publication", this.receivedPublications)
 
     } else {
 
@@ -69,13 +59,9 @@ class CodeReader extends CodeHandler {
 
         this.receivedPublications = publication + this.receivedPublications + ')'
 
-        console.log("append_as_function", this.receivedPublications)
-
       } else {
         
         this.receivedPublications += publication
-
-        console.log("append", this.receivedPublications)
 
       }
 
