@@ -7,7 +7,7 @@ let init = (parentHtmlElement) => {
     .and()
     .assembleItWith({
       pos: { x: 50, y: 200 },
-      dim: { w: 520, h: 400 },
+      dim: { w: 520, h: 290 },
       isStretchable: false,
       controlPanel: false,
       headerBar: true
@@ -146,21 +146,10 @@ let init = (parentHtmlElement) => {
   calculatorDisplay.setBorder()
   calculatorDisplay.actAsPublicist()
   calculatorDisplay.setTextAlign('right')
+  calculatorDisplay.displayElement.style.overflowY = 'hidden'
+  calculatorDisplay.displayElement.style.overflowX = 'auto'
   calculatorDisplay.codeHandler.receivedPublications = ""
   calculatorDisplay.codeHandler.callbackOnReadPublication = () => {
-
-    // let received = calculatorDisplay.codeHandler.receivedPublications
-    // let lastReceived = received.charAt(received.length - 1)
-
-    // if(lastReceived == '+' ||
-    //   lastReceived == '-' ||
-    //   lastReceived == ':' ||
-    //   lastReceived == '*'
-    // ) {
-
-    //   calculatorDisplay.codeHandler.receivedPublications = ""
-
-    // }
 
     calculatorDisplay.displayElement.innerText =
       calculatorDisplay.codeHandler.receivedPublications
@@ -347,6 +336,26 @@ let init = (parentHtmlElement) => {
   calculatorFunctionPowTwo.codeHandler.publication = "Math.pow(.+, 2"
   myCalculatorWindow.appendChild(calculatorFunctionPowTwo)
 
+  let calculatorFunctionPowThree = new Rect()
+  calculatorFunctionPowThree.init(360, 160, 40, 40)
+  calculatorFunctionPowThree.setBackgroundColor()
+  calculatorFunctionPowThree.setBorder()
+  calculatorFunctionPowThree.setText('x³')
+  calculatorFunctionPowThree.setFontSize('26px')
+  calculatorFunctionPowThree.actAsPublicistOnclick()
+  calculatorFunctionPowThree.codeHandler.publication = "Math.pow(.+, 3"
+  myCalculatorWindow.appendChild(calculatorFunctionPowThree)
+
+  let calculatorFunctionRandom = new Rect()
+  calculatorFunctionRandom.init(360, 210, 40, 40)
+  calculatorFunctionRandom.setBackgroundColor()
+  calculatorFunctionRandom.setBorder()
+  calculatorFunctionRandom.setText('RND')
+  calculatorFunctionRandom.setFontSize('14px')
+  calculatorFunctionRandom.actAsPublicistOnclick()
+  calculatorFunctionRandom.codeHandler.publication = "Math.random("
+  myCalculatorWindow.appendChild(calculatorFunctionRandom)
+
   let calculatorClear = new Rect()
   calculatorClear.init(420, 60, 90, 40)
   calculatorClear.setBackgroundColor()
@@ -464,6 +473,14 @@ let init = (parentHtmlElement) => {
 
   calculatorFunctionPowTwo.codeHandler.registerSubscriber(
     { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT, CodeHandleMode.PUBLISH ] }
+  )
+
+  calculatorFunctionPowThree.codeHandler.registerSubscriber(
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT, CodeHandleMode.PUBLISH ] }
+  )
+
+  calculatorFunctionRandom.codeHandler.registerSubscriber(
+    { plotObject: calculatorOperatorSolve, duty: [ CodeHandleMode.APPEND_AS_FUNCTION, CodeHandleMode.PUBLISH ] }
   )
 
   calculatorFunctionLn10.codeHandler.registerSubscriber(
