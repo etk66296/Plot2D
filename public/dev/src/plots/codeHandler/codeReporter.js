@@ -1,24 +1,24 @@
 class CodeReporter extends CodeHandler {
   
-//   // constructor(clientElement) {
+  constructor(clientElement) {
 
-//   //   // super(clientElement)
+    super(clientElement)
 
-//   //   // this.publication = ""
+    this.publication = ""
 
-//   //   // this.subscribers = []
+    this.subscribers = []
 
-//   //   // this.callbackOnPublish = () => {
+    this.callbackOnPublish = () => {
 
-//   //   // }
+    }
 
-//   // }
+  }
 
-//   // init() {
+  init() {
 
-//   //   super.init()
+    super.init()
     
-//   // }
+  }
 
 //   // registerSubscriber() {
 
