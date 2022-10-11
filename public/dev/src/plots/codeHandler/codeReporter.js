@@ -8,7 +8,7 @@ class CodeReporter extends CodeHandler {
 
     this.subscribers = []
 
-    this.callbackOnPublish = () => {
+    this.callbackBeforePublish = () => {
 
     }
 
@@ -20,27 +20,27 @@ class CodeReporter extends CodeHandler {
     
   }
 
-//   // registerSubscriber() {
+  registerSubscriber() {
 
-//   //   for (let i = 0; i < arguments.length; i++){
+    for (let i = 0; i < arguments.length; i++){
 
-//   //     this.subscribers.push(arguments[i])
+      this.subscribers.push(arguments[i])
 
-//   //   }
+    }
 
-//   // }
+  }
   
 
-//   // publish() {
+  publish() {
 
-//   //   this.callbackOnPublish()
+    this.callbackBeforePublish()
 
-//   //   this.subscribers.forEach((subscriber) => {
+    this.subscribers.forEach((subscriber) => {
       
-//   //     subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.duty)
+      subscriber.plotObject.codeHandler.facePublication(this.publication, subscriber.duty)
 
-//   //   })
+    })
 
-//   // }
+  }
 
 }

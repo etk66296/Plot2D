@@ -38,10 +38,10 @@ describe("CodeReporter", function() {
     }
   )
 
-  it(`should define an arrow function callbackOnPublish with an
+  it(`should define an arrow function callbackBeforePublish with an
     empty body`, function() {
 
-      expect(myCodeReporter.callbackOnPublish)
+      expect(myCodeReporter.callbackBeforePublish)
         .toEqual(jasmine.any(Function))
 
     }
@@ -56,6 +56,86 @@ describe("CodeReporter", function() {
       expect(CodeHandler.prototype.init).toHaveBeenCalled()
 
     })
+
+  })
+
+  it("should have a function for register subscribers", function() {
+
+    expect(myCodeReporter.registerSubscriber).toEqual(jasmine.any(Function))
+
+  })
+
+  describe("registerSubscriber", function() {
+
+    it(`should loop trough the passed arguments and push them to the
+    subscribers attribute`, function() {
+
+      myCodeReporter.registerSubscriber("one", "two", "three")
+
+      expect(myCodeReporter.subscribers).toEqual(["one", "two", "three"])
+
+    })
+
+  })
+
+  it(`should have a function publish for trigger the subscribers to
+    face the reporters publication`, function() {
+
+      expect(myCodeReporter.publish).toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe("publish", function() {
+
+    it("should call the callback function callbackBeforePublish",
+      function() {
+
+        spyOn(myCodeReporter, "callbackBeforePublish")
+        myCodeReporter.publish()
+        expect(myCodeReporter.callbackBeforePublish)
+          .toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should call the face publication function of all
+      subscribers`, function() {
+
+        myCodeReporter.publication = "do something"
+
+        myCodeReporter.subscribers = [
+          { plotObject: { codeHandler: {
+            facePublication: (publication, duty) => {},
+          } }, duty: "DELETE"},
+          { plotObject: { codeHandler: {
+            facePublication: () => {}
+          } }, duty: "EVALUATE" },
+          { plotObject: { codeHandler: {
+            facePublication: () => {}
+          } }, duty: "APPEND" },
+        ]
+
+        spyOn(myCodeReporter.subscribers[0]
+          .plotObject.codeHandler, 'facePublication')
+        spyOn(myCodeReporter.subscribers[1]
+          .plotObject.codeHandler, 'facePublication')
+        spyOn(myCodeReporter.subscribers[2]
+          .plotObject.codeHandler, 'facePublication')
+
+        myCodeReporter.publish()
+
+        expect(myCodeReporter.subscribers[0].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(myCodeReporter.publication, "DELETE")
+        expect(myCodeReporter.subscribers[1].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(myCodeReporter.publication, "EVALUATE")
+        expect(myCodeReporter.subscribers[2].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(myCodeReporter.publication, "APPEND")
+      }
+    )
 
   })
 
