@@ -1,82 +1,88 @@
 class CodeReader extends CodeHandler {
   
-//   constructor(clientElement) {
+  constructor(clientElement) {
 
-//     // super(clientElement)
+    super(clientElement)
 
-//     // this.receivedPublications = ""
-//     // this.reporters = []
-//     // this.delteWithNextPublication = false
+    this.receivedPublications = ""
+    this.reporters = []
+    this.deleteWithNextPublication = false
 
-//     // this.callbackOnReadPublication = () => {
+    this.callbackAfterReadingAllPublications = () => {}
 
-//     // }
+  }
 
-//   }
+  init() {
 
-//   // init() {
-
-//   //   super.init()
+    super.init()
     
-//   // }
+  }
 
-//   // facePublication(publication, duty, dutyIndex = 0) {
+  shiftDeleteCommand(duty) {
 
-//   //   if(this.delteWithNextPublication) {
-//   //     duty.unshift(CodeHandleMode.DELETE)
-//   //     this.delteWithNextPublication = false
-//   //   }
+    duty.unshift(CodeHandleMode.DELETE)
 
-//   //   let mode = duty[dutyIndex]
+    return duty
 
-//   //   if(mode == CodeHandleMode.OVERWRITE) {
+  }
+
+  facePublication(publication, duty, dutyIndex = 0) {
+
+    if(this.deleteWithNextPublication) {
+      duty = this.shiftDeleteCommand(duty)
+      this.deleteWithNextPublication = false
+    }
+
+  //   let mode = duty[dutyIndex]
+
+  //   if(mode == CodeHandleMode.OVERWRITE) {
       
-//   //     this.receivedPublications = publication
+  //     this.receivedPublications = publication
 
-//   //   } else if (mode == CodeHandleMode.DELETE) {
+  //   } else if (mode == CodeHandleMode.DELETE) {
 
-//   //     this.receivedPublications = ""
+  //     this.receivedPublications = ""
 
-//   //     if(dutyIndex < (duty.length - 1)) {
+  //     if(dutyIndex < (duty.length - 1)) {
 
-//   //       this.facePublication(publication, duty, dutyIndex += 1)
+  //       this.facePublication(publication, duty, dutyIndex += 1)
 
-//   //       return
+  //       return
         
-//   //     }
+  //     }
 
-//   //   } else if (mode == CodeHandleMode.EVALUATE) {
+  //   } else if (mode == CodeHandleMode.EVALUATE) {
 
-//   //     this.receivedPublications = String(eval(publication))
+  //     this.receivedPublications = String(eval(publication))
 
-//   //   } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
+  //   } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
 
-//   //     this.delteWithNextPublication = true
+  //     this.delteWithNextPublication = true
 
-//   //   } else {
+  //   } else {
 
-//   //     if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
+  //     if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
 
-//   //       this.receivedPublications = publication + this.receivedPublications + ')'
+  //       this.receivedPublications = publication + this.receivedPublications + ')'
 
-//   //     } else {
+  //     } else {
         
-//   //       this.receivedPublications += publication
+  //       this.receivedPublications += publication
 
-//   //     }
+  //     }
 
-//   //   }
+  //   }
 
-//   //   if(dutyIndex < (duty.length - 1)) {
+  //   if(dutyIndex < (duty.length - 1)) {
 
-//   //     this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
+  //     this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
       
-//   //   } else {
+  //   } else {
 
-//   //     this.callbackOnReadPublication()
+  //     this.callbackOnReadPublication()
 
-//   //   }
+  //   }
 
-//   // }
+  }
   
 }
