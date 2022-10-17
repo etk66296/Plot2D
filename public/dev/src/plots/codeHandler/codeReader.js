@@ -18,7 +18,7 @@ class CodeReader extends CodeHandler {
     
   }
 
-  shiftDeleteCommand(duty) {
+  shiftDeleteCommandToTheDutyFront(duty) {
 
     duty.unshift(CodeHandleMode.DELETE)
 
@@ -29,59 +29,61 @@ class CodeReader extends CodeHandler {
   facePublication(publication, duty, dutyIndex = 0) {
 
     if(this.deleteWithNextPublication) {
-      duty = this.shiftDeleteCommand(duty)
+
+      duty = this.shiftDeleteCommandToTheDutyFront(duty)
       this.deleteWithNextPublication = false
+
     }
 
-  //   let mode = duty[dutyIndex]
+    let mode = duty[dutyIndex]
 
-  //   if(mode == CodeHandleMode.OVERWRITE) {
+    if(mode == CodeHandleMode.OVERWRITE) {
       
-  //     this.receivedPublications = publication
+      this.receivedPublications = publication
 
-  //   } else if (mode == CodeHandleMode.DELETE) {
+    } else if (mode == CodeHandleMode.DELETE) {
 
-  //     this.receivedPublications = ""
+      this.receivedPublications = ""
 
-  //     if(dutyIndex < (duty.length - 1)) {
+      if(dutyIndex < (duty.length - 1)) {
 
-  //       this.facePublication(publication, duty, dutyIndex += 1)
+        this.facePublication(publication, duty, dutyIndex += 1)
 
-  //       return
+        return
+
+      }
         
-  //     }
+    } else if (mode == CodeHandleMode.EVALUATE) {
 
-  //   } else if (mode == CodeHandleMode.EVALUATE) {
+      this.receivedPublications = String(eval(publication))
 
-  //     this.receivedPublications = String(eval(publication))
+    } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
 
-  //   } else if (mode == CodeHandleMode.DELETE_WITH_NEXT_PUBLICATION) {
+      this.deleteWithNextPublication = true
 
-  //     this.delteWithNextPublication = true
+    } else {
 
-  //   } else {
+      if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
 
-  //     if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
+        this.receivedPublications = publication + this.receivedPublications + ')'
 
-  //       this.receivedPublications = publication + this.receivedPublications + ')'
-
-  //     } else {
+      } else if(mode > -1) {
         
-  //       this.receivedPublications += publication
+        this.receivedPublications += publication
 
-  //     }
+      }
 
-  //   }
+    }
 
-  //   if(dutyIndex < (duty.length - 1)) {
+    if(dutyIndex < (duty.length - 1)) {
 
-  //     this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
+      this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
       
-  //   } else {
+    } else {
 
-  //     this.callbackOnReadPublication()
+      this.callbackAfterReadingAllPublications()
 
-  //   }
+    }
 
   }
   
