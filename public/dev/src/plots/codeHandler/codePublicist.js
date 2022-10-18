@@ -100,72 +100,72 @@ class CodePublicist extends CodeHandler {
 
       this.deleteWithNextPublication = true
 
-    } // else if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
+    }  else if(mode == CodeHandleMode.APPEND_AS_FUNCTION) {
 
-  //     let numberOfOpenBrackets = (this.receivedPublications.match(/\(/g) || []).length
+      let numberOfOpenBrackets = (this.receivedPublications.match(/\(/g) || []).length
 
-  //     if(numberOfOpenBrackets > 0) {
+      if(numberOfOpenBrackets > 0) {
 
-  //       for(let i = 0; i < numberOfOpenBrackets; i++) {
+        for(let i = 0; i < numberOfOpenBrackets; i++) {
           
-  //         this.receivedPublications += ')'
+          this.receivedPublications += ')'
 
-  //       }
+        }
 
-  //     }
+      }
       
-  //     this.receivedPublications = publication + this.receivedPublications + ')'
-      
-
-  //   } else if(mode == CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT) {
-
-  //     this.receivedPublications = publication.replace(/\.\+/, this.receivedPublications)
-  //     this.appendParamsMode = true
-  //     this.appendParamsCount += 1
-
-  //   } else if(mode == CodeHandleMode.APPEND_AS_FUNCTION_EXPECT_PARAMS) {
-      
-  //     this.receivedPublications = publication + this.receivedPublications + ', '
-  //     this.appendParamsMode = true
+      this.receivedPublications = publication + this.receivedPublications + ')'
       
 
-  //   }  else if(mode == CodeHandleMode.APPEND){
+    } else if(mode == CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT) {
+
+      this.receivedPublications = publication.replace(/\.\+/, this.receivedPublications)
+      this.appendParamsMode = true
+      this.appendParamsCount += 1
+
+    } else if(mode == CodeHandleMode.APPEND_AS_FUNCTION_EXPECT_PARAMS) {
+      
+      this.receivedPublications = publication + this.receivedPublications + ', '
+      this.appendParamsMode = true
+      
+
+    } else if(mode == CodeHandleMode.APPEND){
           
-  //         this.receivedPublications += publication
+          this.receivedPublications += publication
 
-  //   } else if(mode == CodeHandleMode.PUBLISH) {
+    } else if(mode == CodeHandleMode.PUBLISH) {
 
         
-  //     this.publish()
+      this.publish()
 
-  //   }
+    }
 
-  //   if(dutyIndex < (duty.length - 1)) {
+    if(dutyIndex < (duty.length - 1)) {
 
-  //     this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
+      this.facePublication(this.receivedPublications, duty, dutyIndex += 1)
       
-  //   } else {
+    } else {
 
-  //     this.callbackOnReadPublication()
+      this.callbackAfterReadingAllPublications()
       
-  //   }
+    }
 
   }
 
-  // publish() {
+  publish() {
 
-  //   this.callbackOnParticipate()
+    this.callbackBeforeParticipate()
    
     
-  //   this.subscribers.forEach(subscriber => {
+    this.subscribers.forEach(subscriber => {
       
-  //     let publication = this.receivedPublications + this.publication
+      let publication = this.receivedPublications + this.publication
       
-  //     subscriber.plotObject.codeHandler.facePublication(publication, subscriber.duty)
+      subscriber.plotObject.codeHandler.facePublication(publication, subscriber.duty)
 
-  //   })
+    })
 
-  // }
+  }
 
   
 }

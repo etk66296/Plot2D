@@ -291,6 +291,179 @@ describe("CodePublicist", function() {
       }
     )
 
+    it(`should close all brackets of the already received publication
+      and append it to the current publication with a closing bracket
+      when the duty is APPEND_AS_FUNCTION`, function() {
+
+        myCodePublicist.receivedPublications = "Math.log(5"
+
+        myCodePublicist.facePublication(
+          'Math.pow(',
+          [ CodeHandleMode.APPEND_AS_FUNCTION ]
+        )
+
+        expect(myCodePublicist.receivedPublications)
+          .toEqual("Math.pow(Math.log(5))")
+
+
+      }
+    )
+
+    it(`should replace the string '.+' with the publication when
+      the duty is APPEND_AS_FUNCTION_INJECT_PRESENT`, function() {
+
+        myCodePublicist.receivedPublications = "13"
+
+        myCodePublicist.facePublication(
+          'Math.pow(.+, 5',
+          [ CodeHandleMode.APPEND_AS_FUNCTION_INJECT_PRESENT ]
+        )
+
+        expect(myCodePublicist.receivedPublications)
+          .toEqual("Math.pow(13, 5")
+
+      }
+    )
+
+    it(`should append the publication to the front of the present
+      received publication and add a comma to the end when the
+      duty is APPEND_AS_FUNCTION_EXPECT_PARAMS`, function() {
+
+        myCodePublicist.receivedPublications = "13"
+
+        myCodePublicist.facePublication(
+          'Math.pow(',
+          [ CodeHandleMode.APPEND_AS_FUNCTION_EXPECT_PARAMS ]
+        )
+
+        expect(myCodePublicist.receivedPublications)
+          .toEqual("Math.pow(13, ")
+
+      }
+    )
+
+    it(`should append the publication to the already received
+      publication when the duty is APPEND`, function() {
+
+        myCodePublicist.receivedPublications = "13"
+
+        myCodePublicist.facePublication(
+          '*',
+          [ CodeHandleMode.APPEND ]
+        )
+
+        expect(myCodePublicist.receivedPublications)
+          .toEqual("13*")
+
+
+      }
+    )
+
+    it(`should call the publish function when the duty is PUBLISH`,
+      function() {
+
+        spyOn(myCodePublicist, 'publish')
+
+        myCodePublicist.facePublication(
+          "",
+          [ CodeHandleMode.PUBLISH ]
+        )
+
+        expect(myCodePublicist.publish).toHaveBeenCalled()
+
+      }
+    )
+
+    it(`should call facePublication as long as there are dutys in
+      the queue`, function() {
+
+        spyOn(myCodePublicist, 'facePublication').and.callThrough()
+
+        myCodePublicist.facePublication('4', [
+          CodeHandleMode.APPEND,
+          CodeHandleMode.EVALUATE,
+          CodeHandleMode.DELETE
+        ])
+
+        expect(myCodePublicist.facePublication).toHaveBeenCalledTimes(3)
+
+      }
+    )
+
+    it(`should call the callback function
+      callbackAfterReadingAllPublications when all duties are done`,
+      function() {
+        spyOn(myCodePublicist, 'callbackAfterReadingAllPublications')
+        myCodePublicist.facePublication('', [])
+        expect(myCodePublicist.callbackAfterReadingAllPublications)
+          .toHaveBeenCalled()
+      }
+    )
+
+  })
+
+  it("should have a function for register subscribers", function() {
+
+    expect(myCodePublicist.publish).toEqual(jasmine.any(Function))
+
+  })
+
+  describe("publish", function() {
+
+    it('should call the callbackOnParticipate function', function() {
+
+      spyOn(myCodePublicist, 'callbackBeforeParticipate')
+
+      myCodePublicist.publish()
+
+      expect(myCodePublicist.callbackBeforeParticipate)
+        .toHaveBeenCalled()
+    })
+
+    it(`should append the received publication to the publication and
+      call the face publication function of all subscribers`,
+      function() {
+
+        myCodePublicist.receivedPublications = "recevied "
+
+        myCodePublicist.publication = "do something"
+
+        myCodePublicist.subscribers = [
+          { plotObject: { codeHandler: {
+            facePublication: (publication, duty) => {},
+          } }, duty: "DELETE"},
+          { plotObject: { codeHandler: {
+            facePublication: () => {}
+          } }, duty: "EVALUATE" },
+          { plotObject: { codeHandler: {
+            facePublication: () => {}
+          } }, duty: "APPEND" },
+        ]
+
+        spyOn(myCodePublicist.subscribers[0]
+          .plotObject.codeHandler, 'facePublication')
+        spyOn(myCodePublicist.subscribers[1]
+          .plotObject.codeHandler, 'facePublication')
+        spyOn(myCodePublicist.subscribers[2]
+          .plotObject.codeHandler, 'facePublication')
+
+          myCodePublicist.publish()
+
+        let publication = myCodePublicist.receivedPublications +
+          myCodePublicist.publication
+
+        expect(myCodePublicist.subscribers[0].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(publication, "DELETE")
+        expect(myCodePublicist.subscribers[1].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(publication, "EVALUATE")
+        expect(myCodePublicist.subscribers[2].plotObject.codeHandler
+          .facePublication)
+          .toHaveBeenCalledWith(publication, "APPEND")
+      }
+    )
+
   })
 
 
