@@ -44,14 +44,6 @@ describe("CodeReader", function() {
     }
   )
 
-  it(`should have an array as attribute for the reporters the reader
-    is following`, function() {
-
-      expect(myCodeReader.reporters).toEqual([])
-
-    }
-  )
-
   it(`should have a boolean attribute which is a flag for marking
     the current recieved publication to be deleted with the next
     publication`, function() {
@@ -98,6 +90,14 @@ describe("CodeReader", function() {
       duty = myCodeReader.shiftDeleteCommandToTheDutyFront(duty)
       expect(duty).toEqual([  CodeHandleMode.DELETE, "other duty" ])
     })
+
+  })
+
+  it(`should have a function facePublication for processing the
+    received publication`, function() {
+
+    expect(myCodeReader.facePublication)
+      .toEqual(jasmine.any(Function))
 
   })
 
@@ -273,14 +273,6 @@ describe("CodeReader", function() {
           .toHaveBeenCalled()
       }
     )
-
-  })
-
-  it(`should have a function facePublication for processing the
-    received publication`, function() {
-
-    expect(myCodeReader.facePublication)
-      .toEqual(jasmine.any(Function))
 
   })
 

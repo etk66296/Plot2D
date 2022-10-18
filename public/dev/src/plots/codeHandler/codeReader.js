@@ -5,7 +5,6 @@ class CodeReader extends CodeHandler {
     super(clientElement)
 
     this.receivedPublications = ""
-    this.reporters = []
     this.deleteWithNextPublication = false
 
     this.callbackAfterReadingAllPublications = () => {}
