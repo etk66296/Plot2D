@@ -1,50 +1,49 @@
 class CodeTogglePublicist extends CodePublicist {
   
-//   // constructor(clientElement) {
+  constructor(clientElement) {
 
-//   //   // super(clientElement)
+    super(clientElement)
 
-//   //   // this.publication = []
-//   //   // this.publicationText = []
-//   //   // this.publicationIndex
+    this.publication = []
+    this.publicationText = []
+    this.publicationIndex = 0
 
+  }
 
-//   // }
+  init() {
 
-//   // init() {
+    super.init()
 
-//   //   super.init()
-
-//   //   this.publicationIndex = 0
+    this.publicationIndex = 0
     
-//   // }
+  }
 
-//   // toggle() {
+  toggle() {
 
-//   //   this.publicationIndex += 1
-//   //   if(this.publicationIndex > (this.publication.length - 1)) {
+    this.publicationIndex += 1
 
-//   //     this.publicationIndex = 0
+    if(this.publicationIndex > (this.publication.length - 1)) {
 
-//   //   }
+      this.publicationIndex = 0
+
+    }
     
-//   // }
+  }
 
-//   // publish() {
+  publish() {
 
-//   //   this.callbackOnParticipate()
+    this.callbackBeforeParticipate()
    
     
-//   //   this.subscribers.forEach((subscriber, index) => {
+    this.subscribers.forEach((subscriber, index) => {
       
-//   //     let publication = this.receivedPublications + this.publication[this.publicationIndex]
-      
-//   //     console.log(index, "-->", publication, "<--")
-//   //     subscriber.plotObject.codeHandler.facePublication(publication, subscriber.duty)
+      let publication = this.receivedPublications + this.publication[this.publicationIndex]
 
-//   //   })
+      subscriber.plotObject.codeHandler.facePublication(publication, subscriber.duty)
 
-//   // }
+    })
+
+  }
 
   
 }
