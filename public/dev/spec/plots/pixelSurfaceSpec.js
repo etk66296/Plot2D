@@ -14,31 +14,14 @@ describe("PixelSurface", function() {
 
   })
 
-  it(`should have an attribute htmlImageElement`, function() {
+  it(`should save the passed reference to the displayElement
+    attribute`, function() {
 
-    expect(myPixelSurface.htmlImageElement).toBeDefined()
+    let tmpPixelSurface = new PixelSurface('image Element')
 
-  })
-
-  it(`should have a function to get the htmlImageElement`,
-    function() {
-
-      expect(myPixelSurface.displayElement)
-        .toEqual(jasmine.any(Function))
-
-    }
-  )
-
-  describe("displayElement", function() {
-
-    it(`should return the htmlImageElement`, function() {
-
-      myPixelSurface.htmlImageElement = new Image
-      expect(myPixelSurface.displayElement())
-        .toEqual(myPixelSurface.htmlImageElement)
-
-    })
+    expect(tmpPixelSurface.displayElement).toEqual('image Element')
 
   })
 
+ 
 })

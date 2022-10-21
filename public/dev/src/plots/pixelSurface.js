@@ -4,14 +4,16 @@ class PixelSurface extends Draft {
 
     super()
 
-    this.htmlImageElement = htmlImageElement
+    this.displayElement = htmlImageElement
+
+    // this.htmlImageElement = htmlImageElement
  
   }
 
-  displayElement() {
+  // displayElement() {
 
-    return this.htmlImageElement
+  //   return this.htmlImageElement
 
-  }
+  // }
   
 }

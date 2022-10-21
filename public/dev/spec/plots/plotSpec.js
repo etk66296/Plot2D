@@ -26,6 +26,12 @@ describe("Plot", function() {
 
   })
 
+  it(`should have an attribute displayElement`, function() {
+
+    expect(myPlot.displayElement).toEqual(null)
+
+  })
+
   
 
 })
