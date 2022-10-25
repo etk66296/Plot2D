@@ -32,6 +32,27 @@ describe("Plot", function() {
 
   })
 
-  
+  it(`should have an attribute for saving the x position`,
+    function() {
+
+      expect(myPlot.x).toEqual(0)
+
+  })
+
+  it(`should have an attribute for saving the y position`,
+    function() {
+
+      expect(myPlot.y).toEqual(0)
+
+  })
+
+  it(`should have ab boolen for define if the plot is a dom or
+    performance element`, function() {
+
+      expect(myPlot.isADomElement).toEqual(true)
+
+    }
+  )
+
 
 })
