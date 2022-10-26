@@ -163,4 +163,155 @@ describe("Primitive", function() {
 
   })
 
+  it(`should have a function for setting up the plot for acting as
+    a reporter onclick`, function() {
+
+      expect(myPrimitive.actAsReporterOnclick)
+        .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe("actAsReporterOnclick", function() {
+
+    it(`should call the super class ActAsReporter function for
+      instantiating or adopt a passed reporter`, function() {
+
+        let codeHandler = {
+          publish: function() {}
+        }
+
+        myPrimitive.displayElement = { onclick: null }
+
+        spyOn(Plot.prototype, 'actAsReporter')
+        myPrimitive.actAsReporterOnclick(codeHandler)
+        expect(Plot.prototype.actAsReporter).toHaveBeenCalledWith(codeHandler)
+
+      }
+    )
+
+    it(`should set the onclick event function and call the appended
+      code handlers publish function`, function() {
+
+        let codeHandler = {
+          publish: function() {}
+        }
+
+        myPrimitive.displayElement = { onclick: null }
+
+        spyOn(codeHandler, 'publish')
+        myPrimitive.actAsReporterOnclick(codeHandler)
+        myPrimitive.displayElement.onclick()
+        expect(codeHandler.publish).toHaveBeenCalled()
+
+      }
+    )
+
+  })
+
+  it(`should have a function for setting up the plot for acting as
+    a publicist onclick`, function() {
+
+      expect(myPrimitive.actAsPublicistOnclick)
+        .toEqual(jasmine.any(Function))
+
+    }
+  )
+
+  describe("actAsPublicistOnclick", function() {
+
+    it(`should call the super class actAsPublicist function for
+      instantiating or adopt a passed publicist`, function() {
+
+        let codeHandler = {
+          publish: function() {}
+        }
+
+        myPrimitive.displayElement = { onclick: null }
+
+        spyOn(Plot.prototype, 'actAsPublicist')
+        myPrimitive.actAsPublicistOnclick(codeHandler)
+        expect(Plot.prototype.actAsPublicist)
+          .toHaveBeenCalledWith(codeHandler)
+
+      }
+    )
+
+    it(`should set the onclick event function and call the appended
+      code handlers publish function`, function() {
+
+        let codeHandler = {
+          publish: function() {}
+        }
+
+        myPrimitive.displayElement = { onclick: null }
+
+        spyOn(codeHandler, 'publish')
+        myPrimitive.actAsPublicistOnclick(codeHandler)
+        myPrimitive.displayElement.onclick()
+        expect(codeHandler.publish).toHaveBeenCalled()
+
+      }
+    )
+
+  })
+
+  it(`should have a function for setting up the plot for acting as
+    a toggle publicist onclick`, function() {
+
+      expect(myPrimitive.actAsTogglePublicistOnclick)
+        .toEqual(jasmine.any(Function))
+
+    }
+  )
+  describe("actAsTogglePublicistOnclick", function() {
+
+    it(`should call the super class actAsTogglePublicist function for
+      instantiating or adopt a passed publicist`, function() {
+
+        let codeHandler = {
+          publish: function() {},
+          toggle: function() {},
+          publicationText: [ "" ]
+        }
+
+        myPrimitive.displayElement = {
+          onclick: null,
+          innerText: ""
+        }
+
+        spyOn(Plot.prototype, 'actAsTogglePublicist')
+        myPrimitive.actAsTogglePublicistOnclick(codeHandler)
+        expect(Plot.prototype.actAsTogglePublicist)
+          .toHaveBeenCalledWith(codeHandler)
+
+      }
+    )
+
+    it(`should set the onclick event function and call the appended
+      code handlers toggle function`, function() {
+
+        let codeHandler = {
+          toggle: function() {},
+          publicationIndex: 0,
+          publicationText: ["jacksons tie"]
+        }
+
+        myPrimitive.displayElement = {
+          innerText: "",
+          onclick: null
+        }
+
+        spyOn(codeHandler, 'toggle')
+        myPrimitive.actAsTogglePublicistOnclick(codeHandler)
+        myPrimitive.displayElement.onclick()
+        expect(codeHandler.toggle).toHaveBeenCalled()
+        expect(myPrimitive.displayElement.innerText)
+          .toEqual("jacksons tie")
+
+      }
+    )
+
+  })
+
 })
