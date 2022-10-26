@@ -50,6 +50,15 @@
   <script src="src/plots/draft.js"></script>
   <script src="src/plots/sprite.js"></script>
   <script src="src/plots/pixelSurface.js"></script>
+  <script src="src/plots/primitive.js"></script>
+  <script src="src/plots/rect.js"></script>
+
+  <!--C O D E   H A N D L E R-->
+  <script src="src/plots/codeHandler/codeHandler.js"></script>
+  <script src="src/plots/codeHandler/codePublicist.js"></script>
+  <script src="src/plots/codeHandler/codeReader.js"></script>
+  <script src="src/plots/codeHandler/codeReporter.js"></script>
+  <script src="src/plots/codeHandler/codeTogglePublicist.js"></script>
 
   <!--B U I L D E R-->
   <script src="src/builder/builder.js"></script>
@@ -91,6 +100,15 @@
    <script src="spec/plots/draftSpec.js"></script>
    <script src="spec/plots/spriteSpec.js"></script>
    <script src="spec/plots/pixelSurfaceSpec.js"></script>
+   <script src="spec/plots/primitiveSpec.js"></script>
+   <script src="spec/plots/rectSpec.js"></script>
+
+   <!--C O D E   H A N D L E R-->
+  <script src="spec/plots/codeHandler/codeHandlerSpec.js"></script>
+  <script src="spec/plots/codeHandler/codePublicistSpec.js"></script>
+  <script src="spec/plots/codeHandler/codeReaderSpec.js"></script>
+  <script src="spec/plots/codeHandler/codeReporterSpec.js"></script>
+  <script src="spec/plots/codeHandler/codeTogglePublicistSpec.js"></script>
 
   <!--B U I L D E R-->
   <script src="spec/builder/builderSpec.js"></script>
@@ -153,12 +171,12 @@
       contentDiv.innerText = text
 
       let dinoFossileImage = new PixelSurface(new Image)
-      dinoFossileImage.htmlImageElement.src = "src/things/monsterSkeleton.png"
+      dinoFossileImage.displayElement.src = "src/things/monsterSkeleton.png"
 
       let domStage = new DomStage()
 
       
-      dinoFossileImage.htmlImageElement.onload = () => {
+      dinoFossileImage.displayElement.onload = () => {
         
         domStage.admit(dinoFossileImage)
 

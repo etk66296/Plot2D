@@ -11,7 +11,7 @@ class StandardDisplay extends Display {
 
     super.init()
 
-    this.containerElement.style.overflow = 'scroll'
+    this.containerElement.style.overflow = 'hidden'
 
   }
 
@@ -31,18 +31,10 @@ class StandardDisplay extends Display {
 
   }
 
-  appendChild(plotStage) {
+  appendChild(plot) {
 
-    if(plotStage.constructor.name === "DomStage") {
+    this.containerElement.appendChild(plot.displayElement)
 
-      plotStage.members.forEach(member => {
-
-        this.containerElement.appendChild(member.displayElement)
-
-      })
-
-    }
-    
   }
   
 }

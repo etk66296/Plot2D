@@ -4,27 +4,44 @@ class Plot extends Plot2DAny {
 
     super()
 
-    this.displayElement = null
-
     this.wouldLikeToBeUpdated = true
     this.wouldLikeToBeDrawn = true
 
-    this.x = 0
-    this.y = 0
+    this.DOM_ELEM = 1
+    this.PERFORMANCE_ELEM = 2
 
-    this.isADomElement = true
+    this.REPORTER = 1
+    this.PUBLICIST = 2
+    this.STATIC_PUBLICIST = 3
+    this.READER = 4
+
+    this.persistsAs = this.DOM_ELEM
+    this.codeHandlerType = this.REPORTER
 
     this.codeHandler = null
 
+
   }
 
-  init() {
+  persistsAsDomElem() {
+    if(this.persistsAs === this.DOM_ELEM) {
+      
+      return true
 
-    super.init()
+    }
+    return false
+  }
 
+  isAReporter() {
+    if(this.codeHandlerType === this.REPORTER) {
+      return true
+    }
+    return false
   }
 
   actAsReporter(reporter = null) {
+
+    this.codeHandlerType = this.REPORTER
 
     if(reporter == null) {
 
@@ -68,6 +85,8 @@ class Plot extends Plot2DAny {
   }
 
   actAsReader(reader = null) {
+
+    this.codeHandlerType = this.READER
     
     if(reader == null) {
 
@@ -79,6 +98,10 @@ class Plot extends Plot2DAny {
 
     }
 
+  }
+  
+  init() {
+    
   }
 
 }
