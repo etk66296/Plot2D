@@ -4,44 +4,44 @@ class Rect extends Primitive {
 
     super()
 
-  //   this.w = 0
-  //   this.h = 0
+    this.w = 0
+    this.h = 0
 
   }
 
-  // init(x, y, w, h) {
+  init(x, y, w, h) {
 
-  //   super.init(x, y)
+    super.init(x, y)
 
-  //   this.setW(w)
-  //   this.setH(h)
-  //   this.displayElement.style.lineHeight = String(h) + 'px'
-  //   this.displayElement.style.fontSize = String(h) + 'px'
+    this.setW(w)
+    this.setH(h)
+    this.displayElement.style.lineHeight = String(h) + 'px'
+    this.displayElement.style.fontSize = String(h) + 'px'
 
 
-  // }
+  }
 
-  // setW(w) {
+  setW(w) {
 
-  //   this.w = w
-  //   if(this.persistsAsDomElem) {      
+    this.w = w
+    if(this.isADomElement) {      
 
-  //     this.displayElement.style.width = String(w) + 'px'
+      this.displayElement.style.width = String(w) + 'px'
       
-  //   }
+    }
 
-  // }
+  }
 
-  // setH(h) {
+  setH(h) {
 
-  //   this.h = h
-  //   if(this.persistsAsDomElem) {      
+    this.h = h
+    if(this.isADomElement) {      
 
-  //     this.displayElement.style.height = String(h) + 'px'
+      this.displayElement.style.height = String(h) + 'px'
       
-  //   }
+    }
 
-  // }
+  }
 
   
 }

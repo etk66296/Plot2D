@@ -7,6 +7,9 @@ class DomWindow extends DomAbsolute {
     this.domObjectTracker = null
 
     this.bgC = 'rgb(255, 255, 255)'
+    this.activeWindow = false
+    this.highlightColor = 'rgb(255, 72, 128)'
+    this.noneHighlightColor = 'rgb(0, 0, 0)'
 
     this.topStretcher = null
     this.rightStretcher = null
@@ -29,6 +32,28 @@ class DomWindow extends DomAbsolute {
 
     this.defaultStretcherHeight = 8
     this.defaultStretcherWidth = 8
+
+    this.callbackOnMouseOver = () => {
+
+      this.containerElement.style.borderStyle = 'solid'
+      this.containerElement.style.borderWidth = '2px'
+      this.containerElement.style.borderColor = 'rgb(200, 60, 250)'
+
+    }
+
+    this.callbackOnMouseOut = () => {
+
+      if(!this.activeWindow) {
+
+        this.containerElement.style.borderStyle = 'none'
+
+      } else {
+
+        this.containerElement.style.borderColor = this.highlightColor
+
+      }
+
+    }
 
     this.callbackOnMouseUp = () => {
 
@@ -65,12 +90,17 @@ class DomWindow extends DomAbsolute {
         if(otherDomWindow.zIndex > newZIndex) {
 
           newZIndex = otherDomWindow.zIndex
+          otherDomWindow.containerElement.style.borderColor = 
+            otherDomWindow.noneHighlightColor
+          otherDomWindow.activeWindow = false
 
         }
         
       })
 
       this.zIndex = newZIndex + 1
+      this.containerElement.style.borderColor = this.highlightColor
+      this.activeWindow = true
 
       this.setZIndex(this.zIndex)
     }
@@ -172,7 +202,7 @@ class DomWindow extends DomAbsolute {
 
     this.containerElement.style.borderStyle = 'solid'
     this.containerElement.style.borderWidth = '1px'
-    this.containerElement.style.borderColor = 'rgb(0, 0, 0)'
+    this.containerElement.style.borderColor = this.noneHighlightColor
     this.containerElement.style.backgroundColor = 'rgb(0, 0, 0'
 
     this.topStretcher = new DomSingleDirBorderScaler(
@@ -232,7 +262,9 @@ class DomWindow extends DomAbsolute {
     this.containerElement
       .addEventListener('mousedown', this.callbackOnMouseDown)
 
-    
+    this.containerElement.onmouseover = this.callbackOnMouseOver
+    this.containerElement.onmouseout = this.callbackOnMouseOut
+
   }
 
   destroy() {

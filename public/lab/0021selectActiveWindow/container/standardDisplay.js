@@ -37,7 +37,7 @@ class StandardDisplay extends Display {
 
       plotStage.members.forEach(member => {
 
-        this.containerElement.appendChild(member.displayElement())
+        this.containerElement.appendChild(member.displayElement)
 
       })
 

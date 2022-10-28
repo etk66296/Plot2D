@@ -1,10 +1,13 @@
 class Plot extends Plot2DAny {
   
-  constructor() {
+  constructor(objectTracker) {
 
     super()
 
+    this.objectTracker = objectTracker
+
     this.displayElement = null
+    this.optionAccessElement = null
 
     this.wouldLikeToBeUpdated = true
     this.wouldLikeToBeDrawn = true
@@ -21,6 +24,9 @@ class Plot extends Plot2DAny {
   init() {
 
     super.init()
+
+    this.optionAccessElement = new PlotOptions(this)
+    this.optionAccessElement.init()
 
   }
 

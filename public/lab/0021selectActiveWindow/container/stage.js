@@ -1,8 +1,10 @@
 class Stage extends Container {
   
-  constructor() {
+  constructor(plotObjectTracker) {
 
     super()
+
+    this.tracker = plotObjectTracker
 
   }
 
@@ -17,6 +19,17 @@ class Stage extends Container {
       }
 
     }) 
+
+  }
+
+  admit() {
+    
+    for(let i = 0; i < arguments.length; i++) {
+      
+      this.members.push(arguments[i])
+      this.tracker.add(this.members[this.members.length -1])
+
+    }
 
   }
   
