@@ -3,6 +3,8 @@ let init = (parentHtmlElement) => {
   let domObjectTracker = new DomObjectTracker()
   let plotObjectTracker = new PlotObjectTracker()
 
+  let frameController = new FrameController()
+
   let domBuilder = new DomBuilder(domObjectTracker)
   let myFirstWindow = domBuilder
     .produceWindowOn(parentHtmlElement)
@@ -29,15 +31,21 @@ let init = (parentHtmlElement) => {
 
     let myDomStage = new DomStage(plotObjectTracker)
     myDomStage.init()
+    myFirstWindow.appendStage(myDomStage)
 
-    let myRect = new Rect()
-    myRect.init(64, 64, 64, 64)
-    myRect.displayElement.style.backgroundColor = 'rgb(128, 40, 128)'
-    
-    myDomStage.admit(myRect)
-    myFirstWindow.appendChild(myDomStage)
+    // let myRect = new Rect(64, 64, 64, 64)
+    // myDomStage.admit(myRect)
+    // myRect.displayElement.style.backgroundColor = 'rgb(128, 40, 128)'
 
-    myRect.optionAccessElement.setPos()
+    // myRect.optionAccessElement.setPos()
+
+    frameController.stages.push(myDomStage)
+    frameController.go()
+    // frameController.go()
+    // window.setTimeout(() => {
+    //   frameController.stop = true
+    // }, 100)
+   
     
 
 

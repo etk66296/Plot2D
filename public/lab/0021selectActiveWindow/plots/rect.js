@@ -1,22 +1,22 @@
 class Rect extends Primitive {
 
-  constructor() {
+  constructor(x, y, w, h) {
 
-    super()
+    super(x, y)
 
-    this.w = 0
-    this.h = 0
+    this.w = w
+    this.h = h
 
   }
 
-  init(x, y, w, h) {
+  init() {
 
-    super.init(x, y)
+    super.init()
 
-    this.setW(w)
-    this.setH(h)
-    this.displayElement.style.lineHeight = String(h) + 'px'
-    this.displayElement.style.fontSize = String(h) + 'px'
+    this.setW(this.w)
+    this.setH(this.h)
+    this.displayElement.style.lineHeight = String(this.h) + 'px'
+    this.displayElement.style.fontSize = String(this.h) + 'px'
 
 
   }

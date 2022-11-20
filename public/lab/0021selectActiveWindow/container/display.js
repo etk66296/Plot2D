@@ -4,6 +4,8 @@ class Display extends DomContainer {
 
     super(parentElement)
 
+    this.stageIdCounter = 0
+
   }
 
   init() {

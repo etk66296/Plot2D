@@ -6,6 +6,8 @@ class Stage extends Container {
 
     this.tracker = plotObjectTracker
 
+    this.parentWindow = null
+
   }
 
   update() {
@@ -22,12 +24,48 @@ class Stage extends Container {
 
   }
 
+  draw() {
+
+    this.members.forEach((actor) => {
+
+      if(actor.wouldLikeToBeUpdated) {
+
+        actor.draw()
+
+      }
+
+    }) 
+
+  }
+
   admit() {
     
     for(let i = 0; i < arguments.length; i++) {
       
-      this.members.push(arguments[i])
-      this.tracker.add(this.members[this.members.length -1])
+      arguments[i].stage = this
+      arguments[i].init()
+
+      if(!this.hasTheMember(arguments[i])) {
+
+        this.members.push(arguments[i])
+
+      } 
+
+      if(arguments[i].id == -1) {
+        
+        this.tracker.add(arguments[i])
+
+      }
+      
+      if(this.parentWindow != null) {
+
+        this.parentWindow.appendChild(this)
+
+        arguments[i].optionAccessElement = new PlotOptions(arguments[i])
+        arguments[i].optionAccessElement.init()
+
+
+      }
 
     }
 

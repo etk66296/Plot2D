@@ -1,12 +1,15 @@
 class Primitive extends Plot {
   
-  constructor() {
+  constructor(x, y) {
 
     super()
+
+    this.x = x
+    this.y = y
     
   }
 
-  init(x, y) {
+  init() {
 
     super.init()
 
@@ -16,8 +19,8 @@ class Primitive extends Plot {
     this.displayElement.style.overflow = 'scroll'
     this.displayElement.style.userSelect =  'none'
 
-    this.setX(x)
-    this.setY(y)
+    this.setX(this.x)
+    this.setY(this.y)
 
   }
 

@@ -6,6 +6,8 @@ class Plot extends Plot2DAny {
 
     this.objectTracker = objectTracker
 
+    this.parentDisplay = null
+    this.parentWindow = null
     this.displayElement = null
     this.optionAccessElement = null
 
@@ -14,10 +16,13 @@ class Plot extends Plot2DAny {
 
     this.x = 0
     this.y = 0
+    this.zIndex = 0
 
     this.isADomElement = true
 
     this.codeHandler = null
+
+    this.stage = null
 
   }
 
@@ -25,9 +30,16 @@ class Plot extends Plot2DAny {
 
     super.init()
 
-    this.optionAccessElement = new PlotOptions(this)
-    this.optionAccessElement.init()
+  }
 
+  update() {
+
+
+  }
+
+  draw() {
+
+  
   }
 
   actAsReporter(reporter = null) {
@@ -41,6 +53,17 @@ class Plot extends Plot2DAny {
       this.codeHandler = reporter
 
     }
+
+  }
+
+  appendTo(display) {
+
+    this.parentDisplay = display
+    display.containerElement.appendChild(this.displayElement)
+
+  }
+
+  removeFrom(display) {
 
   }
 

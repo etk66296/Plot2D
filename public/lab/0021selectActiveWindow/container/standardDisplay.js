@@ -35,9 +35,13 @@ class StandardDisplay extends Display {
 
     if(plotStage.constructor.name === "DomStage") {
 
+      plotStage.id = this.stageIdCounter
+      this.stageIdCounter++
+      this.members.push(plotStage)
+
       plotStage.members.forEach(member => {
 
-        this.containerElement.appendChild(member.displayElement)
+        member.appendTo(this)
 
       })
 
