@@ -1,8 +1,8 @@
 class DomStage extends Stage {
   
-  constructor() {
+  constructor(plotObjectTracker) {
 
-    super()
+    super(plotObjectTracker)
 
   }
   

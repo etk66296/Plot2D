@@ -1,8 +1,8 @@
 class PerformanceStage extends Stage {
   
-  constructor() {
+  constructor(plotObjectTracker) {
 
-    super()
+    super(plotObjectTracker)
 
   }
 

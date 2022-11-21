@@ -4,6 +4,8 @@ class PlotObjectTracker extends ObjectTracker {
 
     super()
 
+    this.developerMode = true
+
   }
 
 }
